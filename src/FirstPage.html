@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>청라콩</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f1f8ee 0%, #e4f2db 100%);
+      }
+
+      .tutor-card {
+        transition: all 0.4s ease-in-out;
+      }
+
+      .tutor-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .glowing-button {
+        background: linear-gradient(to right, #59c231, #77d955);
+        transition: all 0.3s ease;
+      }
+
+      .glowing-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(89, 194, 49, 0.4);
+      }
+
+      .swiper-slide img {
+        width: 100%;
+        height: auto;
+        max-height: 400px; /* 높이를 400px로 줄임 */
+        object-fit: contain; /* 이미지가 왜곡되지 않도록 조정 */
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        margin-top: 60px;
+      }
+
+      @media (max-width: 768px) {
+        .swiper-slide img {
+          max-height: 300px; /* 모바일에서는 더 작은 높이 적용 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container mx-auto px-4 max-w-7xl">
+      <!-- 네비게이션 바 -->
+
+      <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+        <div class="container px-6 py-4 flex items-center justify-between">
+          <!-- 로고 및 네비게이션 -->
+          <div class="flex items-center space-x-8">
+            <!-- 로고 -->
+            <a href="/" class="flex items-center space-x-2">
+              <img
+                src="assets/image/ChungRaKong.png"
+                alt="청라콩 로고"
+                class="h-12 md:h-16"
+              />
+              <span class="text-2xl font-bold text-green-700">청라콩</span>
+            </a>
+
+            <!-- 데스크탑 네비게이션 (로고 바로 오른쪽으로 정렬) -->
+            <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
+              <a href="/" class="hover:text-green-500 transition duration-300"
+                >홈</a
+              >
+              <a
+                href="/about"
+                class="hover:text-green-500 transition duration-300"
+                >소개</a
+              >
+              <a
+                href="/services"
+                class="hover:text-green-500 transition duration-300"
+                >서비스</a
+              >
+              <a
+                href="/contact"
+                class="hover:text-green-500 transition duration-300"
+                >문의</a
+              >
+             
+            </nav>
+          </div>
+
+          <!-- 검색창 -->
+          <div class="relative hidden md:block">
+            <input
+              type="text"
+              placeholder="검색..."
+              class="h-10 px-4 pr-10 rounded-full border border-gray-300 focus:ring-green-500 focus:border-green-500 transition"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </div>
+
+          <!-- 모바일 메뉴 버튼 -->
+          <button id="menu-btn" class="block md:hidden focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-gray-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- 모바일 메뉴 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+          <nav class="flex flex-col items-center space-y-4 py-4">
+            <a href="/" class="text-gray-700 hover:text-green-500">홈</a>
+            <a href="/about" class="text-gray-700 hover:text-green-500">소개</a>
+            <a href="/services" class="text-gray-700 hover:text-green-500"
+              >서비스</a
+            >
+            <a href="/contact" class="text-gray-700 hover:text-green-500"
+              >문의</a
+            >
+            <a href="/faq" class="text-gray-700 hover:text-green-500">FAQ</a>
+          </nav>
+        </div>
+      </header>
+
+      <script>
+        document
+          .getElementById("menu-btn")
+          .addEventListener("click", function () {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+          });
+      </script>
+
+      <!-- Swiper 슬라이더 -->
+      <section class="my-12">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="assets/image/programHead.png" alt="튜터링 소개" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/image/chungRaSul.jpg" alt="튜터링 성과" />
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </section>
+
+      <!-- 프로그램 섹션 -->
+      <section class="mx-auto max-w-7xl w-full px-4 py-5">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold text-green-700">청라콩 프로그램</h1>
+          <a
+            class="text-sm font-medium text-gray-700 hover:text-gray-900"
+            href="/talent/group/7"
+          >
+            모두보기
+          </a>
+        </div>
+
+        <!-- 카드 리스트 -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6"
+        >
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden tutor-card">
+            <a href="#" target="_blank">
+              <img
+                src="assets/image/PilatesTeacher2.jpg"
+                alt="다이어트 챌린지"
+                class="w-full h-48 object-cover"
+              />
+            </a>
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-gray-800 truncate">
+                리즈갱신 다이어트 챌린지
+              </h3>
+              <p class="text-gray-600 text-sm mt-2">
+                지방은 빼고 라인을 지키는 ❤️‍🔥
+              </p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-green-600 font-bold text-lg">24,750원</span>
+                <span class="flex items-center text-yellow-400 text-sm">
+                  ★ 4.9 (51)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden tutor-card">
+            <a href="#" target="_blank">
+              <img
+                src="assets/image/chungRaFestival.jpg"
+                alt="다이어트 챌린지"
+                class="w-full h-48 object-cover"
+              />
+            </a>
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-gray-800 truncate">
+                리즈갱신 다이어트 챌린지
+              </h3>
+              <p class="text-gray-600 text-sm mt-2">
+                지방은 빼고 라인을 지키는 ❤️‍🔥
+              </p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-green-600 font-bold text-lg">24,750원</span>
+                <span class="flex items-center text-yellow-400 text-sm">
+                  ★ 4.9 (51)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden tutor-card">
+            <a href="#" target="_blank">
+              <img
+                src="assets/image/concert3.jpg"
+                alt="다이어트 챌린지"
+                class="w-full h-48 object-cover"
+              />
+            </a>
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-gray-800 truncate">
+                리즈갱신 다이어트 챌린지
+              </h3>
+              <p class="text-gray-600 text-sm mt-2">
+                지방은 빼고 라인을 지키는 ❤️‍🔥
+              </p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-green-600 font-bold text-lg">24,750원</span>
+                <span class="flex items-center text-yellow-400 text-sm">
+                  ★ 4.9 (51)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden tutor-card">
+            <a href="#" target="_blank">
+              <img
+                src="assets/image/chungRaCajon.jpg"
+                alt="다이어트 챌린지"
+                class="w-full h-48 object-cover"
+              />
+            </a>
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-gray-800 truncate">
+                리즈갱신 다이어트 챌린지
+              </h3>
+              <p class="text-gray-600 text-sm mt-2">
+                지방은 빼고 라인을 지키는 ❤️‍🔥
+              </p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-green-600 font-bold text-lg">24,750원</span>
+                <span class="flex items-center text-yellow-400 text-sm">
+                  ★ 4.9 (51)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="bg-white mt-16 py-8 text-center text-gray-600 border-t">
+      © 2024 청라콩. All rights reserved.
+    </footer>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        mounted() {
+          new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+              delay: 3000,
+              disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
