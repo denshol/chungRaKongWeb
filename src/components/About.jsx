@@ -3,62 +3,111 @@ import "../styles/About.css";
 import img1 from "../assets/image/PilatesTeacher2.jpg";
 import img2 from "../assets/image/chungRaFestival.jpg";
 import img3 from "../assets/image/concert3.jpg";
+import backgroundImg from "../assets/image/chungRaKong.png";
 
 const About = () => {
   return (
-    <div className="about-container">
-      <div className="hero-section">
+    <section className="about-container">
+      {/* Hero Section */}
+      <div
+        className="hero-section"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+        }}
+      >
+        <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1>청라콩문화센터</h1>
-          <p>모두를 위한 문화와 교육의 공간</p>
-          <button className="cta-button">프로그램 살펴보기</button>
+          <h1>
+            청라콩문화센터
+            <br />
+            <span>가능성을 열다</span>
+          </h1>
+          <p>
+            예술, 교육, 그리고 커뮤니티가 어우러지는 공간.
+            <br />
+            창의적인 경험과 성장의 기회를 제공합니다.
+          </p>
         </div>
       </div>
 
-      <section className="vision-section">
-        <h2>우리의 미션</h2>
-        <p>
-          청라콩문화센터는 창의성, 포용성, 그리고 지역 사회의 성장을 최우선으로
-          합니다. 경제적 장벽 없이 양질의 문화 경험과 교육을 제공하여 개인의
-          잠재력을 일깨웁니다.
-        </p>
-      </section>
+      {/* Mission Section */}
+      <div className="mission-section">
+        <div className="mission-text">
+          <h2 data-text="청라콩의 비전과 미션" className="animated-heading">
+            청라콩의 비전과 미션
+          </h2>
+          <p className="animated-text">
+            청라콩문화센터는 창의성과 포용성을 바탕으로,
+            <br />
+            누구나 참여할 수 있는 문화와 교육의 플랫폼을 제공합니다.
+          </p>
+          <p className="animated-text">
+            우리의 목표는 개인의 잠재력을 실현하고,
+            <br />
+            지역 사회와 함께 성장하는 것입니다.
+          </p>
+          <p className="animated-text">
+            교육 프로그램은 모든 연령층과 관심사를 고려하여 설계되었으며,
+            <br />
+            예술적 감각과 학문적 호기심을 동시에 충족시킬 수 있습니다.
+          </p>
+        </div>
+        <div className="mission-image">
+          <img src={img2} alt="Mission" className="fade-in-image" />
+        </div>
+      </div>
 
-      <section className="features-section">
-        {[
-          {
-            img: img1,
-            title: "다양한 문화 프로그램",
-            description: "예술, 음악, 공연 등 풍부하고 창의적인 문화 경험 제공",
-            color: "green",
-          },
-          {
-            img: img2,
-            title: "맞춤형 교육 서비스",
-            description:
-              "연령과 관심사에 맞는 혁신적이고 포용적인 교육 프로그램",
-            color: "blue",
-          },
-          {
-            img: img3,
-            title: "지역 커뮤니티 강화",
-            description:
-              "소통과 협력을 통한 활기차고 포용적인 지역 사회 만들기",
-            color: "orange",
-          },
-        ].map((feature, index) => (
-          <div key={index} className={`feature feature-${feature.color}`}>
-            <div className="feature-image-container">
-              <img src={feature.img} alt={feature.title} />
-              <div className="feature-overlay">
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </div>
+      {/* Highlights Section */}
+      <div className="highlights-section">
+        <h2 className="animated-heading">우리가 제공하는 주요 프로그램</h2>
+        <p className="highlights-description animated-text">
+          청라콩문화센터는 다양한 문화와 예술 프로그램, 혁신적인 교육 콘텐츠를 통해
+          <br />
+          개인과 커뮤니티의 발전을 추구합니다.
+        </p>
+        <div className="highlight-cards">
+          <div className="highlight-card">
+            <div className="highlight-card-image">
+              <img src={img1} alt="창의적인 프로그램" />
+            </div>
+            <div className="highlight-card-content">
+              <h3>창의적인 프로그램</h3>
+              <p>
+                음악, 미술, 공연 등 다양한 경험을 통해 창의력을 자극하고,
+                <br />
+                삶의 질을 향상시키는 활동을 제공합니다.
+              </p>
             </div>
           </div>
-        ))}
-      </section>
-    </div>
+          <div className="highlight-card">
+            <div className="highlight-card-image">
+              <img src={img3} alt="혁신적인 교육" />
+            </div>
+            <div className="highlight-card-content">
+              <h3>혁신적인 교육</h3>
+              <p>
+                아이부터 어른까지 누구나 배우고 성장할 수 있는,
+                <br />
+                맞춤형 학습 프로그램을 운영합니다.
+              </p>
+            </div>
+          </div>
+          <div className="highlight-card">
+            <div className="highlight-card-image">
+              <img src={img2} alt="커뮤니티 연결" />
+            </div>
+            <div className="highlight-card-content">
+              <h3>커뮤니티 연결</h3>
+              <p>
+                지역 사회의 중심이 되어 사람들을 연결하고,
+                <br />
+                활기찬 네트워크를 구축합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
