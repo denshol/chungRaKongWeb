@@ -1,15 +1,18 @@
+/* Font imports */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap");
+
 :root {
-  --primary-color: #59c231;
-  --primary-dark: #3d8424;
-  --primary-light: #7ade55;
+  --primary-color: #6abf69;
+  --primary-dark: #2e7d32;
+  --primary-light: #a5d6a7;
   --secondary-color: #2c3e50;
-  --accent-color: #3498db;
+  --accent-color: #ffca28;
   --text-primary: #2c3e50;
-  --text-secondary: #34495e;
+  --text-secondary: #5d6470;
   --background-color: #f4f6f7;
   --white: #ffffff;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -170,8 +173,17 @@ img {
   width: 100%;
   height: 250px;
   transition: transform 0.4s ease;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
 }
-
+.program-card img:not([loading]) {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
 .program-card:hover img {
   transform: scale(1.05);
 }
@@ -859,4 +871,80 @@ img {
     width: 100%;
     margin-bottom: 10px;
   }
+}
+.program-detail {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.program-detail-container {
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: white;
+}
+
+.detail-image {
+  width: 50%;
+  object-fit: cover;
+}
+
+.detail-content {
+  padding: 20px;
+  width: 50%;
+}
+
+.detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.detail-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.program-info {
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.info-item i {
+  margin-right: 8px;
+  color: #007bff;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.cta-button,
+.back-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cta-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.back-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cta-button:hover,
+.back-btn:hover {
+  opacity: 0.8;
 }

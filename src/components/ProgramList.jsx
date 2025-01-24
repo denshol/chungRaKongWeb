@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import img1 from "../assets/image/PilatesTeacher2.jpg";
 import img2 from "../assets/image/chungRaFestival.jpg";
 import img3 from "../assets/image/concert3.jpg";
@@ -13,7 +14,6 @@ import img11 from "../assets/image/chungRaBass.jpg";
 import img12 from "../assets/image/chungRaDrumThumb.jpg";
 import img13 from "../assets/image/chungRaViolin.jpg";
 import img14 from "../assets/image/chungRaCheloThumb.jpg";
-import { useNavigate } from "react-router-dom";
 
 const programs = [
   {
@@ -107,68 +107,30 @@ const programs = [
     price: "무료",
     image: img13,
   },
+  {
+    id: 14,
+    title: "첼로 레슨",
+    description: "첼로의 감미로운 소리를 배워보세요!",
+    price: "무료",
+    image: img14,
+  },
 ];
 
 const ProgramList = () => {
   const sliderRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
   const navigate = useNavigate();
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    setTimeout(() => setIsDragging(false), 50); // 클릭 이벤트와 충돌 방지
-  };
-
   const handleProgramClick = (programId) => {
-    if (isDragging) return; // 드래그 중 클릭 차단
     navigate(`/program/${programId}`);
   };
 
   const scrollLeftHandler = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
+    sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
   };
 
   const scrollRightHandler = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
+    sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
   };
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - sliderRef.current.offsetLeft);
-    setScrollLeft(sliderRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    sliderRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    slider.addEventListener("mousedown", handleMouseDown);
-    slider.addEventListener("mousemove", handleMouseMove);
-    slider.addEventListener("mouseup", handleMouseUp);
-    slider.addEventListener("mouseleave", handleMouseUp);
-
-    return () => {
-      if (slider) {
-        slider.removeEventListener("mousedown", handleMouseDown);
-        slider.removeEventListener("mousemove", handleMouseMove);
-        slider.removeEventListener("mouseup", handleMouseUp);
-        slider.removeEventListener("mouseleave", handleMouseUp);
-      }
-    };
-  }, [isDragging]);
 
   return (
     <div className="program-slider-container">
@@ -185,7 +147,7 @@ const ProgramList = () => {
             className="program-card"
             onClick={() => handleProgramClick(program.id)}
           >
-            <img src={program.image} alt={program.title} />
+            <img src={program.image} alt={program.title} loading="lazy" />
             <div className="program-card-content">
               <h3>{program.title}</h3>
               <p>{program.description}</p>
@@ -198,4 +160,4 @@ const ProgramList = () => {
   );
 };
 
-export default ProgramList;
+export default React.memo(ProgramList);
