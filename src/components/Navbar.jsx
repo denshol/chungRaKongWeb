@@ -1,20 +1,18 @@
-// Navbar.js
-import React from "react";
-import "../styles/styles.css";
+import { Link } from "react-router-dom";
 import logo from "../assets/image/chungRaKong.png";
 
 const Navbar = () => {
   return (
     <header className="navbar">
-      <a href="/" className="logo">
+      <Link to="/" className="logo">
         <img src={logo} alt="청라콩 로고" loading="lazy" />
         <span className="brand-name">청라콩</span>
-      </a>
+      </Link>
       <nav className="nav-links">
-        <a href="/">홈</a>
-        <a href="/about">소개</a>
-        <a href="/services">프로그램</a>
-        <a href="/contact">문의</a>
+        <Link to="/">홈</Link>
+        <Link to="/about">소개</Link>
+        <Link to="/services">프로그램</Link>
+        <Link to="/contact">문의</Link>
       </nav>
     </header>
   );
