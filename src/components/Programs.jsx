@@ -3,19 +3,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Programs.css";
 import img1 from "../assets/image/PilatesTeacher2.jpg";
-import img2 from "../assets/image/chungRaFestival.jpg";
+import img2 from "../assets/image/chungRaVocal.png";
 import img3 from "../assets/image/concert3.jpg";
-import img4 from "../assets/image/chungRaCajon.jpg";
+import img4 from "../assets/image/chungRaCajon.png";
 import img5 from "../assets/image/chungRaEng.png";
-import img6 from "../assets/image/chungRaUkulele.jpg";
-import img7 from "../assets/image/chungRaPiano.jpg";
-import img8 from "../assets/image/chungRaGuitar4.jpg";
+import img6 from "../assets/image/chungRaUkulele.png";
+import img7 from "../assets/image/chungRaPiano.png";
+import img8 from "../assets/image/chungRaGuitar2.png";
 import img9 from "../assets/image/chungRaBand.jpg";
 import img10 from "../assets/image/chungRaChorus.jpg";
-import img11 from "../assets/image/chungRaBass.jpg";
-import img12 from "../assets/image/chungRaDrumThumb.jpg";
+import img11 from "../assets/image/chungRaBass.png";
+import img12 from "../assets/image/chungRaDrum.png";
 import img13 from "../assets/image/chungRaViolin.jpg";
 import img14 from "../assets/image/chungRaCheloThumb.jpg";
+import img15 from "../assets/image/chungRaElec.png";
 
 const programs = [
   {
@@ -31,14 +32,14 @@ const programs = [
   },
   {
     id: 2,
-    title: "청라콩 축제",
-    description: "커뮤니티와 함께하는 특별한 축제 현장",
+    title: "보컬 레슨",
+    description: "전문가와 함께하는 보컬 레슨",
     price: "무료",
     image: img2,
-    duration: "1일",
-    location: "청라 중앙공원",
+    duration: "8주",
+    location: "서울 중구",
     instructor: "이순신",
-    schedule: "6월 15일 오후 2시",
+    schedule: "매주 화, 목 오후 5시",
   },
   {
     id: 3,
@@ -171,6 +172,17 @@ const programs = [
     location: "서울 강남구",
     instructor: "김구",
     schedule: "매주 월, 수 오후 6시",
+  },
+  {
+    id: 15,
+    title: "일렉기타 레슨",
+    description: "일렉기타의 다양한 소리를 만나보세요!",
+    price: "무료",
+    image: img15,
+    duration: "1시간",
+    location: "서울 강남구",
+    instructor: "황진이",
+    schedule: "매주 일요일 오후 3시",
   },
 ];
 

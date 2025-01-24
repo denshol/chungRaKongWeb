@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { lazy } from "react";
 import img1 from "../assets/image/PilatesTeacher2.jpg";
 import img2 from "../assets/image/chungRaFestival.jpg";
 import img3 from "../assets/image/concert3.jpg";
@@ -7,13 +8,14 @@ import img4 from "../assets/image/chungRaCajon.jpg";
 import img5 from "../assets/image/chungRaEng.png";
 import img6 from "../assets/image/chungRaUkulele.jpg";
 import img7 from "../assets/image/chungRaPiano.jpg";
-import img8 from "../assets/image/chungRaGuitar4.jpg";
+import img8 from "../assets/image/chungRaGuitar2.png";
 import img9 from "../assets/image/chungRaBand.jpg";
 import img10 from "../assets/image/chungRaChorus.jpg";
 import img11 from "../assets/image/chungRaBass.jpg";
-import img12 from "../assets/image/chungRaDrumThumb.jpg";
+import img12 from "../assets/image/poster/chungRaDrumPos.png";
 import img13 from "../assets/image/chungRaViolin.jpg";
 import img14 from "../assets/image/chungRaCheloThumb.jpg";
+import img15 from "../assets/image/poster/chungRaElecPos.jpg";
 
 const programs = [
   {
@@ -170,6 +172,17 @@ const programs = [
     instructor: "안중근",
     schedule: "매주 토요일 오후 4시",
   },
+  {
+    id: 15,
+    title: "일렉기타 레슨",
+    description: "일렉기타의 다양한 소리를 만나보세요!",
+    price: "무료",
+    image: img15,
+    duration: "1시간",
+    location: "서울 강남구",
+    instructor: "황진이",
+    schedule: "매주 일요일 오후 3시",
+  },
 ];
 
 const ProgramDetail = () => {
@@ -184,7 +197,15 @@ const ProgramDetail = () => {
   return (
     <div className="program-detail">
       <div className="program-detail-container">
-        <img src={program.image} alt={program.title} className="detail-image" />
+        <img
+          loading="lazy"
+          src={program.image}
+          alt={program.title}
+          className="detail-image"
+          onError={(e) => {
+            e.target.src = "../assets/image/placeholder.jpg"; // 에러시 대체 이미지
+          }}
+        />
         <div className="detail-content">
           <h1 className="detail-title">{program.title}</h1>
           <p className="detail-description">{program.description}</p>
