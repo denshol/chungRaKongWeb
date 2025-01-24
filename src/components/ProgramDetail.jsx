@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { lazy } from "react";
 import img1 from "../assets/image/PilatesTeacher2.jpg";
-import img2 from "../assets/image/chungRaFestival.jpg";
+import img2 from "../assets/image/poster/chungRaVocalPos.jpg";
 import img3 from "../assets/image/concert3.jpg";
 import img4 from "../assets/image/chungRaCajon.jpg";
 import img5 from "../assets/image/chungRaEng.png";
@@ -20,7 +20,7 @@ import img15 from "../assets/image/poster/chungRaElecPos.jpg";
 const programs = [
   {
     id: 1,
-    title: "리즈갱신 다이어트 챌린지",
+    title: "필라테스",
     description: "체계적인 관리로 건강한 다이어트 실현!",
     price: "무료",
     image: img1,
@@ -31,8 +31,8 @@ const programs = [
   },
   {
     id: 2,
-    title: "청라콩 축제",
-    description: "커뮤니티와 함께하는 특별한 축제 현장",
+    title: "보컬",
+    description: "전문가와 함께하는 보컬 레슨",
     price: "무료",
     image: img2,
     duration: "1일",
@@ -40,20 +40,10 @@ const programs = [
     instructor: "이순신",
     schedule: "6월 15일 오후 2시",
   },
-  {
-    id: 3,
-    title: "음악 콘서트",
-    description: "감동적인 선율과 특별한 공연의 순간",
-    price: "무료",
-    image: img3,
-    duration: "2시간",
-    location: "서울 예술의 전당",
-    instructor: "김유신",
-    schedule: "7월 10일 오후 4시",
-  },
+  
   {
     id: 4,
-    title: "카혼 연주",
+    title: "카혼",
     description: "리듬의 마법을 체험해보세요!",
     price: "무료",
     image: img4,
@@ -64,7 +54,7 @@ const programs = [
   },
   {
     id: 5,
-    title: "영어 회화 교실",
+    title: "영어 회화",
     description: "실전에서 바로 쓰는 영어회화!",
     price: "무료",
     image: img5,
@@ -75,7 +65,7 @@ const programs = [
   },
   {
     id: 6,
-    title: "우쿨렐레 레슨",
+    title: "우쿨렐레",
     description: "우쿨렐레의 매력에 빠져보세요!",
     price: "무료",
     image: img6,
@@ -86,7 +76,7 @@ const programs = [
   },
   {
     id: 7,
-    title: "피아노 레슨",
+    title: "피아노",
     description: "클래식과 팝송을 함께 연주해요!",
     price: "무료",
     image: img7,
@@ -97,7 +87,7 @@ const programs = [
   },
   {
     id: 8,
-    title: "기타 레슨",
+    title: "통기타",
     description: "기타의 다양한 소리를 만나보세요!",
     price: "무료",
     image: img8,
@@ -108,7 +98,7 @@ const programs = [
   },
   {
     id: 9,
-    title: "밴드 연주",
+    title: "밴드",
     description: "밴드와 함께하는 특별한 연주 시간",
     price: "무료",
     image: img9,
@@ -119,7 +109,7 @@ const programs = [
   },
   {
     id: 10,
-    title: "합창단",
+    title: "합창",
     description: "다함께 노래하는 즐거운 시간",
     price: "무료",
     image: img10,
@@ -130,7 +120,7 @@ const programs = [
   },
   {
     id: 11,
-    title: "베이스 레슨",
+    title: "베이스",
     description: "베이스의 리듬과 멜로디를 연습해요!",
     price: "무료",
     image: img11,
@@ -141,7 +131,7 @@ const programs = [
   },
   {
     id: 12,
-    title: "드럼 레슨",
+    title: "드럼",
     description: "드럼의 강렬한 비트를 연습해요!",
     price: "무료",
     image: img12,
@@ -152,7 +142,7 @@ const programs = [
   },
   {
     id: 13,
-    title: "바이올린 레슨",
+    title: "바이올린",
     description: "클래식과 현대 음악을 연주해요!",
     price: "무료",
     image: img13,
@@ -163,7 +153,7 @@ const programs = [
   },
   {
     id: 14,
-    title: "첼로 레슨",
+    title: "첼로",
     description: "클래식 음악의 아름다움을 느껴요!",
     price: "무료",
     image: img14,
@@ -174,7 +164,7 @@ const programs = [
   },
   {
     id: 15,
-    title: "일렉기타 레슨",
+    title: "일렉기타",
     description: "일렉기타의 다양한 소리를 만나보세요!",
     price: "무료",
     image: img15,
