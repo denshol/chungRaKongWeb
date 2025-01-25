@@ -51,9 +51,33 @@ const About = () => {
             <br />
             예술적 감각과 학문적 호기심을 동시에 충족시킬 수 있습니다.
           </p>
+          <p className="animated-text">
+  청라콩문화센터는 예술과 교육, 커뮤니티의 조화를 통해
+  <br />
+  모든 이에게 열린 기회의 장을 제공합니다.
+</p>
+<p className="animated-text">
+  우리의 비전은 각 개인이 가진 잠재력을 발굴하고,
+  <br />
+  다양한 문화를 통해 상호 존중과 이해를 키우는 것입니다.
+</p>
+<p className="animated-text">
+  청라콩의 미션은 창의적이고 혁신적인 프로그램으로
+  <br />
+  지역 사회와 지속 가능한 성장을 이루는 데 있습니다.
+</p>
+<p className="animated-text">
+  교육과 예술이 결합된 특별한 경험을 통해,
+  <br />
+  누구나 참여하고 즐길 수 있는 환경을 만듭니다.
+</p>
         </div>
         <div className="mission-image">
-          <img src={img2} alt="Mission" className="fade-in-image" />
+          <div className="image-slider">
+            <img src={img1} alt="Mission 1" />
+            <img src={img2} alt="Mission 2" />
+            <img src={img3} alt="Mission 3" />
+          </div>
         </div>
       </div>
 

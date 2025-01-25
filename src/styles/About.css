@@ -1,3 +1,6 @@
+/* Google Fonts 적용 */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap');
+
 /* 기본 스타일 초기화 */
 * {
   margin: 0;
@@ -6,9 +9,9 @@
 }
 
 body {
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: #333;
-  background: #f9f9f9;
+  background: linear-gradient(180deg, #f9fafb, #e5e7eb);
   line-height: 1.6;
 }
 
@@ -49,25 +52,50 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 4rem;
-  font-weight: bold;
+  font-family: 'DM Serif Display', serif;
+  font-size: 4.5rem;
+  font-weight: 400;
   margin-bottom: 20px;
-  text-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content h1 span {
   display: block;
   font-size: 5rem;
-  background: linear-gradient(90deg, #fff, #ffcc00);
+  background: linear-gradient(90deg, #38bdf8, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
   animation: glow 3s infinite alternate;
 }
 
 .hero-content p {
+  font-family: 'Inter', sans-serif;
   font-size: 1.4rem;
-  color: #f0f0f0;
+  color: #e5e7eb;
   line-height: 1.8;
+  margin-top: 15px;
+  font-weight: 300;
+}
+
+.hero-button {
+  margin-top: 30px;
+  padding: 15px 40px;
+  background: linear-gradient(90deg, #3b82f6, #ec4899);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Mission Section */
@@ -75,9 +103,11 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
-  padding: 80px 20px;
-  background: white;
+  gap: 40px;
+  padding: 100px 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
 
 .mission-text {
@@ -87,26 +117,23 @@ body {
 }
 
 .mission-text h2 {
-  font-size: 2.5rem;
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
   margin-bottom: 20px;
-  font-weight: bold;
-  color: #444;
-  position: relative;
-}
-
-.mission-text h2.animated-heading {
-  animation: slideIn 1.5s ease-in-out;
+  font-weight: 400;
+  color: #1e293b;
 }
 
 .mission-text p {
+  font-family: 'Inter', sans-serif;
   font-size: 1.2rem;
-  line-height: 1.8;
-  color: #555;
+  line-height: 2;
+  color: #475569;
   margin-bottom: 20px;
-}
-
-.mission-text p.animated-text {
-  animation: fadeInUp 2s ease-in-out;
+  padding: 15px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #f8fafc, #f1f5f9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .mission-image {
@@ -114,85 +141,107 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+  background: linear-gradient(180deg, #f3f4f6, #e5e7eb);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  height: 980px; /* 섹션의 전체 높이를 활용 */
 }
 
-.mission-image img.fade-in-image {
-  animation: fadeIn 2s ease-in-out;
+.image-slider {
+  display: flex;
   width: 100%;
-  max-width: 400px;
-  border-radius: 10px;
+  height: 100%;
+  animation: slide 25s infinite linear;
+}
+
+.image-slider img {
+  flex-shrink: 0;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+.image-slider img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 /* Highlights Section */
 .highlights-section {
-  padding: 80px 20px;
-  background: #f7f7f7;
+  padding: 100px 20px;
+  background: #ffffff;
   text-align: center;
 }
 
 .highlights-section h2 {
-  font-size: 2.8rem;
-  margin-bottom: 40px;
-  font-weight: bold;
-  color: #444;
-}
-
-.highlights-section h2.animated-heading {
-  animation: slideIn 1.5s ease-in-out;
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  margin-bottom: 50px;
+  font-weight: 400;
+  color: #1e293b;
 }
 
 .highlights-description {
-  font-size: 1.4rem;
-  margin-bottom: 40px;
-  color: #666;
-  animation: fadeIn 2s ease-in-out;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+  color: #475569;
 }
 
 .highlight-cards {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
 .highlight-card {
-  background: white;
-  border-radius: 10px;
+  background: linear-gradient(180deg, #f9fafb, #f1f5f9);
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 320px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .highlight-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .highlight-card .highlight-card-image img {
   width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.4s ease, filter 0.3s ease;
 }
 
 .highlight-card:hover .highlight-card-image img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .highlight-card-content {
-  padding: 20px;
+  padding: 25px;
 }
 
 .highlight-card-content h3 {
+  font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #333;
+  margin-bottom: 15px;
+  color: #2563eb;
 }
 
 .highlight-card-content p {
-  font-size: 1rem;
-  color: #555;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #475569;
+  line-height: 1.8;
 }
 
 /* Animations */
@@ -205,33 +254,26 @@ body {
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
 @keyframes glow {
   from {
-    text-shadow: 0 0 20px #ffcc00, 0 0 30px #ffcc00;
+    text-shadow: 0 0 20px #38bdf8, 0 0 30px #38bdf8;
   }
   to {
-    text-shadow: 0 0 30px #ff6f61, 0 0 40px #ff6f61;
+    text-shadow: 0 0 30px #ec4899, 0 0 40px #ec4899;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  33.333% {
+    transform: translateX(-100%);
+  }
+  66.666% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
