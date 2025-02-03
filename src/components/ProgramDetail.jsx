@@ -1,20 +1,18 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { lazy } from "react";
-import img1 from "../assets/image/PilatesTeacher2.jpg";
+import img1 from "../assets/image/programDetails/PilatesTeacher2.jpg";
 import img2 from "../assets/image/poster/chungRaVocalPos.jpg";
-import img3 from "../assets/image/concert3.jpg";
-import img4 from "../assets/image/chungRaCajon.jpg";
-import img5 from "../assets/image/chungRaEng.png";
-import img6 from "../assets/image/chungRaUkulele.jpg";
-import img7 from "../assets/image/chungRaPiano.jpg";
-import img8 from "../assets/image/chungRaGuitar2.png";
-import img9 from "../assets/image/chungRaBand.jpg";
-import img10 from "../assets/image/chungRaChorus.jpg";
-import img11 from "../assets/image/chungRaBass.jpg";
+import img4 from "../assets/image/programDetails/chungRaCajon.jpg";
+import img5 from "../assets/image/programDetails/chungRaEng.png";
+import img6 from "../assets/image/programDetails/chungRaUkulele.jpg";
+import img7 from "../assets/image/programDetails/chungRaPiano.jpg";
+import img8 from "../assets/image/programDetails/chungRaGuitar2.png";
+import img9 from "../assets/image/programDetails/chungRaBand.jpg";
+import img10 from "../assets/image/programDetails/chungRaChorus.jpg";
+import img11 from "../assets/image/programDetails/chungRaBass.jpg";
 import img12 from "../assets/image/poster/chungRaDrumPos.png";
-import img13 from "../assets/image/chungRaViolin.jpg";
-import img14 from "../assets/image/chungRaCheloThumb.jpg";
+import img13 from "../assets/image/programDetails/chungRaViolin.jpg";
+import img14 from "../assets/image/programDetails/chungRaCheloThumb.jpg";
 import img15 from "../assets/image/poster/chungRaElecPos.jpg";
 
 const programs = [

@@ -80,7 +80,7 @@ img {
   font-size: 1.2rem;
   color: var(--secondary-color);
   text-decoration: none;
-  margin-left: 30px;
+
   font-weight: 600;
   position: relative;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -360,23 +360,6 @@ img {
   color: var(--primary-color);
 }
 
-/* 화살표 스타일 */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  display: none;
-}
-
 .program-slider-container:hover .arrow {
   display: block;
 }
@@ -397,12 +380,6 @@ img {
 @media (max-width: 768px) {
   .program-card {
     width: 250px;
-  }
-
-  .arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
   }
 }
 .program-slider-container {
@@ -475,50 +452,10 @@ img {
   color: var(--primary-color);
 }
 
-/* 화살표 스타일 */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  display: none;
-  z-index: 10;
-}
-
-.program-slider-container:hover .arrow {
-  display: block;
-}
-
-.arrow:hover {
-  background: var(--primary-color);
-}
-
-.arrow.left {
-  left: 0;
-}
-
-.arrow.right {
-  right: 0;
-}
-
 /* 반응형 조정 */
 @media (max-width: 768px) {
   .program-card {
     width: 250px;
-  }
-
-  .arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
   }
 }
 .program-detail-container {
@@ -686,33 +623,7 @@ img {
 .program-list:active {
   cursor: grabbing;
 }
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  z-index: 10;
-}
 
-.arrow.left {
-  left: -60px; /* 화살표 위치 조정 */
-}
-
-.arrow.right {
-  right: -60px; /* 화살표 위치 조정 */
-}
-
-.arrow:hover {
-  background: var(--primary-color);
-}
 .program-list.dragging {
   pointer-events: none;
 }
@@ -727,14 +638,14 @@ img {
 .arrow {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+
   background: rgba(0, 0, 0, 0.7);
   color: white;
   border: none;
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  font-size: 24px;
+  font-size: 15px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
   display: block; /* 항상 보이도록 설정 */

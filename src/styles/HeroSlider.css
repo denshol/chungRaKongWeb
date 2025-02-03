@@ -1,10 +1,18 @@
+/* 전체 컨테이너 스타일 */
 .hero-slider {
   position: relative;
-  width: 100vw; /* 가로 너비 전체 차지 */
+  width: 100vw;
   max-width: 100%;
   overflow: hidden;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 70px; /* Navbar 높이만큼 여백 추가 */
+  z-index: 1; /* Navbar보다 낮은 z-index 설정 */
 }
 
+/* 슬라이더 트랙 및 이미지 스타일 */
 .slider-container {
   display: flex;
   transition: transform 0.8s ease-in-out;
@@ -14,6 +22,7 @@
 .slider-track {
   display: flex;
   width: 100%;
+  transition: transform 0.5s ease;
 }
 
 .slide {
@@ -27,13 +36,13 @@
   object-fit: cover;
 }
 
-/* 화살표 버튼 스타일 개선 */
+/* 화살표 버튼 스타일 */
 .prev-button,
 .next-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   border: none;
   font-size: 28px;
@@ -43,24 +52,53 @@
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 10;
-  opacity: 0.7;
+  opacity: 0.8;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 화살표 위치 조정 (이미지와 겹치지 않도록 조정) */
+/* 화살표 위치 조정 */
 .prev-button {
-  left: 3%; /* 이미지 좌측 바깥쪽으로 이동 */
+  left: 3%;
 }
 
 .next-button {
-  right: 3%; /* 이미지 우측 바깥쪽으로 이동 */
+  right: 3%;
 }
 
+/* 화살표 아이콘 */
+.prev-button::before,
+.next-button::before {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: solid white;
+  border-width: 0 4px 4px 0;
+  padding: 3px;
+}
+
+.prev-button::before {
+  transform: rotate(135deg);
+}
+
+.next-button::before {
+  transform: rotate(-45deg);
+}
+
+/* 호버 효과 */
 .prev-button:hover,
 .next-button:hover {
   background: #ffca28;
-  color: #2c3e50;
   opacity: 1;
   transform: translateY(-50%) scale(1.1);
+}
+
+.prev-button:hover::before,
+.next-button:hover::before {
+  border-color: #2c3e50;
 }
 
 /* 페이지네이션 스타일 */
@@ -126,22 +164,4 @@
     width: 12px;
     height: 12px;
   }
-}
-.hero-slider {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-.slider-track {
-  display: flex;
-  width: 100vw;
-  transition: transform 0.5s ease;
-}
-
-.slide {
-  min-width: 100vw;
 }

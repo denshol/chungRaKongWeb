@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import img1 from "../assets/image/programHead.png";
 import img2 from "../assets/image/banner/chungRaBanner.png";
 import img3 from "../assets/image/banner/chungRaBanner2.png";
 import img4 from "../assets/image/banner/chungRaBanner3.png";

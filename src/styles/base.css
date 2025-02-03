@@ -1,0 +1,37 @@
+/* Font imports */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #6abf69;
+  --primary-dark: #2e7d32;
+  --primary-light: #a5d6a7;
+  --secondary-color: #2c3e50;
+  --accent-color: #ffca28;
+  --text-primary: #2c3e50;
+  --text-secondary: #5d6470;
+  --background-color: #f4f6f7;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* 전역 이미지 스타일 */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}

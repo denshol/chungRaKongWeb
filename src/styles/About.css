@@ -1,5 +1,5 @@
 /* Google Fonts 적용 */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap");
 
 /* 기본 스타일 초기화 */
 * {
@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #333;
   background: linear-gradient(180deg, #f9fafb, #e5e7eb);
   line-height: 1.6;
@@ -52,7 +52,7 @@ body {
 }
 
 .hero-content h1 {
-  font-family: 'DM Serif Display', serif;
+  font-family: "DM Serif Display", serif;
   font-size: 4.5rem;
   font-weight: 400;
   margin-bottom: 20px;
@@ -65,13 +65,13 @@ body {
   background: linear-gradient(90deg, #38bdf8, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: 'DM Serif Display', serif;
+  font-family: "DM Serif Display", serif;
   font-weight: 400;
   animation: glow 3s infinite alternate;
 }
 
 .hero-content p {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.4rem;
   color: #e5e7eb;
   line-height: 1.8;
@@ -117,7 +117,7 @@ body {
 }
 
 .mission-text h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: "DM Serif Display", serif;
   font-size: 2.8rem;
   margin-bottom: 20px;
   font-weight: 400;
@@ -125,7 +125,7 @@ body {
 }
 
 .mission-text p {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.2rem;
   line-height: 2;
   color: #475569;
@@ -178,7 +178,7 @@ body {
 }
 
 .highlights-section h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: "DM Serif Display", serif;
   font-size: 3rem;
   margin-bottom: 50px;
   font-weight: 400;
@@ -186,7 +186,7 @@ body {
 }
 
 .highlights-description {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.5rem;
   margin-bottom: 50px;
   color: #475569;
@@ -231,14 +231,14 @@ body {
 }
 
 .highlight-card-content h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.8rem;
   margin-bottom: 15px;
   color: #2563eb;
 }
 
 .highlight-card-content p {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.2rem;
   color: #475569;
   line-height: 1.8;
