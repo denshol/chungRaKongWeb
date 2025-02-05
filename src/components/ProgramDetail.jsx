@@ -1,4 +1,3 @@
-// ProgramDetail.jsx
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import img1 from "../assets/image/programImages/chungRaPilates.jpg";
@@ -16,6 +15,8 @@ import img13 from "../assets/image/programDetails/chungRaViolin.jpg";
 import img14 from "../assets/image/programDetails/chungRaCheloThumb.jpg";
 import img15 from "../assets/image/poster/chungRaElecPos.jpg";
 import styles from "../styles/program.module.css";
+import ApplyModal from "./ApplyModal";
+import SuccessModal from "./SuccessModal";
 
 const programs = [
   {
@@ -177,9 +178,23 @@ const programs = [
 const ProgramDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const program = programs.find((p) => p.id === parseInt(id));
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
+  const program = programs.find((p) => p.id === parseInt(id));
+
+  // 모달 상태 관리
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  // 신청 폼 제출 처리 함수
+  const handleFormSubmit = (formData) => {
+    // 폼 데이터 서버로 전송 (여기서는 콘솔에 출력)
+    console.log(formData);
+    setIsApplyModalOpen(false); // 신청 모달 닫기
+    setIsSuccessModalOpen(true); // 신청 완료 모달 열기
+  };
+
+  // 프로그램이 없을 경우
   if (!program) {
     return (
       <div className={styles.errorMessage}>프로그램을 찾을 수 없습니다.</div>
@@ -189,6 +204,7 @@ const ProgramDetail = () => {
   return (
     <div className={styles.programDetail}>
       <div className={styles.programDetailContainer}>
+        {/* 이미지와 확대 모달 */}
         <div
           className={styles.imageWrapper}
           onClick={() => setIsImageModalOpen(true)}
@@ -199,7 +215,7 @@ const ProgramDetail = () => {
             alt={program.title}
             className={styles.detailImage}
             onError={(e) => {
-              e.target.src = "../assets/image/placeholder.jpg";
+              e.target.src = "../assets/image/placeholder.jpg"; // 오류 시 기본 이미지
             }}
           />
           <div className={styles.imageOverlay}>
@@ -207,6 +223,7 @@ const ProgramDetail = () => {
           </div>
         </div>
 
+        {/* 이미지 확대 모달 */}
         {isImageModalOpen && (
           <div
             className={styles.modal}
@@ -228,6 +245,7 @@ const ProgramDetail = () => {
           </div>
         )}
 
+        {/* 프로그램 상세 정보 */}
         <div className={styles.detailContent}>
           <h1 className={styles.detailTitle}>{program.title}</h1>
           <p className={styles.detailDescription}>{program.description}</p>
@@ -250,12 +268,37 @@ const ProgramDetail = () => {
             </p>
           </div>
 
-          <button className={styles.ctaButton}>신청하기</button>
+          {/* 신청하기 버튼 */}
+          <button
+            className={styles.ctaButton}
+            onClick={() => setIsApplyModalOpen(true)}
+          >
+            신청하기
+          </button>
+
+          {/* 목록으로 돌아가기 버튼 */}
           <button className={styles.backBtn} onClick={() => navigate("/")}>
             목록으로 돌아가기
           </button>
         </div>
       </div>
+
+      {/* 신청 모달 */}
+      {isApplyModalOpen && (
+        <ApplyModal
+          isOpen={isApplyModalOpen}
+          onClose={() => setIsApplyModalOpen(false)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
+
+      {/* 신청 완료 모달 */}
+      {isSuccessModalOpen && (
+        <SuccessModal
+          isOpen={isSuccessModalOpen}
+          onClose={() => setIsSuccessModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

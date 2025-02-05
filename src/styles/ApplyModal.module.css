@@ -1,0 +1,176 @@
+/* ApplyModal.module.css */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%; /* width: 100vw 대신 100% 사용 */
+  height: 100%; /* height: 100vh 대신 100% 사용 */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 20px; /* 모바일에서 여백 추가 */
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.modalTitle {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.modalSubtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.inputGroup {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  padding-left: 48px;
+  border-radius: 12px;
+  border: 2px solid #eee;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #22c55e;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.input::placeholder {
+  color: #adb5bd;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+  padding-top: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.submitButton,
+.cancelButton {
+  flex: 1;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton {
+  background: #22c55e;
+  color: white;
+  border: none;
+}
+
+.submitButton:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.cancelButton {
+  background: white;
+  color: #666;
+  border: 2px solid #eee;
+}
+
+.cancelButton:hover {
+  background: #f5f5f5;
+  border-color: #ddd;
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 30px 20px;
+  }
+
+  .modalTitle {
+    font-size: 24px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+  }
+
+  .input {
+    padding: 14px;
+    padding-left: 44px;
+    font-size: 0.95rem;
+  }
+}
