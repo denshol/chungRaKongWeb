@@ -336,3 +336,56 @@
 .nav-links a:hover::after {
   width: 100%;
 }
+/* Navbar.module.css */
+.nav-left-group {
+  display: flex;
+  align-items: center;
+  gap: 3rem; /* 로고와 네비게이션 링크 사이 간격 */
+}
+
+.navbar-container {
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+/* 네비게이션 링크 스타일 수정 */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-left: 2rem; /* 로고와의 간격 */
+}
+
+/* 반응형 스타일 수정 */
+@media (max-width: 768px) {
+  .nav-left-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    flex-direction: column;
+    margin-left: 0;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
