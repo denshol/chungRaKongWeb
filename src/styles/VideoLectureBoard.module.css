@@ -1,366 +1,96 @@
-/* 공통 레이아웃 */
-.video-lecture,
-.lecture-container {
-  max-width: 1200px;
-  margin: 80px auto 0;
-  padding: 0 20px;
-}
-
-/* 헤더 스타일 */
-.lecture-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid var(--primary-light);
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.header-icon {
-  font-size: 32px;
-  color: var(--primary-color);
-}
-
-.header-title,
-.lecture-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--primary-dark);
-}
-
-.header-count {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  padding: 4px 12px;
+.lectureForm {
+  background: white;
+  padding: 40px;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-left: 12px;
-}
-
-/* 버튼 스타일 */
-.add-lecture-btn,
-.lecture-btn,
-.empty-button {
-  background: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.add-lecture-btn:hover,
-.lecture-btn:hover,
-.empty-button:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-.btn-icon {
-  font-size: 20px;
-}
-
-/* 강의 카드 그리드 */
-.lecture-grid,
-.lecture-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  padding: 10px;
-}
-
-/* 강의 카드 */
-.lecture-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  position: relative;
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.lecture-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.video-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: #000;
-  overflow: hidden;
-}
-
-.lecture-thumbnail,
-.lecture-card video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-duration {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.lecture-content,
-.lecture-card-content {
-  padding: 20px;
-}
-
-.lecture-title,
-.lecture-card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.lecture-description,
-.lecture-card-description {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.6;
-}
-
-.lecture-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.meta-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-secondary);
-  font-size: 13px;
-}
-
-.meta-icon {
-  color: var(--primary-color);
-}
-
-.upload-date,
-.lecture-card-date {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--text-secondary);
-  font-size: 13px;
-}
-
-/* Empty state 스타일 */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 2px dashed var(--primary-light);
-  margin: 20px 0;
-}
-
-.empty-icon {
-  font-size: 64px;
-  margin-bottom: 20px;
-  color: var(--primary-light);
-  animation: float 3s ease-in-out infinite;
-}
-
-.empty-title {
-  font-size: 24px;
-  color: var(--primary-dark);
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.empty-description {
-  color: var(--text-secondary);
-  font-size: 16px;
-  max-width: 400px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* 강의 등록 폼 */
-.lecture-form {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   max-width: 800px;
   margin: 0 auto;
 }
 
-.lecture-form-header {
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.formTitleWrapper {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid var(--primary-light);
 }
 
-.form-group {
+.formIcon {
+  color: #22c55e;
+}
+
+.formTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.inputGroup {
   margin-bottom: 24px;
 }
 
-.form-label {
-  display: block;
+.inputLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 15px;
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
 }
 
-.form-input,
-.form-textarea {
+.inputIcon {
+  color: #22c55e;
+}
+
+.formInput {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
   font-size: 15px;
-  transition: all 0.2s ease;
-  background-color: #f9fafb;
+  transition: all 0.3s ease;
+  background: #f9fafb;
 }
 
-.form-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.form-input:hover,
-.form-textarea:hover {
-  border-color: var(--primary-light);
-}
-
-.form-input:focus,
-.form-textarea:focus {
+.formInput:focus {
   outline: none;
-  border-color: var(--primary-color);
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(106, 191, 105, 0.1);
+  border-color: #22c55e;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-/* 파일 업로드 영역 */
-.upload-area {
-  border: 2px dashed #e5e7eb;
-  border-radius: 12px;
-  padding: 40px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: #f9fafb;
+.formInput::placeholder {
+  color: #9ca3af;
 }
 
-.upload-area:hover,
-.upload-area.drag-active {
-  border-color: var(--primary-color);
-  background-color: #f0f9f0;
-}
-
-.upload-area.drag-active {
-  transform: scale(1.01);
-}
-
-.upload-icon {
-  font-size: 48px;
-  color: var(--primary-color);
-  margin-bottom: 16px;
-}
-
-.upload-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.upload-text {
-  color: var(--text-secondary);
-  margin: 8px 0;
-}
-
-.upload-label {
-  color: var(--primary-color);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 8px 16px;
-  background-color: #f0f9f0;
-  border-radius: 20px;
-  display: inline-block;
-  transition: all 0.2s ease;
-}
-
-.upload-label:hover {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-}
-
-.upload-hint {
-  color: var(--text-secondary);
-  font-size: 13px;
-  margin-top: 12px;
-}
-
-/* 비디오 프리뷰 */
-.video-preview-container {
-  background-color: #f9fafb;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.preview-video {
-  max-width: 100%;
-  max-height: 300px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* 에러 메시지 */
-.error-message {
-  background-color: #fee2e2;
-  color: #dc2626;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* 버튼 그룹 */
-.button-group {
+.buttonGroup {
   display: flex;
   gap: 12px;
   margin-top: 30px;
@@ -368,71 +98,264 @@
   border-top: 1px solid #e5e7eb;
 }
 
-/* 애니메이션 */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.submitButton,
+.cancelButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.submitButton {
+  background: #22c55e;
+  color: white;
+  border: none;
+  flex: 1;
 }
 
-/* 유틸리티 클래스 */
-.hidden {
-  display: none;
+.submitButton:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 }
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .video-lecture,
-  .lecture-container {
-    padding: 0 15px;
+.cancelButton {
+  background: white;
+  color: #4b5563;
+  border: 2px solid #e5e7eb;
+  padding: 10px 24px;
+}
+
+.cancelButton:hover {
+  background: #f9fafb;
+  color: #1f2937;
+  border-color: #d1d5db;
+}
+
+@media (max-width: 640px) {
+  .lectureForm {
+    padding: 20px;
   }
 
-  .lecture-header {
+  .formHeader {
+    margin-bottom: 20px;
+  }
+
+  .buttonGroup {
     flex-direction: column;
-    gap: 15px;
-    align-items: flex-start;
   }
 
-  .add-lecture-btn,
-  .lecture-btn {
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
+}
+/* 강의 목록 컨테이너 */
+.videoLecture {
+  max-width: 1280px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.lectureContainer {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* 헤더 영역 */
+.lectureHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIcon {
+  color: #22c55e;
+}
+
+.headerTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.headerCount {
+  background: #f0fdf4;
+  color: #22c55e;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.addLectureBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #22c55e;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+}
+
+.addLectureBtn:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+}
+
+/* 강의 그리드 */
+.lectureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 10px;
+}
+
+.lectureCard {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.lectureCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lectureCard:hover .videoOverlay {
+  opacity: 1;
+}
+
+.playIcon {
+  color: white;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.lectureThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lectureContent {
+  padding: 24px;
+}
+
+.lectureTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 비어있는 상태 */
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.emptyState svg {
+  color: #22c55e;
+  margin-bottom: 16px;
+}
+
+.emptyState p {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+}
+
+.emptyStateButton {
+  background: #22c55e;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.emptyStateButton:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .lectureContainer {
+    padding: 20px;
+  }
+
+  .lectureHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .headerLeft {
+    flex-wrap: wrap;
+  }
+
+  .headerTitle {
+    font-size: 2rem;
+  }
+
+  .addLectureBtn {
     width: 100%;
     justify-content: center;
   }
 
-  .lecture-grid,
-  .lecture-list {
-    grid-template-columns: 1fr;
+  .lectureGrid {
     gap: 20px;
-  }
-
-  .header-title {
-    font-size: 24px;
-  }
-
-  .button-group {
-    flex-direction: column;
-  }
-
-  .preview-video {
-    max-height: 200px;
-  }
-
-  .lecture-form {
-    padding: 20px;
   }
 }

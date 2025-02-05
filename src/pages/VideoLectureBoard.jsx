@@ -1,17 +1,152 @@
-import React, { useState } from "react";
-import "../styles/VideoLectureBoard.module.css";
+import React, { useState, useEffect } from "react";
+import { RiVideoAddFill } from "react-icons/ri";
+import {
+  MdAdd,
+  MdClose,
+  MdPlayCircleOutline,
+  MdTitle,
+  MdVideoLibrary,
+} from "react-icons/md";
+import styles from "../styles/VideoLectureBoard.module.css";
+import { FaVideo } from "react-icons/fa";
 
+// WriteForm 컴포넌트 정의
+const WriteForm = ({ onSubmit, onCancel }) => {
+  const [title, setTitle] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title || !videoUrl) return;
+    onSubmit({ id: Date.now(), title, videoUrl });
+  };
+
+  return (
+    <div className={styles.lectureForm}>
+      <div className={styles.formHeader}>
+        <div className={styles.formTitleWrapper}>
+          <FaVideo className={styles.formIcon} size={24} />
+          <h2 className={styles.formTitle}>새 강의 등록</h2>
+        </div>
+        <button onClick={onCancel} className={styles.closeButton}>
+          <MdClose size={24} />
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>
+            <MdTitle className={styles.inputIcon} />
+            강의 제목
+          </label>
+          <input
+            type="text"
+            placeholder="강의 제목을 입력하세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={styles.formInput}
+            required
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>
+            <MdVideoLibrary className={styles.inputIcon} />
+            영상 URL
+          </label>
+          <input
+            type="text"
+            placeholder="영상 URL을 입력하세요"
+            value={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
+            className={styles.formInput}
+            required
+          />
+        </div>
+
+        <div className={styles.buttonGroup}>
+          <button
+            type="button"
+            onClick={onCancel}
+            className={styles.cancelButton}
+          >
+            <MdClose size={20} />
+            취소
+          </button>
+          <button type="submit" className={styles.submitButton}>
+            <MdAdd size={20} />
+            강의 등록하기
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+// LectureList 컴포넌트 정의
+const LectureList = ({ lectures, onWrite }) => (
+  <div className={styles.lectureContainer}>
+    <div className={styles.lectureHeader}>
+      <div className={styles.headerLeft}>
+        <MdPlayCircleOutline size={32} className={styles.headerIcon} />
+        <h1 className={styles.headerTitle}>강의 목록</h1>
+        <span className={styles.headerCount}>{lectures.length}개의 강의</span>
+      </div>
+      <button onClick={onWrite} className={styles.addLectureBtn}>
+        <RiVideoAddFill size={20} />새 강의 등록
+      </button>
+    </div>
+
+    <div className={styles.lectureGrid}>
+      {lectures.length > 0 ? (
+        lectures.map((lecture) => (
+          <div key={lecture.id} className={styles.lectureCard}>
+            <div className={styles.videoContainer}>
+              <video className={styles.lectureThumbnail} controls>
+                <source src={lecture.videoUrl} type="video/mp4" />
+              </video>
+              <div className={styles.videoOverlay}>
+                <MdPlayCircleOutline size={48} className={styles.playIcon} />
+              </div>
+            </div>
+            <div className={styles.lectureContent}>
+              <h3 className={styles.lectureTitle}>{lecture.title}</h3>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className={styles.emptyState}>
+          <MdPlayCircleOutline size={48} />
+          <p>등록된 강의가 없습니다.</p>
+          <button onClick={onWrite} className={styles.emptyStateButton}>
+            첫 강의 등록하기
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+// 메인 VideoLectureBoard 컴포넌트
 const VideoLectureBoard = () => {
   const [videoLectures, setVideoLectures] = useState([]);
   const [isWriteMode, setIsWriteMode] = useState(false);
 
+  useEffect(() => {
+    const storedLectures =
+      JSON.parse(localStorage.getItem("videoLectures")) || [];
+    setVideoLectures(storedLectures);
+  }, []);
+
   const handleAddLecture = (newLecture) => {
-    setVideoLectures([newLecture, ...videoLectures]);
+    const updatedLectures = [newLecture, ...videoLectures];
+    setVideoLectures(updatedLectures);
+    localStorage.setItem("videoLectures", JSON.stringify(updatedLectures));
     setIsWriteMode(false);
   };
 
   return (
-    <div className="video-lecture">
+    <div className={styles.videoLecture}>
       {isWriteMode ? (
         <WriteForm
           onSubmit={handleAddLecture}
@@ -27,206 +162,4 @@ const VideoLectureBoard = () => {
   );
 };
 
-const LectureList = ({ lectures, onWrite }) => {
-  return (
-    <div className="lecture-container">
-      <div className="lecture-header">
-        <div className="header-left">
-          <span className="header-icon">🎓</span>
-          <h1 className="header-title">List</h1>
-          <span className="header-count">{lectures.length}개 강의</span>
-        </div>
-        <button onClick={onWrite} className="add-lecture-btn">
-          <span className="btn-icon">✨</span>새 강의 등록
-        </button>
-      </div>
-
-      {lectures.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">🎥</div>
-          <h2 className="empty-title">등록된 영상 강의가 없습니다</h2>
-          <p className="empty-description">
-            새로운 강의를 등록하여 학습 컨텐츠를 공유해보세요. 영상 강의를 통해
-            더 효과적인 학습 경험을 제공할 수 있습니다.
-          </p>
-          <button onClick={onWrite} className="empty-button">
-            <span>✨</span> 첫 강의 등록하기
-          </button>
-        </div>
-      ) : (
-        <div className="lecture-grid">
-          {lectures.map((lecture) => (
-            <div key={lecture.id} className="lecture-card">
-              <div className="video-container">
-                <video
-                  className="lecture-thumbnail"
-                  poster={lecture.thumbnail}
-                  controls
-                >
-                  <source src={lecture.videoUrl} type="video/mp4" />
-                </video>
-                <div className="video-duration">14:35</div>
-              </div>
-              <div className="lecture-content">
-                <h3 className="lecture-title">{lecture.title}</h3>
-                {lecture.description && (
-                  <p className="lecture-description">{lecture.description}</p>
-                )}
-                <div className="lecture-meta">
-                  <div className="meta-left">
-                    <span className="meta-icon">👥</span>
-                    <span>수강생 0명</span>
-                  </div>
-                  <div className="upload-date">
-                    <span>📅</span>
-                    <span>{lecture.uploadDate}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const WriteForm = ({ onSubmit, onCancel }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [videoFile, setVideoFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
-  const [dragActive, setDragActive] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(e.type === "dragenter" || e.type === "dragover");
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    const files = e.dataTransfer.files;
-    handleFiles(files);
-  };
-
-  const handleFiles = (files) => {
-    if (files && files[0]) {
-      const file = files[0];
-      if (file.type.startsWith("video/")) {
-        setVideoFile(file);
-        setPreviewUrl(URL.createObjectURL(file));
-        setError("");
-      } else {
-        setError("비디오 파일만 업로드 가능합니다.");
-      }
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!title || !videoFile) {
-      setError("제목과 동영상 파일은 필수입니다.");
-      return;
-    }
-
-    const newLecture = {
-      id: Date.now(),
-      title,
-      description,
-      videoUrl: previewUrl,
-      uploadDate: new Date().toLocaleDateString(),
-    };
-
-    onSubmit(newLecture);
-  };
-
-  return (
-    <div className="lecture-form">
-      <div className="lecture-form-header">
-        <span className="form-icon">📹</span>
-        <h2 className="form-title">새 강의 등록</h2>
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">강의 제목</label>
-          <input
-            type="text"
-            className="form-input"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="강의 제목을 입력해주세요"
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">강의 설명</label>
-          <textarea
-            className="form-textarea"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="강의에 대한 상세한 설명을 입력해주세요"
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">강의 영상</label>
-          {!videoFile ? (
-            <div
-              className={`upload-area ${dragActive ? "drag-active" : ""}`}
-              onDragEnter={handleDrag}
-              onDragLeave={handleDrag}
-              onDragOver={handleDrag}
-              onDrop={handleDrop}
-            >
-              <div className="upload-icon">📁</div>
-              <h3 className="upload-title">강의 영상을 업로드해주세요</h3>
-              <p className="upload-text">
-                <label className="upload-label">
-                  파일 선택하기
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept="video/*"
-                    onChange={(e) => handleFiles(e.target.files)}
-                  />
-                </label>
-                <span> 또는 여기로 파일을 드래그하세요</span>
-              </p>
-              <p className="upload-hint">지원 형식: MP4, WebM (최대 500MB)</p>
-            </div>
-          ) : (
-            <div className="video-preview-container">
-              <h3 className="preview-title">미리보기</h3>
-              <video controls className="preview-video">
-                <source src={previewUrl} type="video/mp4" />
-              </video>
-            </div>
-          )}
-        </div>
-
-        {error && <div className="error-message">⚠️ {error}</div>}
-
-        <div className="button-group">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="form-button button-cancel"
-          >
-            취소
-          </button>
-          <button type="submit" className="form-button button-submit">
-            <span>✨</span> 강의 등록하기
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-};
 export default VideoLectureBoard;
