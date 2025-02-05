@@ -1,98 +1,88 @@
 /* MyPage.module.css */
 .mypageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  background-color: #f0f2f5;
-  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
 .profileCard {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+  background-color: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+.profileCard:hover {
+  transform: translateY(-5px);
 }
 
 .profileTitle {
-  margin-bottom: 20px;
   font-size: 28px;
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .profileAvatar {
-  margin-bottom: 20px;
-}
-
-.profileAvatar img {
   width: 150px;
   height: 150px;
+  margin: 0 auto 30px;
   border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--primary-color);
+  background-color: var(--primary-light);
+}
+.profileAvatar img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 3px solid var(--primary-color);
 }
 
+.profileInfo {
+  margin-bottom: 30px;
+}
 .profileInfo p {
-  font-size: 18px;
-  margin: 10px 0;
-  color: #555;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  color: var(--text-secondary);
+  font-size: 16px;
 }
-
-.adminInfo {
-  margin-top: 20px;
-  color: #d9534f;
-  font-weight: bold;
+.profileInfo p:last-child {
+  border-bottom: none;
 }
-
-.loginWarning {
-  font-size: 20px;
-  color: #d9534f;
+.infoIcon {
+  margin-right: 8px;
+  color: var(--primary-color);
+}
+.profileInfo strong {
+  display: inline-block;
+  width: 110px;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .logoutButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #d9534f;
-  color: #fff;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-color);
+  color: var(--white);
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.logoutButton:hover {
-  background-color: #c9302c;
-}
-
-.adminInquiries {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
   border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.adminInquiries h3 {
-  color: #333;
-  margin-bottom: 15px;
+.logoutButton:hover {
+  background-color: var(--primary-dark);
 }
-
-.adminInquiries ul {
-  list-style: none;
-  padding: 0;
-}
-
-.adminInquiries li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-}
-
-.adminInquiries li:last-child {
-  border-bottom: none;
+.logoutIcon {
+  margin-right: 8px;
 }

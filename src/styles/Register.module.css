@@ -3,91 +3,91 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  background-color: #f7f7f7;
+  min-height: 100vh;
+  background-color: var(--background-color);
   padding: 20px;
 }
 
 .registerCard {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   padding: 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  transition: transform 0.3s ease;
+}
+.registerCard:hover {
+  transform: translateY(-5px);
 }
 
 .registerTitle {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
   text-align: center;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  color: #333333;
+  color: var(--text-primary);
 }
 
 .inputGroup {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .inputGroup label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   font-size: 16px;
   font-weight: 600;
-  color: #555555;
+  color: var(--text-secondary);
+}
+
+.icon {
+  position: absolute;
+  top: 38px;
+  left: 10px;
+  font-size: 18px;
+  color: var(--primary-color);
 }
 
 .inputField {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 40px; /* 아이콘 공간 확보 */
   font-size: 16px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s;
 }
-
 .inputField:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--primary-color);
 }
 
 .registerButton {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--white);
   background-color: var(--primary-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
-
 .registerButton:hover {
   background-color: var(--primary-dark);
 }
 
-.errorMessage {
-  color: red;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
+.errorMessage,
 .successMessage {
-  color: green;
-  font-size: 14px;
   text-align: center;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
-
-@media (max-width: 480px) {
-  .registerCard {
-    padding: 20px;
-  }
-
-  .registerTitle {
-    font-size: 24px;
-  }
+.errorMessage {
+  color: #dc3545;
+}
+.successMessage {
+  color: #28a745;
 }

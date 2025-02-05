@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import KakaoLoginButton from "../components/KaKaoLoginButton";
 import styles from "../styles/Login.module.css";
+import defaultImage from "../assets/image/chungRaKong.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,20 +11,20 @@ const Login = () => {
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // ✅ 카카오 로그인 성공 후 처리 함수
+  // 카카오 로그인 성공 후 처리 함수
+  // Login.js
   const handleKakaoLoginSuccess = (userInfo) => {
     console.log("✅ 카카오 로그인 성공:", userInfo);
 
-    // ✅ 유저 정보 저장
+    // 카카오에서 받은 사용자 정보를 정확한 구조로 저장
     setUser({
-      name: userInfo.kakao_account.profile.nickname,
+      name: userInfo.properties.nickname,
       email: userInfo.kakao_account.email,
+      profileImage: userInfo.properties.profile_image_url || null, // 프로필 이미지 URL
+      provider: "kakao",
     });
 
-    // ✅ JWT 토큰을 로컬 스토리지에 저장
     localStorage.setItem("token", "kakao_dummy_token");
-
-    // ✅ 로그인 성공 후 마이페이지로 이동
     navigate("/mypage");
   };
 
@@ -31,7 +32,12 @@ const Login = () => {
     e.preventDefault();
     const dummyToken = "dummy_jwt_token";
     localStorage.setItem("token", dummyToken);
-    setUser({ name: "홍길동", email });
+    setUser({
+      name: "홍길동",
+      email,
+      profileImage: defaultImage, // 기본 프로필 이미지
+      provider: "email",
+    });
     navigate("/mypage");
   };
 
@@ -68,7 +74,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* ✅ 카카오 로그인 버튼 추가 */}
         <div className={styles.socialLogin}>
           <KakaoLoginButton onLoginSuccess={handleKakaoLoginSuccess} />
         </div>
