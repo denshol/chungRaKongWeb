@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import "./styles/main.css";
 import VideoLectureBoard from "./pages/VideoLectureBoard";
 import Register from "./pages/Register";
+import FeaturedClasses from "./components/FeaturedClasses";
+import FeaturedClasses2 from "./components/FeaturedClasses2";
 
 const HeroSlider = lazy(() => import("./components/HeroSlider"));
 const ProgramList = lazy(() => import("./components/ProgramList"));
@@ -27,7 +29,8 @@ function App() {
               <>
                 <HeroSlider />
                 <ProgramList />
-                  
+                <FeaturedClasses />  {/* ✅ 여기서만 사용! */}
+                <FeaturedClasses2 />
               </>
             }
           />
@@ -41,9 +44,10 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </Suspense>
-      <Footer />
+      <Footer />  {/* ✅ 하단 FeaturedClasses 삭제 */}
     </Router>
   );
 }
+
 
 export default App;
