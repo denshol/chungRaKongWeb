@@ -1,0 +1,8 @@
+@import "./reset.css";
+@import "./base.css";
+@import "./Navbar.module.css";
+@import "./HeroSlider.module.css";
+@import "./slide.module.css";
+@import "./Programs.module.css";
+@import "./program.module.css";
+@import "./footer.css";

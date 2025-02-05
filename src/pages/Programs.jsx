@@ -1,7 +1,7 @@
 // src/pages/Programs.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/Programs.css";
+import "../styles/Programs.module.css";
 
 // 📂 programImages 폴더에서 가져오기
 import imgBand from "../assets/image/programImages/chungRaBand2.png";
@@ -14,7 +14,7 @@ import imgEng from "../assets/image/programDetails/chungRaEng.png";
 import imgElec from "../assets/image/programImages/chungRaElec2.png";
 import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
 import imgPiano from "../assets/image/programImages/chungRaPiano.png";
-import imgPilates from "../assets/image/programImages/chungRaPilates.jpg";
+import imgPilates from "../assets/image/programDetails/PilatesTeacher2.jpg";
 import imgUkulele from "../assets/image/programImages/chungRaUkulele.png";
 import imgVocal from "../assets/image/programImages/chungRaVocal.png";
 

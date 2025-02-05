@@ -1,15 +1,13 @@
 /* 전체 컨테이너 스타일 */
 .hero-slider {
   position: relative;
-  width: 100vw;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1280px; /* ✅ 최대 너비 1280px 고정 */
+  height: 370px; /* ✅ 높이 370px로 고정 */
   overflow: hidden;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  margin-top: 70px; /* Navbar 높이만큼 여백 추가 */
-  z-index: 1; /* Navbar보다 낮은 z-index 설정 */
+  margin: 70px auto 0; /* 중앙 정렬 */
+  z-index: 1;
+ 
 }
 
 /* 슬라이더 트랙 및 이미지 스타일 */
@@ -26,13 +24,14 @@
 }
 
 .slide {
-  min-width: 100vw; /* 가로 너비를 전체 화면 크기로 설정 */
+  min-width: 1280px; /* ✅ 너비 1280px 유지 */
+  height: 370px; /* ✅ 높이 370px 유지 */
   transition: opacity 0.8s ease-in-out;
 }
 
 .slide img {
-  width: 100vw;
-  height: auto;
+  width: 1280px; /* ✅ 이미지 너비 1280px */
+  height: 370px; /* ✅ 이미지 높이 370px */
   object-fit: cover;
 }
 
@@ -45,16 +44,16 @@
   background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   border: none;
-  font-size: 28px;
-  padding: 20px;
+  font-size: 24px; /* ✅ 폰트 크기 조정 */
+  padding: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 10;
   opacity: 0.8;
-  width: 50px;
-  height: 50px;
+  width: 40px; /* ✅ 크기 조정 */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,36 +61,17 @@
 
 /* 화살표 위치 조정 */
 .prev-button {
-  left: 3%;
+  left: 10px;
 }
 
 .next-button {
-  right: 3%;
-}
-
-/* 화살표 아이콘 */
-.prev-button::before,
-.next-button::before {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: solid white;
-  border-width: 0 4px 4px 0;
-  padding: 3px;
-}
-
-.prev-button::before {
-  transform: rotate(135deg);
-}
-
-.next-button::before {
-  transform: rotate(-45deg);
+  right: 10px;
 }
 
 /* 호버 효과 */
 .prev-button:hover,
 .next-button:hover {
-  background: #ffca28;
+  
   opacity: 1;
   transform: translateY(-50%) scale(1.1);
 }
@@ -106,14 +86,14 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   width: 100%;
-  gap: 12px;
+  gap: 10px;
 }
 
 .dot {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   background: rgba(255, 255, 255, 0.6);
   border: none;
   border-radius: 50%;
@@ -133,27 +113,17 @@
 
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
-  .prev-button,
-  .next-button {
-    font-size: 24px;
-    padding: 15px;
+  .hero-slider {
+    max-width: 100%;
+    height: auto; /* ✅ 높이 자동 조정 */
   }
 
-  .prev-button {
-    left: 2%;
+  .slide,
+  .slide img {
+    width: 100%; /* ✅ 반응형 너비 */
+    height: auto; /* ✅ 자동 높이 */
   }
 
-  .next-button {
-    right: 2%;
-  }
-
-  .dot {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-@media (max-width: 768px) {
   .prev-button,
   .next-button {
     font-size: 20px;
@@ -161,7 +131,54 @@
   }
 
   .dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
   }
+}
+
+@media (max-width: 768px) {
+  .prev-button,
+  .next-button {
+    font-size: 18px;
+    padding: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  height: 370px; /* ✅ 높이 370px 유지 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Hero Content */
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+/* CTA 버튼 */
+.hero-button {
+  padding: 12px 30px;
+  background: #6abf69;
+  border-radius: 25px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero-button:hover {
+  transform: scale(1.1);
 }

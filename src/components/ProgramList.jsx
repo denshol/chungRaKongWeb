@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/program.css";
+import styles from "../styles/Programs.module.css";
 
-// 개별 import 방식으로 이미지 불러오기
 import img1 from "../assets/image/programDetails/PilatesTeacher2.jpg";
 import img2 from "../assets/image/programImages/chungRaVocal.png";
 import img4 from "../assets/image/programImages/chungRaCajon.png";
@@ -19,7 +18,6 @@ import img14 from "../assets/image/programDetails/chungRaCheloThumb.jpg";
 import img15 from "../assets/image/programImages/chungRaElec2.png";
 import img16 from "../assets/image/programImages/chungRaCoding.png";
 
-// 프로그램 데이터 목록
 const programs = [
   {
     id: 1,
@@ -131,45 +129,37 @@ const programs = [
 const ProgramList = () => {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
-  // 프로그램 클릭 핸들러
-  const handleProgramClick = (programId) => {
-    if (!isDragging) {
-      navigate(`/program/${programId}`);
-    }
+  const handleScroll = (direction) => {
+    const container = sliderRef.current;
+    const cardWidth = 320; // 카드 width + gap
+    const containerWidth = container.clientWidth;
+    const scrollAmount = Math.floor(containerWidth / cardWidth) * cardWidth;
+
+    container.scrollBy({
+      left: direction === "next" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div className="program-slider-container">
-      <div
-        className="program-list"
-        ref={sliderRef}
-        onMouseDown={(e) => {
-          setIsDragging(true);
-          setStartX(e.pageX);
-          setScrollLeft(sliderRef.current.scrollLeft);
-        }}
-        onMouseMove={(e) => {
-          if (!isDragging) return;
-          const x = e.pageX;
-          const walk = (x - startX) * 1.5;
-          sliderRef.current.scrollLeft = scrollLeft - walk;
-        }}
-        onMouseLeave={() => setIsDragging(false)}
-        onMouseUp={() => setIsDragging(false)}
-        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+    <div className={styles.programSliderContainer}>
+      <button
+        className={`${styles.scrollButton} ${styles.prevButton}`}
+        onClick={() => handleScroll("prev")}
       >
+        &#8249;
+      </button>
+
+      <div className={styles.programList} ref={sliderRef}>
         {programs.map((program) => (
           <div
             key={program.id}
-            className="program-card"
-            onClick={() => handleProgramClick(program.id)}
+            className={styles.programCard}
+            onClick={() => navigate(`/program/${program.id}`)}
           >
             <img src={program.image} alt={program.title} loading="lazy" />
-            <div className="program-card-content">
+            <div className={styles.programCardContent}>
               <h3>{program.title}</h3>
               <p>{program.description}</p>
               <span>{program.price}</span>
@@ -177,6 +167,13 @@ const ProgramList = () => {
           </div>
         ))}
       </div>
+
+      <button
+        className={`${styles.scrollButton} ${styles.nextButton}`}
+        onClick={() => handleScroll("next")}
+      >
+        &#8250;
+      </button>
     </div>
   );
 };

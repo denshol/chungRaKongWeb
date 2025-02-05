@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import "./styles/styles.css";
+import "./styles/main.css";
 import VideoLectureBoard from "./pages/VideoLectureBoard";
 import Register from "./pages/Register";
 

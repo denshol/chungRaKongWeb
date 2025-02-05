@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import "../styles/Register.css"; // 스타일 파일
+import styles from "../styles/Register.module.css"; // styles 추가
 
 const Register = () => {
   const { setUser } = useContext(AuthContext);
@@ -60,13 +60,13 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
-        <h2 className="register-title">회원가입</h2>
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
+    <div className={styles.registerContainer}>
+      <div className={styles.registerCard}>
+        <h2 className={styles.registerTitle}>회원가입</h2>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {success && <p className={styles.successMessage}>{success}</p>}
         <form onSubmit={handleRegister}>
-          <div className="input-group">
+          <div className={styles.inputGroup}>
             <label>이름</label>
             <input
               type="text"
@@ -74,11 +74,11 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="input-field"
+              className={styles.inputField}
               placeholder="이름을 입력하세요"
             />
           </div>
-          <div className="input-group">
+          <div className={styles.inputGroup}>
             <label>Email</label>
             <input
               type="email"
@@ -86,11 +86,11 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="input-field"
+              className={styles.inputField}
               placeholder="이메일을 입력하세요"
             />
           </div>
-          <div className="input-group">
+          <div className={styles.inputGroup}>
             <label>비밀번호</label>
             <input
               type="password"
@@ -98,11 +98,11 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="input-field"
+              className={styles.inputField}
               placeholder="비밀번호를 입력하세요"
             />
           </div>
-          <button type="submit" className="register-button">
+          <button type="submit" className={styles.registerButton}>
             가입하기
           </button>
         </form>

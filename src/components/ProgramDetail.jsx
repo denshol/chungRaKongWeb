@@ -1,6 +1,7 @@
-import React from "react";
+// ProgramDetail.jsx
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import img1 from "../assets/image/programDetails/PilatesTeacher2.jpg";
+import img1 from "../assets/image/programImages/chungRaPilates.jpg";
 import img2 from "../assets/image/poster/chungRaVocalPos.jpg";
 import img4 from "../assets/image/programDetails/chungRaCajon.jpg";
 import img5 from "../assets/image/programDetails/chungRaEng.png";
@@ -14,6 +15,7 @@ import img12 from "../assets/image/poster/chungRaDrumPos.png";
 import img13 from "../assets/image/programDetails/chungRaViolin.jpg";
 import img14 from "../assets/image/programDetails/chungRaCheloThumb.jpg";
 import img15 from "../assets/image/poster/chungRaElecPos.jpg";
+import styles from "../styles/program.module.css";
 
 const programs = [
   {
@@ -38,7 +40,6 @@ const programs = [
     instructor: "이순신",
     schedule: "6월 15일 오후 2시",
   },
-  
   {
     id: 4,
     title: "카혼",
@@ -177,28 +178,61 @@ const ProgramDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const program = programs.find((p) => p.id === parseInt(id));
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   if (!program) {
-    return <div className="error-message">프로그램을 찾을 수 없습니다.</div>;
+    return (
+      <div className={styles.errorMessage}>프로그램을 찾을 수 없습니다.</div>
+    );
   }
 
   return (
-    <div className="program-detail">
-      <div className="program-detail-container">
-        <img
-          loading="lazy"
-          src={program.image}
-          alt={program.title}
-          className="detail-image"
-          onError={(e) => {
-            e.target.src = "../assets/image/placeholder.jpg"; // 에러시 대체 이미지
-          }}
-        />
-        <div className="detail-content">
-          <h1 className="detail-title">{program.title}</h1>
-          <p className="detail-description">{program.description}</p>
+    <div className={styles.programDetail}>
+      <div className={styles.programDetailContainer}>
+        <div
+          className={styles.imageWrapper}
+          onClick={() => setIsImageModalOpen(true)}
+        >
+          <img
+            loading="lazy"
+            src={program.image}
+            alt={program.title}
+            className={styles.detailImage}
+            onError={(e) => {
+              e.target.src = "../assets/image/placeholder.jpg";
+            }}
+          />
+          <div className={styles.imageOverlay}>
+            <span>클릭하여 확대</span>
+          </div>
+        </div>
 
-          <div className="program-info">
+        {isImageModalOpen && (
+          <div
+            className={styles.modal}
+            onClick={() => setIsImageModalOpen(false)}
+          >
+            <div className={styles.modalContent}>
+              <img
+                src={program.image}
+                alt={program.title}
+                className={styles.modalImage}
+              />
+              <button
+                className={styles.closeButton}
+                onClick={() => setIsImageModalOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className={styles.detailContent}>
+          <h1 className={styles.detailTitle}>{program.title}</h1>
+          <p className={styles.detailDescription}>{program.description}</p>
+
+          <div className={styles.programInfo}>
             <p>
               <strong>가격:</strong> {program.price}
             </p>
@@ -216,8 +250,8 @@ const ProgramDetail = () => {
             </p>
           </div>
 
-          <button className="cta-button">신청하기</button>
-          <button className="back-btn" onClick={() => navigate("/")}>
+          <button className={styles.ctaButton}>신청하기</button>
+          <button className={styles.backBtn} onClick={() => navigate("/")}>
             목록으로 돌아가기
           </button>
         </div>

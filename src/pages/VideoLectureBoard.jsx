@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/VideoLectureBoard.css";
+import "../styles/VideoLectureBoard.module.css";
 
 const VideoLectureBoard = () => {
   const [videoLectures, setVideoLectures] = useState([]);

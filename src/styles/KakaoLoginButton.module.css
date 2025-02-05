@@ -1,0 +1,25 @@
+.kakaoButton {
+  width: 100%;
+  height: 45px;
+  background: #fee500;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3c1e1e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.kakaoButton:hover {
+  background: #fdd835;
+}
+
+.kakaoLogo {
+  width: 24px;
+  height: 24px;
+}

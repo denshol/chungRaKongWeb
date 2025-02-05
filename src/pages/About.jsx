@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/About.css";
+import "../styles/About.module.css";
 import img1 from "../assets/image/programDetails/PilatesTeacher2.jpg";
 import img2 from "../assets/image/chungRaFestival.jpg";
 import img3 from "../assets/image/concert3.jpg";

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import img2 from "../assets/image/banner/chungRaBanner.png";
+import img2 from "../assets/image/banner/chungRaMain1.jpg";
 import img3 from "../assets/image/banner/chungRaBanner2.png";
 import img4 from "../assets/image/banner/chungRaBanner3.png";
 import img5 from "../assets/image/banner/chungRaBanner4.png";
-import "../styles/HeroSlider.css";
+import "../styles/HeroSlider.module.css";
 
 const images = [img2, img3, img4, img5];
 

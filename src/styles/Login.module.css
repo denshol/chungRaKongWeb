@@ -1,0 +1,183 @@
+@import "./base.css"; /* ✅ 기본 스타일 불러오기 */
+
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e9ed 100%);
+  padding: 20px;
+}
+
+.loginCard {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
+}
+
+.loginCard:hover {
+  transform: translateY(-5px);
+}
+
+.loginTitle {
+  color: var(--primary-dark);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  border-color: var(--primary-color);
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(106, 191, 105, 0.15);
+}
+
+.loginButton {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.loginButton:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
+}
+
+/* ✅ 소셜 로그인 스타일 */
+.socialLogin {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kakaoButton {
+  width: 100%;
+  height: 45px;
+  background: #fee500;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kakaoLogo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+/* ✅ 회원가입 버튼 */
+.signupLink {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.signupLink p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.signupButton {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: rgba(106, 191, 105, 0.1);
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.signupButton:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
+}
+
+/* ✅ 반응형 디자인 */
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 30px 20px;
+  }
+
+  .loginTitle {
+    font-size: 1.75rem;
+  }
+}
+.kakaoButton {
+  width: 100%;
+  padding: 14px; /* 기존 로그인 버튼과 동일 */
+  background: #fee500;
+  color: #3c1e1e; /* 카카오 로고와 같은 색상 */
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* 로고와 텍스트 간격 조정 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.kakaoButton:hover {
+  background: #fdd835;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(253, 216, 53, 0.4);
+}
+
+.kakaoButton img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
