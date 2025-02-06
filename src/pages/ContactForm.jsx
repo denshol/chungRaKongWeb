@@ -30,7 +30,10 @@ const ContactForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            ...formData,
+            programTitle: "문의하기", // 기본 프로그램 제목 추가
+          }),
         }
       );
 

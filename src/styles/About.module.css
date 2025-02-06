@@ -13,7 +13,8 @@
   text-align: center;
   color: white;
   position: relative;
-  background: url("../assets/image/programDetails/chungRaGuitar2.png") no-repeat center;
+  background: url("../assets/image/programDetails/chungRaGuitar2.png") no-repeat
+    center;
   background-size: cover;
 }
 
@@ -38,7 +39,7 @@
   font-weight: 800;
   color: white;
   letter-spacing: 2px;
-  line-height: 1.1
+  line-height: 1.1;
 }
 
 .heroGradient {
@@ -47,7 +48,7 @@
   background: linear-gradient(90deg, #38bdf8, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1; 
+  line-height: 1;
 }
 
 .heroText {
@@ -59,18 +60,20 @@
 }
 
 /* Vision, Program, Facility Sections */
-.visionSection, .programSection, .facilitySection {
+.visionSection,
+.programSection,
+.facilitySection {
   text-align: center;
   padding: 100px 20px;
-  
 }
 
-.visionSection h2, .programSection h2, .facilitySection h2 {
+.visionSection h2,
+.programSection h2,
+.facilitySection h2 {
   font-size: 3rem;
   font-weight: bold;
   color: #333;
-  line-height: 0.6; 
-  
+  line-height: 0.6;
 }
 
 .sectionText {
@@ -81,14 +84,18 @@
   line-height: 1.3;
 }
 
-.visionGrid, .programGrid, .facilityGrid {
+.visionGrid,
+.programGrid,
+.facilityGrid {
   display: flex;
   justify-content: center;
   gap: 50px;
   flex-wrap: wrap;
 }
 
-.visionCard, .programCard, .facilityCard {
+.visionCard,
+.programCard,
+.facilityCard {
   max-width: 350px;
   padding: 40px;
   background: white;
@@ -98,7 +105,9 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.visionCard:hover, .programCard:hover, .facilityCard:hover {
+.visionCard:hover,
+.programCard:hover,
+.facilityCard:hover {
   transform: translateY(-10px);
 }
 
@@ -126,7 +135,9 @@
     font-size: 1.5rem;
   }
 
-  .visionGrid, .programGrid, .facilityGrid {
+  .visionGrid,
+  .programGrid,
+  .facilityGrid {
     flex-direction: column;
     align-items: center;
   }
