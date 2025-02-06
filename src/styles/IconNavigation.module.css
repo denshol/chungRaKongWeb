@@ -1,12 +1,16 @@
 @value breakpoint-lg: 1024px;
 @value breakpoint-sm: 640px;
+
 .iconNav {
   width: 100%;
   padding: 2rem 0;
-  background: white;
-  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+  border-radius: 25px;
   margin: 1rem 0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
+
 .iconContainer {
   max-width: 1200px;
   margin: 0 auto;
@@ -15,6 +19,7 @@
   gap: 1rem;
   padding: 0 1rem;
 }
+
 .iconItem {
   display: flex;
   flex-direction: column;
@@ -23,70 +28,148 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-decoration: none;
   color: #333;
+  position: relative;
 }
+
+.iconItem::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #4caf50;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.iconItem:hover::before {
+  width: 80%;
+}
+
 .iconItem:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px) scale(1.05);
 }
+
 .iconWrapper {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background: #f8f9fa;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s ease;
+  margin-bottom: 0.75rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
+
 .iconWrapper svg {
-  font-size: 24px;
+  font-size: 28px;
   color: #4caf50;
-  transition: color 0.3s ease;
+  transition: color 0.4s ease, transform 0.3s ease;
 }
+
 .iconItem:hover .iconWrapper {
   background: #4caf50;
+  transform: rotate(15deg);
 }
+
 .iconItem:hover .iconWrapper svg {
   color: white;
+  transform: scale(1.2);
 }
+
 .iconLabel {
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 0.5rem;
-  color: #666;
+  color: #333;
   text-align: center;
+  transition: color 0.3s ease;
 }
+
+.iconItem:hover .iconLabel {
+  color: #4caf50;
+}
+
 .newBadge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -7px;
+  right: -7px;
   background: #ff4757;
   color: white;
   font-size: 0.7rem;
   padding: 2px 6px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: bold;
+  box-shadow: 0 5px 10px rgba(255, 71, 87, 0.3);
+  animation: pulse 1.5s infinite;
 }
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.customerCenter {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.customerPhone {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.customerPhone:hover {
+  color: #4caf50;
+}
+
+.customerHours {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
 @media (max-width: breakpoint-lg) {
   .iconContainer {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
 @media (max-width: breakpoint-sm) {
   .iconContainer {
     grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
   }
+
   .iconWrapper {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
   }
+
   .iconWrapper svg {
-    font-size: 20px;
+    font-size: 22px;
   }
+
   .iconLabel {
     font-size: 0.8rem;
   }

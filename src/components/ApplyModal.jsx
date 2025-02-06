@@ -1,23 +1,26 @@
-// components/ApplyModal.jsx
 import React, { useState } from "react";
 import { FiUser, FiMail, FiPhone, FiMessageSquare, FiX } from "react-icons/fi";
 import axios from "axios";
 import styles from "../styles/ApplyModal.module.css";
 
 const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
+  // programTitle prop이 없으면 기본값을 사용
+  const initialProgramTitle = programTitle
+    ? programTitle
+    : "프로그램 제목 없음";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    programTitle: programTitle,
+    programTitle: initialProgramTitle,
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
-  // Phone number formatting helper
+  // 전화번호 입력 시 포맷팅 (숫자만 남기고 하이픈 추가)
   const formatPhoneNumber = (value) => {
     const numbers = value.replace(/[^\d]/g, "");
     if (numbers.length <= 3) return numbers;
@@ -29,51 +32,54 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     )}`;
   };
 
+  // 입력값 검증 함수
   const validateForm = () => {
     const errors = {};
 
-    // Name validation
-    if (formData.name.length < 2) {
+    if (formData.name.trim().length < 2) {
       errors.name = "이름을 2자 이상 입력해주세요.";
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if (!emailRegex.test(formData.email.trim())) {
       errors.email = "유효한 이메일 주소를 입력해주세요.";
     }
 
-    // Phone validation
     const phoneRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-    if (!phoneRegex.test(formData.phone.replace(/-/g, ""))) {
+    const plainPhone = formData.phone.replace(/-/g, "");
+    if (!phoneRegex.test(plainPhone)) {
       errors.phone = "유효한 전화번호를 입력해주세요.";
+    }
+
+    // programTitle은 서버에서 필수로 검사하므로 빈 값이면 오류 처리
+    if (!formData.programTitle || formData.programTitle.trim() === "") {
+      errors.programTitle = "프로그램 제목이 누락되었습니다.";
     }
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
+  // 입력값 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Format phone number as user types
     if (name === "phone") {
-      const formattedPhone = formatPhoneNumber(value);
-      setFormData((prev) => ({ ...prev, [name]: formattedPhone }));
+      const formatted = formatPhoneNumber(value);
+      setFormData((prev) => ({ ...prev, [name]: formatted }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
-    // Clear field-specific error when user starts typing
+    // 해당 필드의 에러가 있다면 삭제
     if (fieldErrors[name]) {
       setFieldErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
+  // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form before submission
     if (!validateForm()) {
       setError("입력 정보를 다시 확인해주세요.");
       return;
@@ -87,14 +93,13 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
         "http://localhost:5000/api/applications",
         formData
       );
-
       console.log("신청 성공:", response.data);
-      onSubmit(formData); // 부모 컴포넌트에 성공 알림
-      onClose(); // 모달 닫기
-    } catch (error) {
-      console.error("신청 실패:", error);
+      onSubmit(formData);
+      onClose();
+    } catch (err) {
+      console.error("신청 실패:", err);
       setError(
-        error.response?.data?.message || "신청 처리 중 오류가 발생했습니다."
+        err.response?.data?.message || "신청 처리 중 오류가 발생했습니다."
       );
     } finally {
       setLoading(false);
@@ -112,7 +117,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
 
         <h2 className={styles.modalTitle}>프로그램 신청</h2>
         <p className={styles.modalSubtitle}>
-          {programTitle} 프로그램 신청 정보를 입력해주세요
+          {formData.programTitle} 프로그램 신청 정보를 입력해주세요.
         </p>
 
         {error && <div className={styles.errorMessage}>{error}</div>}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import img2 from "../assets/image/banner/chungRaMain1.jpg";
 import img3 from "../assets/image/banner/chungRaMainDrum.jpg";
 import img4 from "../assets/image/banner/chungRaMainGuitar.jpg";
-import img5 from "../assets/image/banner/chungRaMainDrum2.jpg";
+import img5 from "../assets/image/banner/chungRaMainEng2.jpg";
 import styles from "../styles/HeroSlider.module.css";
 
 const images = [img2, img3, img4, img5];

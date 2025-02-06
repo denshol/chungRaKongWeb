@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+  FaClock,
+  FaUserTie,
+  FaTag,
+  FaExpandArrowsAlt,
+  FaHome,
+  FaCheckCircle,
+} from "react-icons/fa";
 import img1 from "../assets/image/programImages/chungRaPilates.jpg";
 import img2 from "../assets/image/poster/chungRaVocalPos.jpg";
 import img4 from "../assets/image/programDetails/chungRaCajon.jpg";
@@ -25,9 +35,7 @@ const programs = [
     description: "체계적인 관리로 건강한 다이어트 실현!",
     price: "무료",
     image: img1,
-
     location: "인천 청라동",
-
     schedule: "매주 금 오후 4시",
   },
   {
@@ -188,10 +196,9 @@ const ProgramDetail = () => {
 
   // 신청 폼 제출 처리 함수
   const handleFormSubmit = (formData) => {
-    // 폼 데이터 서버로 전송 (여기서는 콘솔에 출력)
     console.log(formData);
-    setIsApplyModalOpen(false); // 신청 모달 닫기
-    setIsSuccessModalOpen(true); // 신청 완료 모달 열기
+    setIsApplyModalOpen(false);
+    setIsSuccessModalOpen(true);
   };
 
   // 프로그램이 없을 경우
@@ -215,11 +222,14 @@ const ProgramDetail = () => {
             alt={program.title}
             className={styles.detailImage}
             onError={(e) => {
-              e.target.src = "../assets/image/placeholder.jpg"; // 오류 시 기본 이미지
+              e.target.src = "../assets/image/placeholder.jpg";
             }}
           />
           <div className={styles.imageOverlay}>
-            <span>클릭하여 확대</span>
+            <span>
+              <FaExpandArrowsAlt style={{ marginRight: "8px" }} />
+              클릭하여 확대
+            </span>
           </div>
         </div>
 
@@ -252,30 +262,53 @@ const ProgramDetail = () => {
 
           <div className={styles.programInfo}>
             <p>
+              <FaTag className={styles.infoIcon} />
               <strong>가격:</strong> {program.price}
             </p>
 
             <p>
+              <FaMapMarkerAlt className={styles.infoIcon} />
               <strong>장소:</strong> {program.location}
             </p>
 
+            {program.instructor && (
+              <p>
+                <FaUserTie className={styles.infoIcon} />
+                <strong>강사:</strong> {program.instructor}
+              </p>
+            )}
+
             <p>
+              <FaCalendarAlt className={styles.infoIcon} />
               <strong>일정:</strong> {program.schedule}
             </p>
+
+            {program.duration && (
+              <p>
+                <FaClock className={styles.infoIcon} />
+                <strong>시간:</strong> {program.duration}
+              </p>
+            )}
           </div>
 
           {/* 신청하기 버튼 */}
-          <button
-            className={styles.ctaButton}
-            onClick={() => setIsApplyModalOpen(true)}
-          >
-            신청하기
-          </button>
+          <div className={styles.buttonContainer}>
+  <button
+    className={styles.ctaButton}
+    onClick={() => setIsApplyModalOpen(true)}
+  >
+    <FaCheckCircle style={{ marginRight: '10px' }} />
+    신청하기
+  </button>
 
-          {/* 목록으로 돌아가기 버튼 */}
-          <button className={styles.backBtn} onClick={() => navigate("/")}>
-            목록으로 돌아가기
-          </button>
+  <button 
+    className={styles.backBtn} 
+    onClick={() => navigate("/")}
+  >
+    <FaHome style={{ marginRight: '10px' }} />
+    목록으로 돌아가기
+  </button>
+</div>
         </div>
       </div>
 
@@ -285,6 +318,7 @@ const ProgramDetail = () => {
           isOpen={isApplyModalOpen}
           onClose={() => setIsApplyModalOpen(false)}
           onSubmit={handleFormSubmit}
+          programTitle={program.title}
         />
       )}
 

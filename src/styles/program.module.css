@@ -3,26 +3,28 @@
 
 .programDetail {
   max-width: 1200px;
-  margin: 100px auto;
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #ffffff, #f4f6f9);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1),
+    0 10px 20px -5px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .programDetail:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.15),
+    0 15px 25px -10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
 }
 
 .programDetailContainer {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 40px;
+  gap: 2.5rem;
   position: relative;
 }
 
@@ -30,17 +32,28 @@
   position: relative;
   max-width: 500px;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrapper:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .detailImage {
   width: 100%;
   height: 400px;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #f8f9fa;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
+}
+
+.imageWrapper:hover .detailImage {
+  transform: scale(1.1);
 }
 
 .imageOverlay {
@@ -49,7 +62,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,10 +72,11 @@
 
 .imageOverlay span {
   color: white;
-  font-size: 1.1rem;
-  padding: 8px 16px;
-  border-radius: 20px;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 25px;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
 }
 
 .imageWrapper:hover .imageOverlay {
@@ -75,169 +89,231 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 20px;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modalContent {
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modalImage {
   max-width: 100%;
   max-height: 90vh;
   object-fit: contain;
+  border-radius: 15px;
 }
 
 .closeButton {
   position: absolute;
   top: -40px;
   right: 0;
-  background: none;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  padding: 10px;
-  line-height: 1;
+  padding: 10px 15px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
 }
 
 .detailContent {
   flex: 1;
-  padding: 32px;
   min-width: 300px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .detailTitle {
   font-size: 2.5rem;
   color: #2c3e50;
-  margin-bottom: 24px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #4caf50, #2196f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
 }
 
 .detailDescription {
   font-size: 1.1rem;
   color: #34495e;
-  line-height: 1.6;
-  margin-bottom: 32px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  opacity: 0.9;
 }
 
 .programInfo {
-  background: rgba(52, 152, 219, 0.03);
-  padding: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(52, 152, 219, 0.05),
+    rgba(52, 152, 219, 0.1)
+  );
+  padding: 1.5rem;
   border-radius: 15px;
-  margin: 24px 0;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
 .programInfo p {
-  margin: 12px 0;
-  font-size: 1.1rem;
-  color: #34495e;
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.programInfo p:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+}
+
+.infoIcon {
+  margin-right: 12px;
+  color: #3498db;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.programInfo p:hover .infoIcon {
+  color: #4caf50;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .programInfo p strong {
-  color: #2c3e50;
-  margin-right: 8px;
+  color: #3498db;
+  margin-right: 10px;
+  min-width: 70px;
+  display: inline-block;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  margin: 1rem 0;
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+}
+
+.ctaButton:hover {
+  background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(76, 175, 80, 0.4);
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #2c3e50;
+  background: transparent;
+  color: #2c3e50;
+  margin: 1rem 0;
+}
+
+.backBtn:hover {
+  background: #2c3e50;
+  color: white;
+  transform: translateY(-3px);
 }
 
 .errorMessage {
   text-align: center;
   font-size: 1.5rem;
   color: #e74c3c;
-  margin-top: 64px;
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.95);
+  margin: 4rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #ffffff, #f4f6f9);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-}
-
-.ctaButton {
-  padding: 16px 32px;
-  border-radius: 15px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  margin: 16px;
-  background: var(--primary-color);
-  color: white;
-}
-
-.ctaButton:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.backBtn {
-  padding: 16px 32px;
-  border-radius: 15px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid #2c3e50;
-  margin: 16px;
-  background: transparent;
-  color: #2c3e50;
-}
-
-.backBtn:hover {
-  background: #2c3e50;
-  color: white;
-  transform: translateY(-2px);
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .programDetail {
-    margin: 60px auto;
-    padding: 16px;
+  .programDetailContainer {
+    flex-direction: column;
+    align-items: center;
   }
 
   .imageWrapper {
     max-width: 100%;
   }
 
-  .detailImage {
-    height: auto;
-    max-height: 400px;
+  .detailContent {
+    width: 100%;
+    padding: 1.5rem;
   }
 
   .detailTitle {
     font-size: 2rem;
   }
 
-  .detailContent {
-    padding: 16px;
-  }
-
-  .programInfo {
-    padding: 16px;
-  }
-
-  .modalContent {
-    width: 95vw;
-  }
-
-  .closeButton {
-    top: -50px;
+  .ctaButton,
+  .backBtn {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .programDetail {
-    padding: 12px;
-    margin: 40px auto;
+    margin: 2rem auto;
+    padding: 1rem;
   }
 
   .detailTitle {
@@ -249,84 +325,19 @@
   }
 
   .programInfo p {
-    font-size: 1rem;
-  }
-
-  .ctaButton,
-  .backBtn {
-    width: 100%;
-    margin: 8px 0;
-    padding: 14px 24px;
+    font-size: 0.9rem;
   }
 }
-/* 신청 완료 모달 스타일 */
-.successContainer {
+.buttonContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
+  justify-content: space-between;
+  gap: 1rem; /* 버튼 사이 간격 추가 */
+  margin-top: 1.5rem;
+}
+
+.detailImage {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-  z-index: 1000;
-}
-
-.messageBox {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 40px 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 450px;
-  width: 100%;
-}
-
-.successIcon {
-  font-size: 50px;
-  margin-bottom: 20px;
-  color: #2ecc71;
-}
-
-.successTitle {
-  font-size: 28px;
-  color: #2ecc71;
-  margin-bottom: 20px;
-}
-
-.successText {
-  font-size: 16px;
-  color: #34495e;
-  margin-bottom: 30px;
-}
-
-.homeButton {
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.homeButton:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
-
-.closeButton {
-  background-color: transparent;
-  color: #2ecc71;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.closeButton:hover {
-  text-decoration: underline;
+  height: 500px; /* 세로 길이 증가 */
+  object-fit: cover; /* 이미지 비율 유지하며 자르기 */
+  background-color: #f8f9fa;
 }
