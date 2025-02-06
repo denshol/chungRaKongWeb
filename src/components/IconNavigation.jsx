@@ -17,14 +17,7 @@ const IconNavigation = () => {
           </a>
         ))}
       </div>
-      <div className={styles.customerCenter}>
-        {/* <a href="tel:0234481770" className={styles.customerPhone}>
-          문의 010.8006.1715
-        </a>
-        <p className={styles.customerHours}>
-          월12~22시/토12~19시 전화상담 가능(일요일 휴무)
-        </p> */}
-      </div>
+    
     </nav>
   );
 };
