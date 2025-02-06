@@ -1,0 +1,68 @@
+.bannerContainer {
+  position: relative;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.textContainer {
+  z-index: 10;
+}
+
+.promoText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.pagination {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 20;
+}
+
+.decorations {
+  position: absolute;
+  right: 4rem;
+  top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.circle {
+  width: 3rem;
+  height: 3rem;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: bounce 1s infinite;
+}
+
+.rectangle {
+  width: 4rem;
+  height: 2rem;
+  background-color: #4ade80;
+  transform: rotate(12deg);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

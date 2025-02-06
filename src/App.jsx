@@ -10,6 +10,8 @@ import FeaturedClasses2 from "./components/FeaturedClasses2";
 import AdminDashboard from "./pages/AdminDashboard";
 import { AuthContext } from "./contexts/AuthContext"; // 사용자 상태 컨텍스트
 import ProtectedRoute from "./components/ProtectedRoute";
+import Main from "./pages/Main";
+import ProgramRanking from "./components/ProgramRanking";
 
 const HeroSlider = lazy(() => import("./components/HeroSlider"));
 const ProgramList = lazy(() => import("./components/ProgramList"));
@@ -34,10 +36,7 @@ function App() {
             path="/"
             element={
               <>
-                <HeroSlider />
-                <ProgramList />
-                <FeaturedClasses />  {/* ✅ 여기서만 사용! */}
-                <FeaturedClasses2 />
+                <Main />
               </>
             }
           />
@@ -49,6 +48,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/video-lectures" element={<VideoLectureBoard />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/ranking" element={<ProgramRanking />} />
+          <Route path="/music" element={<FeaturedClasses />} />
           {/* 관리자 대시보드 보호 라우트 */}
           <Route
             path="/admin"
@@ -60,10 +61,9 @@ function App() {
           />
         </Routes>
       </Suspense>
-      <Footer />  {/* ✅ 하단 FeaturedClasses 삭제 */}
+      <Footer /> {/* ✅ 하단 FeaturedClasses 삭제 */}
     </Router>
   );
 }
-
 
 export default App;

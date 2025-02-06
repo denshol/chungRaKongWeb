@@ -1,75 +1,79 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
-import "../styles/Navbar.module.css";
+import { FiPhone } from "react-icons/fi"; // 전화 아이콘 import
+import styles from "../styles/Navbar.module.css";
 import logo from "../assets/image/chungRaKong.png";
 
-// Navbar.jsx
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <header className="navbar">
-      <div className="navbar-container">
-        {/* 로고와 네비게이션 링크를 하나의 그룹으로 */}
-        <div className="nav-left-group">
-          {/* 로고 & 브랜드 네임 */}
-          <div className="brand">
-            <Link to="/" className="logo" title="홈으로 가기">
+    <header className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
+      <div className={styles.navbarContainer}>
+        <div className={styles.navLeftGroup}>
+          <div className={styles.brand}>
+            <Link to="/" className={styles.logo} title="홈으로 가기">
               <img src={logo} alt="청라콩 로고" loading="lazy" />
-              <span className="brand-name">청라콩</span>
+              <span className={styles.brandName}>청라콩</span>
             </Link>
           </div>
 
-          {/* 네비게이션 메뉴 */}
-          <nav className={`nav-links ${isMenuOpen ? "active" : ""}`}>
-            <Link to="/about" className="nav-link">
+          <nav
+            className={`${styles.navLinks} ${isMenuOpen ? styles.active : ""}`}
+          >
+            <Link to="/about" className={styles.navLink}>
               소개
             </Link>
 
-            <div className="nav-link dropdown">
-              <span className="dropdown-trigger">프로그램</span>
-              <div className="dropdown-menu">
-                <Link to="/services" className="dropdown-item">
+            <div className={`${styles.navLink} ${styles.dropdown}`}>
+              <span className={styles.dropdownTrigger}>프로그램</span>
+              <div className={styles.dropdownMenu}>
+                <Link to="/services" className={styles.dropdownItem}>
                   전체 프로그램
                 </Link>
-                <Link to="/video-lectures" className="dropdown-item">
+                <Link to="/video-lectures" className={styles.dropdownItem}>
                   영상 강의
                 </Link>
               </div>
             </div>
 
-            <Link to="/contact" className="nav-link">
+            <Link to="/contact" className={styles.navLink}>
               문의
             </Link>
           </nav>
         </div>
 
-        {/* 로그인/마이페이지 버튼 */}
-        <div className="auth-section">
-          {user ? (
-            <Link to="/mypage" className="nav-link cta">
-              마이페이지
-            </Link>
-          ) : (
-            <Link to="/login" className="nav-link cta">
-              로그인
-            </Link>
-          )}
+        <div className={styles.contactInfo}>
+          <FiPhone className={styles.phoneIcon} />
+          <span className={styles.phoneNumber}> 010-8006-1715</span>
         </div>
 
-        {/* 모바일 메뉴 버튼 */}
         <button
-          className="menu-toggle"
+          className={styles.menuToggle}
           onClick={toggleMenu}
           aria-label="메뉴 열기"
         >
-          <span className={`hamburger ${isMenuOpen ? "active" : ""}`}></span>
+          <span
+            className={`${styles.hamburger} ${isMenuOpen ? styles.active : ""}`}
+          ></span>
         </button>
       </div>
     </header>

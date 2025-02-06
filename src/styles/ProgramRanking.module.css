@@ -1,0 +1,214 @@
+.rankingSection {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.rankingHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.rankingHeader h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.subTitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.rankingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rankingCard {
+  display: flex;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.rankingCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.topRank {
+  border: 2px solid #ffd700;
+}
+
+.rankBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.goldTrophy {
+  color: #ffd700;
+  font-size: 1.4rem;
+}
+
+.cardImage {
+  position: relative;
+  width: 280px;
+  flex-shrink: 0;
+  margin-right: 2rem;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: #4caf50;
+  color: #ffffff;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mainInfo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.instructor {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.statsArea {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.starIcon {
+  color: #ffb400;
+}
+
+.reviews {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.students {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.lessonInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.likeButton {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #666;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.likeButton:hover {
+  transform: scale(1.1);
+  color: #ff4757;
+  border-color: #ff4757;
+}
+
+.description {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .rankingCard {
+    flex-direction: column;
+  }
+
+  .cardImage {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .cardContent {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .rankingSection {
+    padding: 2rem 1rem;
+  }
+
+  .rankingHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .cardImage img {
+    height: 180px;
+  }
+
+  .mainInfo h3 {
+    font-size: 1.3rem;
+  }
+}

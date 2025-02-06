@@ -1,25 +1,30 @@
 .heroSlider {
   position: relative;
   width: 100%;
-  height: 60vh; /* 전체 화면 높이로 설정 */
+  height:auto;
+
   overflow: hidden;
 }
 
 .sliderContainer {
+  position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: auto;
+  overflow: hidden;
 }
 
 .sliderTrack {
   display: flex;
-  transition: transform 0.3s ease-out;
+  flex-direction: row; /* 명시적으로 가로 방향 설정 */
   width: 100%;
   height: 100%;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
 .slide {
-  min-width: 100%;
+  flex: 0 0 100%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 100% */
+  width: 100%;
   height: 100%;
   position: relative;
 }
@@ -27,31 +32,41 @@
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 이미지를 화면에 맞게 자르기 */
+  object-fit: cover;
+  object-position: center;
+  display: block; /* 이미지 간격 제거 */
 }
 
+/* 페이지네이션 스타일 */
 .pagination {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
 }
 
-.dot {
-  width: 12px;
-  height: 12px;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s ease;
+.pageNumber {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.dot.active {
-  background-color: var(--primary-color);
-}
+@media screen and (max-width: 768px) {
+  .heroSlider {
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
 
-.dot:hover {
-  background-color: var(--primary-light);
+  .pagination {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .pageNumber {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
 }

@@ -1,7 +1,5 @@
-/* 네비게이션 바 스타일 */
 .navbar {
-  background: var(--white);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background: transparent;
   padding: 0.75rem 5%;
   position: fixed;
   top: 0;
@@ -11,97 +9,105 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
 }
 
-/* 내부 컨테이너 */
-.navbar-container {
+.navbarContainer {
   max-width: 1400px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
 }
 
-/* 로고 + 브랜드명을 왼쪽 정렬 */
+.navLeftGroup {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.brand .logo {
+.logo {
   display: flex;
   align-items: center;
   text-decoration: none;
   gap: 8px;
 }
 
-.brand .logo img {
+.logo img {
   height: 40px;
   width: 40px;
   object-fit: contain;
   border-radius: 8px;
-  transition: transform 0.3s ease;
 }
 
-.brand .logo:hover img {
-  transform: scale(1.05);
-}
-
-.brand .brand-name {
-  color: var(--primary-color);
+.brandName {
+  color: white;
   font-weight: 700;
   font-size: 1.4rem;
 }
 
-/* 네비게이션 메뉴 (가운데 정렬) */
-.nav-links {
+.navLinks {
   display: flex;
   align-items: center;
   gap: 2rem;
-  flex-grow: 1;
-  justify-content: center; /* 중앙 정렬 */
 }
 
-.nav-link {
-  font-size: 1rem;
-  color: var(--text-secondary);
+.navLink {
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-weight: 500;
-  position: relative;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0;
+  transition: color 0.3s ease;
 }
 
-/* 로그인 or 마이페이지 버튼 (오른쪽) */
-.auth-section {
-  display: flex;
-  align-items: center;
+.dropdownTrigger {
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* CTA 버튼 (로그인, 마이페이지) */
-.nav-link.cta {
+/* 스크롤된 상태 스타일 */
+.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.scrolled .brandName {
+  color: var(--primary-color);
+}
+
+.scrolled .navLink,
+.scrolled .dropdownTrigger {
+  color: var(--text-secondary);
+}
+
+/* CTA 버튼 */
+.navLink.cta {
   background-color: var(--primary-color);
-  color: var(--white);
+  color: white !important;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   transition: all 0.3s ease;
-  font-weight: 500;
 }
 
-.nav-link.cta:hover {
+.navLink.cta:hover {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
 }
 
-/* 드롭다운 메뉴 스타일 */
+/* 드롭다운 */
 .dropdown {
   position: relative;
   cursor: pointer;
 }
 
-.dropdown-menu {
+.dropdownMenu {
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 50%;
@@ -114,278 +120,119 @@
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  transform: translateX(-50%) translateY(10px);
   z-index: 1001;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdownMenu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
 }
 
-/* 모바일 메뉴 토글 */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.hamburger {
-  display: block;
-  position: relative;
-  width: 24px;
-  height: 2px;
-  background-color: var(--primary-color);
-  transition: all 0.3s ease;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background-color: var(--primary-color);
-  transition: all 0.3s ease;
-}
-
-.hamburger::before {
-  top: -6px;
-}
-
-.hamburger::after {
-  bottom: -6px;
-}
-
-.hamburger.active {
-  background-color: transparent;
-}
-
-.hamburger.active::before {
-  top: 0;
-  transform: rotate(45deg);
-}
-
-.hamburger.active::after {
-  bottom: 0;
-  transform: rotate(-45deg);
-}
-
-/* 모바일 반응형 */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--white);
-    flex-direction: column;
-    gap: 0;
-    padding: 1rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-  }
-
-  .nav-links.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-}
-/* 네비게이션 메뉴 (가운데 정렬 & 간격 조정) */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 5rem; /* 기존 2rem에서 3rem으로 간격 증가 */
-  flex-grow: 1;
-  justify-content: center;
-}
-
-.dropdown-item {
+.dropdownItem {
   padding: 0.5rem 1rem;
   display: block;
   text-align: center;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: var(--text-secondary) !important;
+  text-decoration: none;
   transition: all 0.3s ease;
-  margin: 0.25rem 0 !important;
 }
 
-/* 프로그램 드롭다운이 네비게이션 바의 다른 메뉴와 크기, 정렬이 일치하도록 수정 */
-.nav-link.dropdown {
-  padding: 0.5rem 0; /* 기존 패딩과 동일하게 설정 */
-  font-size: 1rem; /* 다른 네비게이션 링크와 동일한 크기 */
-  font-weight: 500;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 모바일 메뉴 */
+.menuToggle {
+  display: none;
 }
 
-.dropdown-trigger {
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0.5rem 0;
-  display: inline-flex; /* 다른 요소들과 정렬 */
-  align-items: center;
-  justify-content: center;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0;
-  min-width: 160px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1001;
-}
-
-.dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-@import "./base.css"; /* 기본 스타일 불러오기 */
-
-/* 네비게이션 바 스타일 */
-.navbar {
-  background: var(--white);
-  box-shadow: 0 2px 15px rgba(89, 194, 49, 0.1);
-  border-bottom: 2px solid var(--primary-light);
-  padding: 0px 3%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-/* 로고 스타일 */
-.navbar .logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.navbar .logo img {
-  height: 60px;
-  width: 60px;
-  object-fit: contain;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.navbar .brand-name {
-  color: var(--primary-color);
-  font-weight: 700;
-  font-size: 1.8rem;
-}
-
-/* 네비게이션 링크 */
-.nav-links {
-  display: flex;
-  align-items: center;
-}
-
-.nav-links a {
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  text-decoration: none;
-  font-weight: 600;
-  position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: var(--primary-color);
-  transform: translateY(-2px);
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -5px;
-  left: 0;
-  background-color: var(--primary-color);
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-/* Navbar.module.css */
-.nav-left-group {
-  display: flex;
-  align-items: center;
-  gap: 3rem; /* 로고와 네비게이션 링크 사이 간격 */
-}
-
-.navbar-container {
-  max-width: 1400px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-}
-
-/* 네비게이션 링크 스타일 수정 */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-left: 2rem; /* 로고와의 간격 */
-}
-
-/* 반응형 스타일 수정 */
 @media (max-width: 768px) {
-  .nav-left-group {
-    flex-direction: column;
-    align-items: flex-start;
+  .menuToggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
   }
 
-  .nav-links {
+  .navLinks {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background-color: var(--white);
     flex-direction: column;
-    margin-left: 0;
     padding: 1rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
   }
 
-  .nav-links.active {
+  .navLinks.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+
+  .navLinks .navLink {
+    color: var(--text-secondary) !important;
+    padding: 0.5rem 1rem;
+  }
+}
+/* contactInfo 스타일 추가 */
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.phoneIcon {
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.phoneNumber {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* 스크롤 상태에서의 스타일 */
+.scrolled .contactInfo {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.scrolled .phoneNumber {
+  color: var(--text-secondary);
+}
+
+.scrolled .phoneIcon {
+  color: var(--primary-color);
+}
+
+/* 호버 효과 */
+.contactInfo:hover {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.contactInfo:hover .phoneIcon,
+.contactInfo:hover .phoneNumber {
+  color: white;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .contactInfo {
+    display: none; /* 모바일에서는 숨김 */
+  }
+
+  /* 모바일에서 전화번호 표시 (선택사항) */
+  .navLinks.active .contactInfo {
+    display: flex;
+    margin: 1rem auto;
+    width: fit-content;
   }
 }

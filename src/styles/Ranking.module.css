@@ -1,0 +1,68 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f4f6f7;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: scale(1.02);
+}
+
+.rankNumber {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff4757;
+  margin-right: 1rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.info {
+  flex: 1;
+}
+
+.itemTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.itemDescription {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: #5d6470;
+}
+
+.score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4caf50;
+  margin-left: 1rem;
+}
