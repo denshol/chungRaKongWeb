@@ -11,8 +11,8 @@
   align-items: center;
   transition: all 0.3s ease;
   height: 80px;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
 }
 
 .navbarContainer {

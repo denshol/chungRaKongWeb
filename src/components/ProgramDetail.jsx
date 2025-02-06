@@ -1,15 +1,5 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  FaMapMarkerAlt,
-  FaCalendarAlt,
-  FaClock,
-  FaUserTie,
-  FaTag,
-  FaExpandArrowsAlt,
-  FaHome,
-  FaCheckCircle,
-} from "react-icons/fa";
 import img1 from "../assets/image/programImages/chungRaPilates.jpg";
 import img2 from "../assets/image/poster/chungRaVocalPos.jpg";
 import img4 from "../assets/image/programDetails/chungRaCajon.jpg";
@@ -36,7 +26,7 @@ const programs = [
     price: "무료",
     image: img1,
     location: "인천 청라동",
-    schedule: "매주 금 오후 4시",
+    schedule: "매주 금요일 16시",
   },
   {
     id: 2,
@@ -44,10 +34,8 @@ const programs = [
     description: "전문가와 함께하는 보컬 레슨",
     price: "무료",
     image: img2,
-    duration: "1일",
     location: "인천 청라동",
-    instructor: "이순신",
-    schedule: "6월 15일 오후 2시",
+    schedule: "매주 월요일 18~20시, 화요일 18~20시, 토요일 11시",
   },
   {
     id: 4,
@@ -55,10 +43,8 @@ const programs = [
     description: "리듬의 마법을 체험해보세요!",
     price: "무료",
     image: img4,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "유관순",
-    schedule: "매주 화, 목 오후 3시",
+    schedule: "시간협의",
   },
   {
     id: 5,
@@ -66,10 +52,8 @@ const programs = [
     description: "실전에서 바로 쓰는 영어회화!",
     price: "무료",
     image: img5,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "윤봉길",
-    schedule: "매주 토요일 오전 10시",
+    schedule: "매주 토요일 15~17시",
   },
   {
     id: 6,
@@ -77,10 +61,9 @@ const programs = [
     description: "우쿨렐레의 매력에 빠져보세요!",
     price: "무료",
     image: img6,
-    duration: "1시간",
+
     location: "인천 청라동",
-    instructor: "안중근",
-    schedule: "매주 금요일 오후 2시",
+    schedule: "시간협의",
   },
   {
     id: 7,
@@ -88,10 +71,9 @@ const programs = [
     description: "클래식과 팝송을 함께 연주해요!",
     price: "무료",
     image: img7,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "유관순",
-    schedule: "매주 수요일 오후 5시",
+
+    schedule: "매주 토요일 20시",
   },
   {
     id: 8,
@@ -99,10 +81,8 @@ const programs = [
     description: "기타의 다양한 소리를 만나보세요!",
     price: "무료",
     image: img8,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "황진이",
-    schedule: "매주 토요일 오후 3시",
+    schedule: "매주 토요일 오전 10시",
   },
   {
     id: 9,
@@ -110,10 +90,8 @@ const programs = [
     description: "밴드와 함께하는 특별한 연주 시간",
     price: "무료",
     image: img9,
-    duration: "2시간",
     location: "인천 청라동",
-    instructor: "김구",
-    schedule: "매주 목요일 오후 7시",
+    schedule: "매주 토요일 14시",
   },
   {
     id: 10,
@@ -121,10 +99,10 @@ const programs = [
     description: "다함께 노래하는 즐거운 시간",
     price: "무료",
     image: img10,
-    duration: "2시간",
+ 
     location: "인천 청라동",
-    instructor: "이순신",
-    schedule: "매주 금요일 오후 7시",
+  
+    schedule: "매주 토요일 19시",
   },
   {
     id: 11,
@@ -132,10 +110,8 @@ const programs = [
     description: "베이스의 리듬과 멜로디를 연습해요!",
     price: "무료",
     image: img11,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "유관순",
-    schedule: "매주 화요일 오후 4시",
+    schedule: "매주 목요일 18시",
   },
   {
     id: 12,
@@ -143,10 +119,10 @@ const programs = [
     description: "드럼의 강렬한 비트를 연습해요!",
     price: "무료",
     image: img12,
-    duration: "1시간",
+  
     location: "인천 청라동",
-    instructor: "황진이",
-    schedule: "매주 목요일 오후 5시",
+    
+    schedule: "매주 수요일 19~20시, 목 18시",
   },
   {
     id: 13,
@@ -154,10 +130,8 @@ const programs = [
     description: "클래식과 현대 음악을 연주해요!",
     price: "무료",
     image: img13,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "김구",
-    schedule: "매주 수요일 오후 6시",
+    schedule: "매주 토요일 12시30분",
   },
   {
     id: 14,
@@ -165,10 +139,8 @@ const programs = [
     description: "클래식 음악의 아름다움을 느껴요!",
     price: "무료",
     image: img14,
-    duration: "1시간",
     location: "인천 청라동",
-    instructor: "안중근",
-    schedule: "매주 토요일 오후 4시",
+    schedule: "매주 토요일 13시30분",
   },
   {
     id: 15,
@@ -176,10 +148,10 @@ const programs = [
     description: "일렉기타의 다양한 소리를 만나보세요!",
     price: "무료",
     image: img15,
-    duration: "1시간",
+  
     location: "인천 청라동",
-    instructor: "황진이",
-    schedule: "매주 일요일 오후 3시",
+    
+    schedule: "매주 목요일 19시",
   },
 ];
 
@@ -196,9 +168,10 @@ const ProgramDetail = () => {
 
   // 신청 폼 제출 처리 함수
   const handleFormSubmit = (formData) => {
+    // 폼 데이터 서버로 전송 (여기서는 콘솔에 출력)
     console.log(formData);
-    setIsApplyModalOpen(false);
-    setIsSuccessModalOpen(true);
+    setIsApplyModalOpen(false); // 신청 모달 닫기
+    setIsSuccessModalOpen(true); // 신청 완료 모달 열기
   };
 
   // 프로그램이 없을 경우
@@ -222,14 +195,11 @@ const ProgramDetail = () => {
             alt={program.title}
             className={styles.detailImage}
             onError={(e) => {
-              e.target.src = "../assets/image/placeholder.jpg";
+              e.target.src = "../assets/image/placeholder.jpg"; // 오류 시 기본 이미지
             }}
           />
           <div className={styles.imageOverlay}>
-            <span>
-              <FaExpandArrowsAlt style={{ marginRight: "8px" }} />
-              클릭하여 확대
-            </span>
+            <span>클릭하여 확대</span>
           </div>
         </div>
 
@@ -262,53 +232,30 @@ const ProgramDetail = () => {
 
           <div className={styles.programInfo}>
             <p>
-              <FaTag className={styles.infoIcon} />
               <strong>가격:</strong> {program.price}
             </p>
-
+          
             <p>
-              <FaMapMarkerAlt className={styles.infoIcon} />
               <strong>장소:</strong> {program.location}
             </p>
-
-            {program.instructor && (
-              <p>
-                <FaUserTie className={styles.infoIcon} />
-                <strong>강사:</strong> {program.instructor}
-              </p>
-            )}
-
+      
             <p>
-              <FaCalendarAlt className={styles.infoIcon} />
               <strong>일정:</strong> {program.schedule}
             </p>
-
-            {program.duration && (
-              <p>
-                <FaClock className={styles.infoIcon} />
-                <strong>시간:</strong> {program.duration}
-              </p>
-            )}
           </div>
 
           {/* 신청하기 버튼 */}
-          <div className={styles.buttonContainer}>
-  <button
-    className={styles.ctaButton}
-    onClick={() => setIsApplyModalOpen(true)}
-  >
-    <FaCheckCircle style={{ marginRight: '10px' }} />
-    신청하기
-  </button>
+          <button
+            className={styles.ctaButton}
+            onClick={() => setIsApplyModalOpen(true)}
+          >
+            신청하기
+          </button>
 
-  <button 
-    className={styles.backBtn} 
-    onClick={() => navigate("/")}
-  >
-    <FaHome style={{ marginRight: '10px' }} />
-    목록으로 돌아가기
-  </button>
-</div>
+          {/* 목록으로 돌아가기 버튼 */}
+          <button className={styles.backBtn} onClick={() => navigate("/")}>
+            목록으로 돌아가기
+          </button>
         </div>
       </div>
 
@@ -318,7 +265,6 @@ const ProgramDetail = () => {
           isOpen={isApplyModalOpen}
           onClose={() => setIsApplyModalOpen(false)}
           onSubmit={handleFormSubmit}
-          programTitle={program.title}
         />
       )}
 
