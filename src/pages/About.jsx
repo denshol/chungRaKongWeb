@@ -4,9 +4,9 @@ import { FaShieldAlt, FaLightbulb, FaPeopleArrows, FaBuilding, FaCouch, FaMusic,
 
 const About = () => {
   const visionItems = [
-    { icon: <FaShieldAlt style={{ color: 'green' }} />, title: "신뢰받는 청라콩", description: "투명성과 전문성, 순수성과 나눔을 확산합니다." },
-    { icon: <FaLightbulb style={{ color: 'green' }} />, title: "선도하는 청라콩", description: "지속적 연구와 혁신을 바탕으로 도전하는 문화." },
-    { icon: <FaPeopleArrows style={{ color: 'green' }} />, title: "협력하는 청라콩", description: "사람들을 연결하고 더 나은 세상을 만들어갑니다." },
+    { icon: <FaShieldAlt style={{ color: 'green', fontSize: '4rem' }} />, title: "신뢰받는 청라콩", description: "투명성과 전문성, 나눔을 확산합니다." },
+    { icon: <FaLightbulb style={{ color: 'green', fontSize: '4rem' }} />, title: "선도하는 청라콩", description: "지속적 연구와 혁신을 바탕의 문화" },
+    { icon: <FaPeopleArrows style={{ color: 'green', fontSize: '4rem' }} />, title: "협력하는 청라콩", description: "사람들을 연결하고 함께 도와줍니다." },
   ];
 
   const facilityItems = [
@@ -37,10 +37,10 @@ const About = () => {
       {/* Vision Section */}
       <div className={styles.visionSection}>
         <h2>청라콩 비전</h2>
-        <p className={styles.sectionText}>청라콩문화센터는 창의성과 포용성을 바탕으로, 누구나 참여할 수 있는 문화와 교육의 플랫폼을 제공합니다.</p>
+        <p className={styles.sectionText}>청라콩문화센터는 창의성과 포용성을 바탕으로 <br />누구나 참여할 수 있는 문화와 교육의 플랫폼을 제공합니다.</p>
         <div className={styles.visionGrid}>
           {visionItems.map((item, index) => (
-            <div key={index} className={styles.visionCard}>
+            <div key={index} className={styles.visionCard} style={{ height: 'auto', minHeight: '350px' }}>
               <div className={styles.icon}>{item.icon}</div>
               <h3>{item.title}</h3>
               <p>{item.description}</p>

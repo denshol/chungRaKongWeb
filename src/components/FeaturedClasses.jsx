@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
-// ProgramList에서 사용된 이미지들 가져오기
+// ProgramList에서 사용된 이미지들
 import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
 import imgDrum from "../assets/image/programImages/chungRaDrum.png";
 import imgBass from "../assets/image/programImages/chungRaBass.png";
@@ -21,66 +21,66 @@ const classes = [
     id: 1,
     location: "인천",
     title: "통기타",
-    price: "무료/시간",
-    date: "02.05.(수)",
-    image: imgGuitar, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgGuitar,
   },
   {
     id: 2,
     location: "인천",
     title: "드럼",
-    price: "무료/시간",
-    date: "02.08.(토)",
-    image: imgDrum, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgDrum,
   },
   {
     id: 3,
     location: "인천",
     title: "베이스",
-    price: "무료/시간",
-    date: "02.10.(월)",
-    image: imgBass, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgBass,
   },
   {
     id: 4,
     location: "인천",
     title: "일렉기타",
-    price: "35,000원/시간",
-    date: "02.05.(수)",
-    image: imgElec, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgElec,
   },
   {
     id: 5,
     location: "인천",
     title: "카혼",
-    price: "20,000원/시간",
-    date: "02.12.(월)",
-    image: imgCajon, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgCajon,
   },
   {
     id: 6,
     location: "인천",
     title: "합창단",
-    price: "25,000원/시간",
-    date: "02.15.(목)",
-    image: imgChorus, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgChorus,
   },
   {
     id: 7,
     location: "인천",
     title: "밴드",
-    price: "무료/시간",
-    date: "02.18.(일)",
-    image: imgBand, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgBand,
   },
   {
     id: 8,
     location: "인천",
     title: "피아노",
-    price: "무료/시간",
-    date: "02.20.(화)",
-    image: imgPiano, 
-  }
+    price: "무료/Free",
+    date: "2025년",
+    image: imgPiano,
+  },
 ];
 
 const NextArrow = (props) => {
@@ -98,6 +98,7 @@ const NextArrow = (props) => {
 
 const FeaturedClasses = () => {
   const navigate = useNavigate();
+
   const settings = {
     dots: false,
     infinite: true,
@@ -112,25 +113,32 @@ const FeaturedClasses = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: true
-        }
+          infinite: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <section className={styles.featuredClasses}>
       <div className={styles.header}>
         <h2>음악 클래스 🔥</h2>
-        <a href="#" className={styles.viewAll} onClick={() => navigate("/services")}>모두보기</a>
+        <a
+          href="#"
+          className={styles.viewAll}
+          onClick={() => navigate("/services")}
+        >
+          모두보기
+        </a>
       </div>
+
       <Slider {...settings} className={styles.classList}>
         {classes.map((item) => (
           <div key={item.id} className={styles.classCard}>
@@ -139,7 +147,16 @@ const FeaturedClasses = () => {
               <span className={styles.classDate}>{item.date}</span>
               <h3 className={styles.classTitle}>{item.title}</h3>
               <p className={styles.classLocation}>{item.location}</p>
-              <p className={styles.classPrice}>{item.price}</p>
+              {/** 
+               * price 텍스트를 초록색으로 보이게 하고 싶다면, 
+               * 인라인 스타일을 추가하거나 별도의 className을 사용하시면 됩니다.
+               */}
+              <p
+                className={styles.classPrice}
+                style={{ color: "green" }}
+              >
+                {item.price}
+              </p>
             </div>
           </div>
         ))}
