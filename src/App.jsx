@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import "./styles/main.css";
 import VideoLectureBoard from "./pages/VideoLectureBoard";
 import Register from "./pages/Register";
+import FeaturedClasses from "./components/FeaturedClasses";
+import FeaturedClasses2 from "./components/FeaturedClasses2";
 import AdminDashboard from "./pages/AdminDashboard";
 import { AuthContext } from "./contexts/AuthContext"; // 사용자 상태 컨텍스트
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -34,6 +36,8 @@ function App() {
               <>
                 <HeroSlider />
                 <ProgramList />
+                <FeaturedClasses />  {/* ✅ 여기서만 사용! */}
+                <FeaturedClasses2 />
               </>
             }
           />
@@ -56,9 +60,10 @@ function App() {
           />
         </Routes>
       </Suspense>
-      <Footer />
+      <Footer />  {/* ✅ 하단 FeaturedClasses 삭제 */}
     </Router>
   );
 }
+
 
 export default App;

@@ -1,20 +1,20 @@
 .aboutContainer {
   width: 100%;
   overflow-x: hidden;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 /* Hero Section */
 .heroSection {
-  height: 100vh;
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   position: relative;
+  background: url("../assets/image/programDetails/chungRaGuitar2.png") no-repeat center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .heroOverlay {
@@ -30,90 +30,98 @@
   position: relative;
   z-index: 2;
   max-width: 800px;
+  text-align: center;
 }
 
-.heroContent h1 {
-  font-size: 4rem;
-  font-weight: 400;
-  text-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
+.heroTitle {
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 2px;
 }
 
-.heroContent span {
-  font-size: 5rem;
+.heroGradient {
+  font-size: 3.2rem;
+  font-weight: bold;
   background: linear-gradient(90deg, #38bdf8, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Mission Section */
-.missionSection {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 100px 20px;
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.heroText {
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 15px;
+  font-weight: 400;
 }
 
-.missionText {
-  flex: 1;
-  text-align: left;
-}
-
-.missionImage {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imageSlider img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Highlights Section */
-.highlightsSection {
-  padding: 100px 20px;
-  background: #ffffff;
+/* Vision, Program, Facility Sections */
+.visionSection, .programSection, .facilitySection {
   text-align: center;
+  padding: 100px 20px;
 }
 
-.highlightsDescription {
-  font-size: 1.5rem;
-  margin-bottom: 50px;
-  color: #475569;
+.visionSection h2, .programSection h2, .facilitySection h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
 }
 
-.highlightCards {
+.sectionText {
+  font-size: 1.8rem;
+  color: #555;
+  max-width: 900px;
+  margin: 20px auto;
+  line-height: 1.8;
+}
+
+.visionGrid, .programGrid, .facilityGrid {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
   flex-wrap: wrap;
 }
 
-.highlightCard {
-  background: #f9fafb;
+.visionCard, .programCard, .facilityCard {
+  max-width: 350px;
+  padding: 40px;
+  background: white;
   border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  max-width: 320px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: transform 0.3s ease-in-out;
 }
 
-.highlightCard img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.visionCard:hover, .programCard:hover, .facilityCard:hover {
+  transform: translateY(-10px);
 }
 
-.highlightCard h3 {
-  font-size: 1.8rem;
+.icon {
+  font-size: 5rem;
   color: #2563eb;
+  margin-bottom: 25px;
 }
 
-.highlightCard p {
-  font-size: 1.2rem;
-  color: #475569;
+/* 반응형 */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+
+  .heroGradient {
+    font-size: 2.8rem;
+  }
+
+  .heroText {
+    font-size: 1.4rem;
+  }
+
+  .sectionText {
+    font-size: 1.5rem;
+  }
+
+  .visionGrid, .programGrid, .facilityGrid {
+    flex-direction: column;
+    align-items: center;
+  }
 }

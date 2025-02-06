@@ -1,0 +1,116 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../styles/FeaturedClasses.module.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaChevronRight } from "react-icons/fa";
+
+// ProgramList에서 사용된 이미지들 가져오기
+import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
+import imgDrum from "../assets/image/programImages/chungRaDrum.png";
+import imgBass from "../assets/image/programImages/chungRaBass.png";
+import imgElec from "../assets/image/programImages/chungRaElec2.png";
+
+
+const classes = [
+  {
+    id: 1,
+    location: "인천",
+    title: "일반 영어회화",
+    price: "무료/시간",
+    date: "02.05.(수)",
+    image: imgGuitar, 
+  },
+  {
+    id: 2,
+    location: "인천",
+    title: "초,중,고 영어회화",
+    price: "무료/시간",
+    date: "02.08.(토)",
+    image: imgDrum, 
+  },
+  {
+    id: 3,
+    location: "인천",
+    title: "융합코딩",
+    price: "무료/시간",
+    date: "02.10.(월)",
+    image: imgBass, 
+  },
+  {
+    id: 4,
+    location: "인천",
+    title: "필라테스",
+    price: "35,000원/시간",
+    date: "02.05.(수)",
+    image: imgElec, 
+  },
+];
+
+const NextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={`${className} ${styles.nextArrow}`}
+      style={{ ...style, display: "block", right: "-10px" }}
+      onClick={onClick}
+    >
+      <FaChevronRight size={30} color="#333" />
+    </div>
+  );
+};
+
+const FeaturedClasses = () => {
+  const navigate = useNavigate();
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: null,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+  return (
+    <section className={styles.featuredClasses}>
+      <div className={styles.header}>
+        <h2>교육 클래스 🔥</h2>
+        <a href="#" className={styles.viewAll} onClick={() => navigate("/services")}>모두보기</a>
+      </div>
+      <Slider {...settings} className={styles.classList}>
+        {classes.map((item) => (
+          <div key={item.id} className={styles.classCard}>
+            <img src={item.image} alt={item.title} className={styles.classImage} />
+            <div className={styles.classInfo}>
+              <span className={styles.classDate}>{item.date}</span>
+              <h3 className={styles.classTitle}>{item.title}</h3>
+              <p className={styles.classLocation}>{item.location}</p>
+              <p className={styles.classPrice}>{item.price}</p>
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </section>
+  );
+};
+
+export default FeaturedClasses;
