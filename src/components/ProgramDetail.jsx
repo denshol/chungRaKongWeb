@@ -99,9 +99,9 @@ const programs = [
     description: "다함께 노래하는 즐거운 시간",
     price: "무료",
     image: img10,
-
+ 
     location: "인천 청라동",
-
+  
     schedule: "매주 토요일 19시",
   },
   {
@@ -119,9 +119,9 @@ const programs = [
     description: "드럼의 강렬한 비트를 연습해요!",
     price: "무료",
     image: img12,
-
+  
     location: "인천 청라동",
-
+    
     schedule: "매주 수요일 19~20시, 목 18시",
   },
   {
@@ -148,9 +148,9 @@ const programs = [
     description: "일렉기타의 다양한 소리를 만나보세요!",
     price: "무료",
     image: img15,
-
+  
     location: "인천 청라동",
-
+    
     schedule: "매주 목요일 19시",
   },
 ];
@@ -234,11 +234,11 @@ const ProgramDetail = () => {
             <p>
               <strong>가격:</strong> {program.price}
             </p>
-
+          
             <p>
               <strong>장소:</strong> {program.location}
             </p>
-
+      
             <p>
               <strong>일정:</strong> {program.schedule}
             </p>

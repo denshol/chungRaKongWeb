@@ -27,7 +27,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className={styles.heroSlider}>
+    <div className={styles.heroSlider} style={{ paddingTop: "0px" }}> {/* 여백 추가 */}
       <div className={styles.sliderContainer}>
         <div
           className={styles.sliderTrack}

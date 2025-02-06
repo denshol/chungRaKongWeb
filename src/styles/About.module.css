@@ -2,11 +2,13 @@
   width: 100%;
   overflow-x: hidden;
   font-family: "Noto Sans KR", sans-serif;
+  margin-top:-80px;
+
 }
 
 /* Hero Section */
 .heroSection {
-  height: 85vh;
+  height: 105vh;
   display: flex;
   align-items: center;
   justify-content: center;
