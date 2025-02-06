@@ -25,9 +25,9 @@ const programs = [
     description: "체계적인 관리로 건강한 다이어트 실현!",
     price: "무료",
     image: img1,
-    duration: "4주",
+
     location: "인천 청라동",
-    instructor: "신윤희",
+
     schedule: "매주 금 오후 4시",
   },
   {
@@ -254,15 +254,11 @@ const ProgramDetail = () => {
             <p>
               <strong>가격:</strong> {program.price}
             </p>
-            <p>
-              <strong>기간:</strong> {program.duration}
-            </p>
+
             <p>
               <strong>장소:</strong> {program.location}
             </p>
-            <p>
-              <strong>강사:</strong> {program.instructor}
-            </p>
+
             <p>
               <strong>일정:</strong> {program.schedule}
             </p>
