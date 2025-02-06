@@ -7,44 +7,43 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
 // ProgramList에서 사용된 이미지들 가져오기
-import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
-import imgDrum from "../assets/image/programImages/chungRaDrum.png";
-import imgBass from "../assets/image/programImages/chungRaBass.png";
+import imgPilates from "../assets/image/programDetails/PilatesTeacher2.jpg";
+import imgEng from "../assets/image/programDetails/chungRaEng.png";
+import imgCoding from "../assets/image/programImages/chungRaCoding.png";
 import imgElec from "../assets/image/programImages/chungRaElec2.png";
-
 
 const classes = [
   {
     id: 1,
     location: "인천",
     title: "일반 영어회화",
-    price: "무료/시간",
-    date: "02.05.(수)",
-    image: imgGuitar, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgEng, 
   },
   {
     id: 2,
     location: "인천",
     title: "초,중,고 영어회화",
-    price: "무료/시간",
-    date: "02.08.(토)",
-    image: imgDrum, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgEng, 
   },
   {
     id: 3,
     location: "인천",
     title: "융합코딩",
-    price: "무료/시간",
-    date: "02.10.(월)",
-    image: imgBass, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgCoding, 
   },
   {
     id: 4,
     location: "인천",
     title: "필라테스",
-    price: "35,000원/시간",
-    date: "02.05.(수)",
-    image: imgElec, 
+    price: "무료/Free",
+    date: "2025년",
+    image: imgPilates, 
   },
 ];
 
@@ -69,7 +68,7 @@ const FeaturedClasses = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
+    nextArrow: <NextArrow />, 
     prevArrow: null,
     responsive: [
       {
@@ -94,7 +93,9 @@ const FeaturedClasses = () => {
     <section className={styles.featuredClasses}>
       <div className={styles.header}>
         <h2>교육 클래스 🔥</h2>
-        <a href="#" className={styles.viewAll} onClick={() => navigate("/services")}>모두보기</a>
+        <a href="#" className={styles.viewAll} onClick={() => navigate("/services")}>
+          모두보기
+        </a>
       </div>
       <Slider {...settings} className={styles.classList}>
         {classes.map((item) => (
@@ -104,7 +105,7 @@ const FeaturedClasses = () => {
               <span className={styles.classDate}>{item.date}</span>
               <h3 className={styles.classTitle}>{item.title}</h3>
               <p className={styles.classLocation}>{item.location}</p>
-              <p className={styles.classPrice}>{item.price}</p>
+              <p className={styles.classPrice} style={{ color: "green" }}>{item.price}</p>
             </div>
           </div>
         ))}
