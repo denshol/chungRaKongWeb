@@ -116,7 +116,7 @@ const FeaturedClasses = () => {
   return (
     <section className={styles.featuredClasses}>
       <div className={styles.header}>
-        <h2>음악 클래스 🔥</h2>
+        <h2>음악 클래스 </h2>
         <a
           href="#"
           className={styles.viewAll}

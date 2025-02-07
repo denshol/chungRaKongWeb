@@ -12,7 +12,7 @@ const PromotionBanner = () => {
       <div className={styles.bannerContainer}>
         <div className={styles.textContainer}>
           <h2 className={styles.promoText}>
-            할인 클래스 프로모션을 신청해 주세요!
+           청라콩 어플에서 만나요!
           </h2>
         </div>
 
