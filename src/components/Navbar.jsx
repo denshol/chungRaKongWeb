@@ -32,7 +32,7 @@ const Navbar = () => {
           <div className={styles.brand}>
             <Link to="/" className={styles.logo} title="홈으로 가기">
               <img src={logo} alt="청라콩 로고" loading="lazy" />
-              <span className={styles.brandName}>청라콩</span>
+              <span className={styles.brandName}>청라콩문화센터</span>
             </Link>
           </div>
 
