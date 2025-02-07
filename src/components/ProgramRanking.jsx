@@ -8,6 +8,7 @@ import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
 import imgDrum from "../assets/image/programImages/chungRaDrum.png";
 import imgVocal from "../assets/image/poster/chungRaVocalPos.jpg";
 import imgPiano from "../assets/image/programDetails/chungRaPiano.jpg";
+import imgEng from "../assets/image/programDetails/chungRaEng.png";
 
 const ProgramRanking = () => {
   const navigate = useNavigate();
@@ -15,9 +16,9 @@ const ProgramRanking = () => {
   // 임시 샘플 데이터 (필요에 따라 API 호출 등으로 대체)
   const rankings = [
     {
-      id: 8,
+      id: 6,
       title: "통기타",
-      instructor: "김태호 강사",
+      instructor: "유준영 강사",
       students: 128,
       rating: 4.9,
       image: imgGuitar,
@@ -27,9 +28,9 @@ const ProgramRanking = () => {
       reviews: 242,
     },
     {
-      id: 12,
+      id: 7,
       title: "드럼",
-      instructor: "박준서 강사",
+      instructor: "Peter 강사",
       students: 98,
       rating: 4.8,
       image: imgDrum,
@@ -40,7 +41,7 @@ const ProgramRanking = () => {
     {
       id: 2,
       title: "보컬",
-      instructor: "이미나 강사",
+      instructor: "Peter 강사",
       students: 112,
       rating: 4.9,
       image: imgVocal,
@@ -50,13 +51,13 @@ const ProgramRanking = () => {
       reviews: 156,
     },
     {
-      id: 7,
-      title: "피아노",
-      instructor: "최서연 강사",
+      id: 9,
+      title: "영어회화",
+      instructor: "Jay,Kang 강사",
       students: 95,
       rating: 4.7,
-      image: imgPiano,
-      description: "클래식부터 실용음악까지",
+      image: imgEng,
+      description: "실전 영어 회화",
       lesson_time: "50분",
       reviews: 134,
     },
@@ -109,30 +110,9 @@ const ProgramRanking = () => {
                 <h3>{program.title}</h3>
                 <p className={styles.instructor}>{program.instructor}</p>
               </div>
-
-              <div className={styles.statsArea}>
-                <div className={styles.rating}>
-                  <FaStar className={styles.starIcon} />
-                  <span>{program.rating}</span>
-                  <span className={styles.reviews}>({program.reviews})</span>
-                </div>
-                <div className={styles.students}>
-                  <FaUsers />
-                  <span>{program.students}명 수강중</span>
-                </div>
-              </div>
-
               <div className={styles.lessonInfo}>
-                <span className={styles.time}>⏰ {program.lesson_time}</span>
-                <button
-                  className={styles.likeButton}
-                  onClick={handleLikeClick}
-                  aria-label="좋아요"
-                >
-                  <FaRegHeart />
-                </button>
+                <span className={styles.time}>⏰ {program.lesson_time}</span> 
               </div>
-
               <p className={styles.description}>{program.description}</p>
             </div>
           </div>

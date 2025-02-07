@@ -191,6 +191,7 @@ export const programs = [
 
 const Programs = React.memo(() => {
   return (
+    
     <div className="programs-container">
       <h1 className="programs-title">Program</h1>
       <div className="programs-grid">

@@ -14,39 +14,38 @@ import imgElec from "../assets/image/programImages/chungRaElec2.png";
 
 const classes = [
   {
-    id: 1,
+    id: 9, // 영어회화
     location: "인천",
     title: "일반 영어회화",
     price: "무료/Free",
     date: "2025년",
-    image: imgEng, 
+    image: imgEng,
   },
   {
-    id: 2,
+    id: 9, // 영어회화
     location: "인천",
     title: "초,중,고 영어회화",
     price: "무료/Free",
     date: "2025년",
-    image: imgEng, 
+    image: imgEng,
   },
   {
-    id: 3,
+    id: 14, // 코딩
     location: "인천",
     title: "융합코딩",
     price: "무료/Free",
     date: "2025년",
-    image: imgCoding, 
+    image: imgCoding,
   },
   {
-    id: 4,
+    id: 1, // 필라테스
     location: "인천",
     title: "필라테스",
     price: "무료/Free",
     date: "2025년",
-    image: imgPilates, 
+    image: imgPilates,
   },
 ];
-
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -68,7 +67,7 @@ const FeaturedClasses = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />, 
+    nextArrow: <NextArrow />,
     prevArrow: null,
     responsive: [
       {
@@ -76,36 +75,57 @@ const FeaturedClasses = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: true
-        }
+          infinite: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-
+  const handleCardClick = (id) => {
+    navigate(`/program/${id}`);
+    window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+  };
   return (
     <section className={styles.featuredClasses}>
       <div className={styles.header}>
         <h2>교육 클래스 🔥</h2>
-        <a href="#" className={styles.viewAll} onClick={() => navigate("/services")}>
+        <a
+          href="#"
+          className={styles.viewAll}
+          onClick={() => navigate("/services")}
+        >
           모두보기
         </a>
       </div>
+
       <Slider {...settings} className={styles.classList}>
         {classes.map((item) => (
-          <div key={item.id} className={styles.classCard}>
-            <img src={item.image} alt={item.title} className={styles.classImage} />
+          <div
+            key={item.id}
+            className={styles.classCard}
+            onClick={() => handleCardClick(item.id)}
+            style={{ cursor: "pointer" }}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className={styles.classImage}
+            />
             <div className={styles.classInfo}>
               <span className={styles.classDate}>{item.date}</span>
               <h3 className={styles.classTitle}>{item.title}</h3>
               <p className={styles.classLocation}>{item.location}</p>
-              <p className={styles.classPrice} style={{ color: "green" }}>{item.price}</p>
+              <p className={styles.classPrice} style={{ color: "green" }}>
+                {item.price}
+              </p>
             </div>
           </div>
         ))}

@@ -59,12 +59,6 @@ const ProgramDetail = () => {
                 alt={program.title}
                 className={styles.modalImage}
               />
-              <button
-                className={styles.closeButton}
-                onClick={() => setIsImageModalOpen(false)}
-              >
-                ×
-              </button>
             </div>
           </div>
         )}

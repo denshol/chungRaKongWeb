@@ -1,5 +1,10 @@
 import React, { Suspense, lazy, useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./styles/main.css";
@@ -8,10 +13,12 @@ import Register from "./pages/Register";
 import FeaturedClasses from "./components/FeaturedClasses";
 import FeaturedClasses2 from "./components/FeaturedClasses2";
 import AdminDashboard from "./pages/AdminDashboard";
-import { AuthContext } from "./contexts/AuthContext"; // 사용자 상태 컨텍스트
+import { AuthContext } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Main from "./pages/Main";
 import ProgramRanking from "./components/ProgramRanking";
+import ScrollToTop from "./components/ScrollToTop";
+import Loading from "./components/Loading";
 
 const HeroSlider = lazy(() => import("./components/HeroSlider"));
 const ProgramList = lazy(() => import("./components/ProgramList"));
@@ -21,16 +28,27 @@ const Programs = lazy(() => import("./pages/Programs"));
 const ContactForm = lazy(() => import("./pages/ContactForm"));
 const MyPage = lazy(() => import("./pages/MyPage"));
 const Login = lazy(() => import("./pages/Login"));
-// 보호 라우트
+
+// HeroSlider를 조건부로 렌더링하는 컴포넌트
+const ConditionalHeroSlider = () => {
+  const location = useLocation();
+
+  if (location.pathname === "/about") {
+    return null;
+  }
+
+  return <HeroSlider />;
+};
 
 function App() {
-  // AuthContext를 통해 현재 사용자 정보를 가져옵니다.
   const { user } = useContext(AuthContext);
 
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
+        <ConditionalHeroSlider />
         <Routes>
           <Route
             path="/"
@@ -50,7 +68,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/ranking" element={<ProgramRanking />} />
           <Route path="/music" element={<FeaturedClasses />} />
-          {/* 관리자 대시보드 보호 라우트 */}
           <Route
             path="/admin"
             element={
@@ -61,7 +78,7 @@ function App() {
           />
         </Routes>
       </Suspense>
-      <Footer /> {/* ✅ 하단 FeaturedClasses 삭제 */}
+      <Footer />
     </Router>
   );
 }

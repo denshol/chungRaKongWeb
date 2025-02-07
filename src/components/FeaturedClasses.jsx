@@ -18,7 +18,7 @@ import imgPiano from "../assets/image/programImages/chungRaPiano.png";
 
 const classes = [
   {
-    id: 1,
+    id: 6, // 통기타
     location: "인천",
     title: "통기타",
     price: "무료/Free",
@@ -26,7 +26,7 @@ const classes = [
     image: imgGuitar,
   },
   {
-    id: 2,
+    id: 7, // 드럼
     location: "인천",
     title: "드럼",
     price: "무료/Free",
@@ -34,7 +34,7 @@ const classes = [
     image: imgDrum,
   },
   {
-    id: 3,
+    id: 13, // 베이스
     location: "인천",
     title: "베이스",
     price: "무료/Free",
@@ -42,7 +42,7 @@ const classes = [
     image: imgBass,
   },
   {
-    id: 4,
+    id: 10, // 일렉기타
     location: "인천",
     title: "일렉기타",
     price: "무료/Free",
@@ -50,7 +50,7 @@ const classes = [
     image: imgElec,
   },
   {
-    id: 5,
+    id: 3, // 카혼
     location: "인천",
     title: "카혼",
     price: "무료/Free",
@@ -58,7 +58,7 @@ const classes = [
     image: imgCajon,
   },
   {
-    id: 6,
+    id: 15, // 합창
     location: "인천",
     title: "합창단",
     price: "무료/Free",
@@ -66,7 +66,7 @@ const classes = [
     image: imgChorus,
   },
   {
-    id: 7,
+    id: 12, // 밴드
     location: "인천",
     title: "밴드",
     price: "무료/Free",
@@ -74,7 +74,7 @@ const classes = [
     image: imgBand,
   },
   {
-    id: 8,
+    id: 8, // 피아노
     location: "인천",
     title: "피아노",
     price: "무료/Free",
@@ -108,21 +108,8 @@ const FeaturedClasses = () => {
     nextArrow: <NextArrow />,
     prevArrow: null,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } },
     ],
   };
 
@@ -141,20 +128,22 @@ const FeaturedClasses = () => {
 
       <Slider {...settings} className={styles.classList}>
         {classes.map((item) => (
-          <div key={item.id} className={styles.classCard}>
-            <img src={item.image} alt={item.title} className={styles.classImage} />
+          <div
+            key={item.id}
+            className={styles.classCard}
+            onClick={() => navigate(`/program/${item.id}`)}
+            style={{ cursor: "pointer" }}
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className={styles.classImage}
+            />
             <div className={styles.classInfo}>
               <span className={styles.classDate}>{item.date}</span>
               <h3 className={styles.classTitle}>{item.title}</h3>
               <p className={styles.classLocation}>{item.location}</p>
-              {/** 
-               * price 텍스트를 초록색으로 보이게 하고 싶다면, 
-               * 인라인 스타일을 추가하거나 별도의 className을 사용하시면 됩니다.
-               */}
-              <p
-                className={styles.classPrice}
-                style={{ color: "green" }}
-              >
+              <p className={styles.classPrice} style={{ color: "green" }}>
                 {item.price}
               </p>
             </div>

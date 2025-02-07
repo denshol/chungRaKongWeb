@@ -98,9 +98,8 @@
 
 .cardContent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+ 
+
 }
 
 .mainInfo h3 {
@@ -158,20 +157,37 @@
 }
 
 .likeButton {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background: #f8f9fa;
   color: #666;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.likeButton:hover {
-  transform: scale(1.1);
-  color: #ff4757;
-  border-color: #ff4757;
+.likeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.7rem; /* 패딩 감소 */
+  border: none;
+  border-radius: 15px; /* 반경 감소 */
+  background: #f8f9fa;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem; /* 폰트 크기 감소 */
+  gap: 0.3rem; /* 간격 감소 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 
 .description {
   color: #666;
@@ -211,4 +227,53 @@
   .mainInfo h3 {
     font-size: 1.3rem;
   }
+}
+.mainInfo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;  /* 제목 아래 여백 조정 */
+  line-height: 1.3;  /* 제목 줄 간격 추가 */
+}
+
+.instructor {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;  /* 강사명 아래 여백 조정 */
+  line-height: 1.4;  /* 줄 간격 추가 */
+}
+
+.lessonInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;  /* 여백 조정 */
+}
+
+.time {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.description {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;  /* 설명 텍스트 줄 간격 조정 */
+  margin-top: 0.5rem;  /* 위 여백 추가 */
+}
+
+.rankingHeader h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;  /* 헤더 제목 아래 여백 조정 */
+  line-height: 1.3;
+}
+
+.subTitle {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.4;  /* 부제목 줄 간격 추가 */
+  margin-top: 0.3rem;  /* 상단 여백 추가 */
 }

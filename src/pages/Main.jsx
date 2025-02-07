@@ -13,7 +13,6 @@ const Main = () => {
 
   return (
     <main>
-      <HeroSlider />
       <IconNavigation />
       <FeaturedClasses ref={musicRef} />
       <FeaturedClasses2 />
