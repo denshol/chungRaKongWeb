@@ -199,6 +199,7 @@ const Programs = React.memo(() => {
             to={`/program/${program.id}`}
             className="program-card"
             key={program.id}
+            onClick={() => window.scrollTo(0, 0)} // 클릭 시 페이지 상단으로 스크롤
           >
             <div className="program-image-container">
               <img
