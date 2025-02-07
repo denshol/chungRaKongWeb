@@ -1,51 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { programs } from "../data/programs"; // programs 불러오기
 import styles from "../styles/FeaturedClasses.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
-// ProgramList에서 사용된 이미지들 가져오기
-import imgPilates from "../assets/image/programDetails/PilatesTeacher2.jpg";
-import imgEng from "../assets/image/programDetails/chungRaEng.png";
-import imgCoding from "../assets/image/programImages/chungRaCoding.png";
-import imgElec from "../assets/image/programImages/chungRaElec2.png";
+// 표시하고 싶은 클래스 ID 목록
+const featuredClassIds = [9, 14, 1];
 
-const classes = [
-  {
-    id: 9, // 영어회화
-    location: "인천",
-    title: "일반 영어회화",
-    price: "무료/Free",
-    date: "2025년",
-    image: imgEng,
-  },
-  {
-    id: 9, // 영어회화
-    location: "인천",
-    title: "초,중,고 영어회화",
-    price: "무료/Free",
-    date: "2025년",
-    image: imgEng,
-  },
-  {
-    id: 14, // 코딩
-    location: "인천",
-    title: "융합코딩",
-    price: "무료/Free",
-    date: "2025년",
-    image: imgCoding,
-  },
-  {
-    id: 1, // 필라테스
-    location: "인천",
-    title: "필라테스",
-    price: "무료/Free",
-    date: "2025년",
-    image: imgPilates,
-  },
-];
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -61,6 +25,7 @@ const NextArrow = (props) => {
 
 const FeaturedClasses = () => {
   const navigate = useNavigate();
+
   const settings = {
     dots: false,
     infinite: true,
@@ -87,14 +52,21 @@ const FeaturedClasses = () => {
       },
     ],
   };
+
+  // featuredClassIds에 해당하는 클래스만 필터링
+  const featuredClasses = programs.filter((program) =>
+    featuredClassIds.includes(program.id)
+  );
+
   const handleCardClick = (id) => {
     navigate(`/program/${id}`);
     window.scrollTo(0, 0); // 페이지 상단으로 스크롤
   };
+
   return (
     <section className={styles.featuredClasses}>
       <div className={styles.header}>
-        <h2>교육 클래스 </h2>
+        <h2>교육 클래스 🎓</h2>
         <a
           href="#"
           className={styles.viewAll}
@@ -105,7 +77,7 @@ const FeaturedClasses = () => {
       </div>
 
       <Slider {...settings} className={styles.classList}>
-        {classes.map((item) => (
+        {featuredClasses.map((item) => (
           <div
             key={item.id}
             className={styles.classCard}
@@ -120,7 +92,7 @@ const FeaturedClasses = () => {
               className={styles.classImage}
             />
             <div className={styles.classInfo}>
-              <span className={styles.classDate}>{item.date}</span>
+              <span className={styles.classDate}>{item.schedule}</span>
               <h3 className={styles.classTitle}>{item.title}</h3>
               <p className={styles.classLocation}>{item.location}</p>
               <p className={styles.classPrice} style={{ color: "green" }}>

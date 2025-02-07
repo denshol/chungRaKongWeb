@@ -18,7 +18,7 @@ const About = () => {
   const programItems = [
     { icon: <FaPalette style={{ color: 'green' }} />, title: "창의적인 프로그램", description: "미술, 음악 등 창의력을 키우는 활동" },
     { icon: <FaBook style={{ color: 'green' }} />, title: "혁신적인 교육", description: "배움을 통한 성장과 발전 기회 제공" },
-    { icon: <FaDoorOpen style={{ color: 'green' }} />, title: "공연 및 문화행사", description: "연극, 콘서트 등 다양한 문화 체험 제공" },
+    { icon: <FaDoorOpen style={{ color: 'green' }} />, title: "공연 및 문화행사", description: "다양한 문화 체험 제공" },
   ];
 
   return (

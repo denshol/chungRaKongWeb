@@ -5,9 +5,7 @@
   width: 100%;
   padding: 2rem 0;
   background-color: #fff;
-  
-  
-  
+
   overflow: hidden;
 }
 
@@ -173,4 +171,19 @@
   .iconLabel {
     font-size: 0.8rem;
   }
+}
+.iconItem {
+  text-decoration: none;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.iconItem:hover {
+  color: #0077ff;
+}
+
+.active {
+  color: #0077ff;
+  font-weight: bold;
+  border-bottom: 2px solid #0077ff;
 }

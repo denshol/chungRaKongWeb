@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { programs } from "../pages/Programs";
+import { programs } from "../data/programs"; // 수정된 부분
 import styles from "../styles/program.module.css";
 import ApplyModal from "./ApplyModal";
 import SuccessModal from "./SuccessModal";
