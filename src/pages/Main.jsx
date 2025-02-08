@@ -12,7 +12,7 @@ const Main = () => {
   const musicRef = useRef(null);
 
   return (
-    <main>
+    <main style={{ paddingTop: "80px" }}>
       <IconNavigation />
       <FeaturedClasses ref={musicRef} />
       <FeaturedClasses2 />
