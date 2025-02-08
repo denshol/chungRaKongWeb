@@ -29,7 +29,7 @@ const About = () => {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add(styles.animateHero);
+              entry.target.classList.add(styles.animate);
             }
           });
         },
@@ -39,7 +39,7 @@ const About = () => {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add(styles.animateSection);
+              entry.target.classList.add(styles.animate);
             }
           });
         },
@@ -49,7 +49,7 @@ const About = () => {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add(styles.animateCard);
+              entry.target.classList.add(styles.animate);
             }
           });
         },
@@ -57,19 +57,19 @@ const About = () => {
       ),
     };
 
-    // Hero section
+    // Hero 섹션
     if (heroRef.current) {
       observers.hero.observe(heroRef.current);
     }
 
-    // Section headers
+    // 섹션 헤더들
     [visionRef, programRef, facilityRef].forEach((ref) => {
       if (ref.current) {
         observers.sections.observe(ref.current);
       }
     });
 
-    // Cards
+    // 카드들
     Object.values(cardRefs).forEach((sectionRefs) => {
       sectionRefs.current.forEach((card, index) => {
         if (card) {
@@ -93,7 +93,7 @@ const About = () => {
     {
       icon: <FaLightbulb style={{ color: "green", fontSize: "4rem" }} />,
       title: "선도하는 청라콩",
-      description: "지속적 연구와 혁신을 바탕의 문화",
+      description: "지속적 연구와 혁신을 바탕으로 한 문화",
     },
     {
       icon: <FaPeopleArrows style={{ color: "green", fontSize: "4rem" }} />,
@@ -102,39 +102,39 @@ const About = () => {
     },
   ];
 
-  const facilityItems = [
-    {
-      icon: <FaBuilding style={{ color: "green" }} />,
-      title: "최첨단 시설",
-      description: "최신 장비와 편의시설을 갖춘 문화공간",
-    },
-    {
-      icon: <FaCouch style={{ color: "green" }} />,
-      title: "편안한 공간",
-      description: "누구나 편히 쉴 수 있는 따뜻한 환경 제공",
-    },
-    {
-      icon: <FaMusic style={{ color: "green" }} />,
-      title: "음향 & 무대",
-      description: "공연과 교육에 최적화된 사운드 시스템",
-    },
-  ];
-
   const programItems = [
     {
-      icon: <FaPalette style={{ color: "green" }} />,
+      icon: <FaPalette style={{ color: "green", fontSize: "4rem" }} />,
       title: "창의적인 프로그램",
       description: "미술, 음악 등 창의력을 키우는 활동",
     },
     {
-      icon: <FaBook style={{ color: "green" }} />,
+      icon: <FaBook style={{ color: "green", fontSize: "4rem" }} />,
       title: "혁신적인 교육",
       description: "배움을 통한 성장과 발전 기회 제공",
     },
     {
-      icon: <FaDoorOpen style={{ color: "green" }} />,
+      icon: <FaDoorOpen style={{ color: "green", fontSize: "4rem" }} />,
       title: "공연 및 문화행사",
-      description: "다양한 문화 체험 제공",
+      description: `다양한 문화 체험 제공 　　　　　`,
+    },
+  ];
+
+  const facilityItems = [
+    {
+      icon: <FaBuilding style={{ color: "green", fontSize: "4rem" }} />,
+      title: "최첨단 시설",
+      description: "최신 장비와 편의시설을 갖춘 문화공간",
+    },
+    {
+      icon: <FaCouch style={{ color: "green", fontSize: "4rem" }} />,
+      title: "편안한 공간",
+      description: "누구나 편히 쉴 수 있는 따뜻한 환경 제공",
+    },
+    {
+      icon: <FaMusic style={{ color: "green", fontSize: "4rem" }} />,
+      title: "음향 & 무대",
+      description: "공연과 교육에 최적화된 사운드 시스템",
     },
   ];
 
@@ -166,7 +166,7 @@ const About = () => {
               key={index}
               className={styles.visionCard}
               ref={(el) => (cardRefs.vision.current[index] = el)}
-              style={{ height: "auto", minHeight: "350px" }}
+              style={{ minHeight: "350px" }}
             >
               <div className={styles.icon}>{item.icon}</div>
               <h3>{item.title}</h3>
@@ -179,8 +179,8 @@ const About = () => {
       <div className={styles.programSection} ref={programRef}>
         <h2>주요 프로그램</h2>
         <p className={styles.sectionText}>
-          다양한 문화와 예술 프로그램을 통해 개인과 커뮤니티의 발전을
-          추구합니다.
+          다양한 문화와 예술 프로그램을 통해 
+          <br/>개인과 커뮤니티의 발전을 추구합니다.
         </p>
         <div className={styles.programGrid}>
           {programItems.map((item, index) => (

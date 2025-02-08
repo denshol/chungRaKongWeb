@@ -548,3 +548,27 @@
     transition: none;
   }
 }
+/* .nextArrow에 대한 단일 일관된 정의 */
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;         /* 고정 크기 32px */
+  height: 32px;        /* 고정 크기 32px */
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nextArrow:hover {
+  background: #fff;
+  transform: translateY(-50%) translateX(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

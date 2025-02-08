@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
+
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -15,10 +16,14 @@ const NextArrow = (props) => {
       style={{ ...style, display: "block", right: "-10px" }}
       onClick={onClick}
     >
+      {/* 아이콘 크기를 컨테이너와 어울리도록 20px 정도로 조정 */}
       <FaChevronRight size={30} color="#333" />
     </div>
   );
 };
+
+
+
 
 const FeaturedClasses = () => {
   const navigate = useNavigate();

@@ -1,3 +1,5 @@
+/* Navbar.module.css */
+
 .navbar {
   background: transparent;
   padding: 0.75rem 5%;
@@ -59,6 +61,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+  will-change: opacity, transform;
 }
 
 .navLink {
@@ -76,6 +79,7 @@
 .scrolled {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
 }
 
 .scrolled .brandName {
@@ -169,13 +173,28 @@
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    z-index: 1001;
   }
 
   .navLinks .navLink {
     color: var(--text-secondary) !important;
     padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  .brandName {
+    font-size: 1.2rem;
+  }
+
+  .contactInfo {
+    padding: 6px 12px;
+  }
+
+  .menuToggle {
+    padding: 0.5rem;
   }
 }
+
 /* contactInfo 스타일 추가 */
 .contactInfo {
   display: flex;
@@ -234,63 +253,5 @@
     display: flex;
     margin: 1rem auto;
     width: fit-content;
-  }
-}
-/* Navbar.module.css 예시 (일부 수정) */
-
-.navbar {
-  background: transparent;
-  padding: 0.75rem 5%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  height: 80px;
-  background: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(0px);
-}
-
-.navbarContainer {
-  max-width: 1400px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.navLinks {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  /* 애니메이션 성능 최적화를 위한 추가 */
-  will-change: opacity, transform;
-}
-
-/* ... 나머지 기존 스타일 ... */
-@media (max-width: 768px) {
-  /* 브랜드 이름 폰트 크기 조정 */
-  .brandName {
-    font-size: 1.2rem;
-  }
-
-  /* 네비게이션 링크 폰트 크기 조정 */
-  .navLink {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-  }
-
-  /* 연락처 정보 패딩 조정 */
-  .contactInfo {
-    padding: 6px 12px;
-  }
-
-  /* 모바일 메뉴 토글 버튼 크기 조정 */
-  .menuToggle {
-    padding: 0.5rem;
   }
 }

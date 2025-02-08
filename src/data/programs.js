@@ -230,7 +230,7 @@ export const programs = [
     category: CATEGORIES.HEALTH,
     title: "물리치료 실습",
     description: "실전 중심의 물리치료 실습 교육 프로그램",
-    price: "1개월무료",
+    price: "무료",
     image: imgPhysical,
     detailImage: imgPhysical,
     location: "청라콩 ",

@@ -369,3 +369,11 @@
     font-size: clamp(0.875rem, 3vw, 1rem);
   }
 }
+.visionGrid,
+.programGrid,
+.facilityGrid {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* 원래 50px에서 줄임 */
+  flex-wrap: wrap;
+}
