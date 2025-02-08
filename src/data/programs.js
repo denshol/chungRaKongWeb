@@ -214,8 +214,8 @@ export const programs = [
     price: "무료",
     image: imgElectric,
     detailImage: imgElectric,
-    location: "청라콩 전기실습실",
-    schedule: "주 2회 / 90분",
+    location: "전기이론",
+    schedule: "주 1회 / 90분",
     instructor: "한찬호 강사",
     details: [
       "전기의 기본 원리와 법칙",
@@ -228,13 +228,13 @@ export const programs = [
   {
     id: 17,
     category: CATEGORIES.HEALTH,
-    title: "물리치료 실무 과정",
+    title: "물리치료 실습",
     description: "실전 중심의 물리치료 실습 교육 프로그램",
     price: "1개월무료",
     image: imgPhysical,
     detailImage: imgPhysical,
-    location: "청라콩 의료실습실",
-    schedule: "주 2회 / 120분",
+    location: "청라콩 ",
+    schedule: "120분",
     instructor: "김의한 강사",
     details: [
       "근골격계 치료 실습",
