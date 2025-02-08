@@ -604,3 +604,196 @@
   margin: 0 -0.5rem;
   touch-action: pan-x;
 }
+.featuredClasses {
+  width: 100%;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: #fff;
+  overflow: hidden;
+}
+
+.carouselContainer {
+  position: relative;
+  overflow: visible;
+}
+
+/* 헤더 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header h2 {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.viewAll {
+  font-size: clamp(0.875rem, 2vw, 0.95rem);
+  color: #666;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: rgba(76, 175, 80, 0.1);
+  font-weight: 500;
+}
+
+.viewAll:hover {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+
+/* 카드 스타일 */
+.classCard {
+  opacity: 0;
+  transform: translateY(50px);
+  background: white;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: clamp(0.25rem, 1vw, 0.5rem);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.classCard.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.classImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* 호버 효과 */
+@media (hover: hover) {
+  .classCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .classCard:hover .classImage {
+    transform: scale(1.08);
+  }
+}
+
+/* 터치 디바이스 */
+@media (hover: none) {
+  .classCard:active {
+    transform: scale(0.98);
+    transition: transform 0.3s ease;
+  }
+}
+
+.classInfo {
+  padding: clamp(1rem, 3vw, 1.25rem);
+}
+
+.classDate {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #666;
+  font-weight: 500;
+}
+
+.classTitle {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: clamp(0.3rem, 1vw, 0.5rem) 0;
+  line-height: 1.4;
+}
+
+.classLocation {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #666;
+}
+
+.classPrice {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 600;
+  color: #2ecc71;
+  margin-top: clamp(0.3rem, 1vw, 0.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priceTag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(46, 204, 113, 0.1);
+  border-radius: 4px;
+  color: #2ecc71;
+}
+
+/* 네비게이션 화살표 */
+.nextArrow {
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.nextArrow:hover {
+  background: white;
+  transform: translateX(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .classCard {
+    max-width: calc(50vw - 3rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .featuredClasses {
+    padding: 1rem;
+  }
+
+  .classCard {
+    max-width: calc(100vw - 3rem);
+  }
+
+  .nextArrow {
+    display: none !important;
+  }
+}
+
+/* 성능 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .classCard,
+  .classImage,
+  .nextArrow {
+    transition: none;
+  }
+}

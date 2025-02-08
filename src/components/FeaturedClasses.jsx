@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { programs } from "../data/programs";
+import { getMusicPrograms } from "../data/programs";
 import styles from "../styles/FeaturedClasses.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -24,6 +24,7 @@ const FeaturedClasses = () => {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
     const headerObserver = new IntersectionObserver(
@@ -45,7 +46,6 @@ const FeaturedClasses = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.animate);
-            // 한번 애니메이션이 실행된 후에는 observe 해제
             cardObserver.unobserve(entry.target);
           }
         });
@@ -56,16 +56,15 @@ const FeaturedClasses = () => {
       }
     );
 
-    // 헤더 관찰 시작
     if (headerRef.current) {
       headerObserver.observe(headerRef.current);
     }
 
-    // 카드들 관찰 시작
-    const cards = document.querySelectorAll(`.${styles.classCard}`);
-    cards.forEach((card, index) => {
-      card.style.setProperty("--delay", `${index * 150}ms`);
-      cardObserver.observe(card);
+    cardRefs.current.forEach((card, index) => {
+      if (card) {
+        card.style.setProperty("--delay", `${index * 150}ms`);
+        cardObserver.observe(card);
+      }
     });
 
     return () => {
@@ -102,10 +101,7 @@ const FeaturedClasses = () => {
     ],
   };
 
-  const featuredClassIds = [6, 7, 13, 10, 3, 15, 12, 8];
-  const featuredClasses = programs.filter((program) =>
-    featuredClassIds.includes(program.id)
-  );
+  const musicPrograms = getMusicPrograms();
 
   return (
     <section className={styles.featuredClasses} ref={sectionRef}>
@@ -125,12 +121,13 @@ const FeaturedClasses = () => {
 
       <div className={styles.carouselContainer}>
         <Slider {...settings} className={styles.classList}>
-          {featuredClasses.map((item, index) => (
+          {musicPrograms.map((item, index) => (
             <div
               key={item.id}
               className={styles.classCard}
               onClick={() => navigate(`/program/${item.id}`)}
               style={{ cursor: "pointer" }}
+              ref={(el) => (cardRefs.current[index] = el)}
             >
               <div className={styles.imageWrapper}>
                 <img
@@ -144,7 +141,12 @@ const FeaturedClasses = () => {
                 <span className={styles.classDate}>{item.schedule}</span>
                 <h3 className={styles.classTitle}>{item.title}</h3>
                 <p className={styles.classLocation}>{item.location}</p>
-                <p className={styles.classPrice}>{item.price}</p>
+                <p className={styles.classPrice}>
+                  {item.price}
+                  {item.price !== "무료" && (
+                    <span className={styles.priceTag}>유료</span>
+                  )}
+                </p>
               </div>
             </div>
           ))}
