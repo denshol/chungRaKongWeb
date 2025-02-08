@@ -1,121 +1,357 @@
-/* FeaturedClasses Section */
 .featuredClasses {
-    padding: 30px;
-    background: #fff;
-    text-align: left;
+  padding: 30px;
+  background: #fff;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* 헤더 애니메이션 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.viewAll {
+  font-size: 14px;
+  color: #555;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.viewAll:hover {
+  color: #333;
+}
+
+/* 카드 스타일 및 애니메이션 */
+.classCard {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(10deg) translateY(100px) scale(0.95);
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  will-change: transform, opacity;
+  transform-origin: center bottom;
+  pointer-events: none;
+}
+
+.classCard.animate {
+  opacity: 1;
+  transform: perspective(1000px) rotateX(0) translateY(0) scale(1);
+  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+  pointer-events: auto;
+}
+
+.imageWrapper {
+  overflow: hidden;
+}
+
+.classImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 호버 효과 */
+@media (hover: hover) {
+  .classCard.animate:hover {
+    transform: perspective(1000px) translateY(-10px) rotateX(2deg) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+
+  .classCard.animate:hover .classImage {
+    transform: scale(1.1);
   }
-  
-  .header h2 {
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
-  .viewAll {
-    font-size: 14px;
-    color: #555;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  /* Class List - Slick Slider Customization */
-  .classList {
-    padding: 10px;
-  }
-  
-  .slick-slide > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .slick-list {
-    overflow: hidden;
-  }
-  
-  .slick-track {
-    display: flex;
-    gap: 15px;
-  }
-  
-  /* Class Card */
+}
+
+.classInfo {
+  padding: 15px;
+}
+
+.classDate {
+  font-size: 12px;
+  color: #888;
+  font-weight: bold;
+}
+
+.classTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.classLocation {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.classPrice {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+/* Slider styles */
+.classList {
+  padding: 10px;
+}
+
+.slick-slide > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-list {
+  overflow: hidden;
+}
+
+.slick-track {
+  display: flex;
+  gap: 15px;
+}
+
+/* 네비게이션 화살표 */
+.nextArrow {
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nextArrow:hover {
+  background: #fff;
+  transform: translateY(-50%) translateX(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.slick-prev {
+  display: none !important;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
   .classCard {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    width: 250px;
-    transition: transform 0.2s ease-in-out;
+    width: calc(50vw - 60px);
   }
-  
-  .classCard:hover {
-    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .classCard {
+    width: calc(100vw - 100px);
   }
-  
-  /* Image */
-  .classImage {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
+
+  .header h2 {
+    font-size: 20px;
   }
-  
-  /* Class Info */
-  .classInfo {
-    padding: 15px;
-  }
-  
-  .classDate {
-    font-size: 12px;
-    color: #888;
-    font-weight: bold;
-  }
-  
+
   .classTitle {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 5px;
+    font-size: 14px;
   }
-  
+
   .classLocation {
-    font-size: 14px;
-    color: #555;
-    font-weight: bold;
+    font-size: 12px;
   }
-  
-  .classPrice {
-    font-size: 16px;
-    font-weight: bold;
-    color: #e74c3c;
-    margin-top: 3px;
+}
+.featuredClasses {
+  width: 100%;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* 헤더 섹션 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header h2 {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.viewAll {
+  font-size: clamp(0.875rem, 2vw, 0.95rem);
+  color: #666;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: rgba(76, 175, 80, 0.1);
+  font-weight: 500;
+}
+
+/* 카드 스타일 */
+.classCard {
+  opacity: 0;
+  transform: translateY(50px);
+  background: white;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: clamp(0.25rem, 1vw, 0.5rem);
+  will-change: transform, opacity;
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+}
+
+.classCard.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.classImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: hover) {
+  .classCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
-  
-  .classRating {
-    font-size: 14px;
-    color: #f39c12;
-    margin-top: 5px;
+
+  .classCard:hover .classImage {
+    transform: scale(1.08);
   }
-  
-  /* Custom Arrow - Only show right arrow */
-  .slick-prev {
-    display: none !important;  /* ✅ 왼쪽 화살표 안 보이게 */
+}
+
+@media (hover: none) {
+  .classCard:active {
+    transform: scale(0.98);
+    transition: transform 0.3s ease;
   }
-  
-  .slick-next {
-    right: -10px;
+}
+
+.classInfo {
+  padding: clamp(1rem, 3vw, 1.25rem);
+}
+
+.classDate {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #666;
+  font-weight: 500;
+}
+
+.classTitle {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: clamp(0.3rem, 1vw, 0.5rem) 0;
+  line-height: 1.4;
+}
+
+.classLocation {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #666;
+}
+
+.classPrice {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 600;
+  color: #2ecc71;
+  margin-top: clamp(0.3rem, 1vw, 0.5rem);
+}
+
+/* 네비게이션 화살표 */
+.nextArrow {
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* 모바일 디바이스 */
+@media (max-width: 480px) {
+  .featuredClasses {
+    padding: 1rem;
   }
-  
+
+  .classCard {
+    width: calc(100vw - 3rem);
+  }
+
   .nextArrow {
-    z-index: 10;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    display: none !important;
   }
-  
+}
+
+/* 태블릿 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .classCard {
+    width: calc(50vw - 3rem);
+  }
+}
+
+/* 성능 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .classCard,
+  .classImage,
+  .nextArrow {
+    transition: none;
+  }
+}
+
+/* 슬라이더 최적화 */
+.classList {
+  margin: 0 -0.5rem;
+  touch-action: pan-x;
+}

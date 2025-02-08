@@ -1,11 +1,7 @@
-@value breakpoint-lg: 1024px;
-@value breakpoint-sm: 640px;
-
 .iconNav {
   width: 100%;
   padding: 2rem 0;
   background-color: #fff;
-
   overflow: hidden;
 }
 
@@ -26,30 +22,10 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-decoration: none;
   color: #333;
   position: relative;
-}
-
-.iconItem::before {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #4caf50;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.iconItem:hover::before {
-  width: 80%;
-}
-
-.iconItem:hover {
-  transform: translateY(-5px) scale(1.05);
+  transform-origin: center;
 }
 
 .iconWrapper {
@@ -66,20 +42,10 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-.iconWrapper svg {
+.icon {
   font-size: 28px;
   color: #4caf50;
-  transition: color 0.4s ease, transform 0.3s ease;
-}
-
-.iconItem:hover .iconWrapper {
-  background: #4caf50;
-  transform: rotate(15deg);
-}
-
-.iconItem:hover .iconWrapper svg {
-  color: white;
-  transform: scale(1.2);
+  transition: all 0.3s ease;
 }
 
 .iconLabel {
@@ -89,10 +55,6 @@
   color: #333;
   text-align: center;
   transition: color 0.3s ease;
-}
-
-.iconItem:hover .iconLabel {
-  color: #4caf50;
 }
 
 .newBadge {
@@ -109,6 +71,35 @@
   animation: pulse 1.5s infinite;
 }
 
+/* 스크롤 애니메이션 */
+.scrollFade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: opacity, transform;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 호버 효과 */
+.iconItem:hover .iconWrapper {
+  background: #4caf50;
+  transform: rotate(15deg);
+}
+
+.iconItem:hover .icon {
+  color: white;
+  transform: scale(1.2);
+}
+
+.iconItem:hover .iconLabel {
+  color: #4caf50;
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -119,41 +110,14 @@
   }
 }
 
-.customerCenter {
-  text-align: center;
-  margin-top: 2rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.customerPhone {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #2c3e50;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.customerPhone:hover {
-  color: #4caf50;
-}
-
-.customerHours {
-  font-size: 0.8rem;
-  color: #7f8c8d;
-  margin: 0;
-}
-
-@media (max-width: breakpoint-lg) {
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
   .iconContainer {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-@media (max-width: breakpoint-sm) {
+@media (max-width: 640px) {
   .iconContainer {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
@@ -164,7 +128,7 @@
     height: 55px;
   }
 
-  .iconWrapper svg {
+  .icon {
     font-size: 22px;
   }
 
@@ -172,18 +136,17 @@
     font-size: 0.8rem;
   }
 }
-.iconItem {
-  text-decoration: none;
-  color: #555;
-  transition: color 0.3s ease;
-}
 
-.iconItem:hover {
-  color: #0077ff;
-}
-
+/* Active 상태 */
 .active {
-  color: #0077ff;
+  color: #4caf50;
   font-weight: bold;
-  border-bottom: 2px solid #0077ff;
+}
+
+.active .iconWrapper {
+  background: #4caf50;
+}
+
+.active .icon {
+  color: white;
 }

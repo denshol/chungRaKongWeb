@@ -1,8 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../styles/MemberGallery.module.css";
 
 const MemberGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const headerRef = useRef(null);
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.animate);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    const itemObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.animate);
+            itemObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    if (headerRef.current) {
+      headerObserver.observe(headerRef.current);
+    }
+
+    itemRefs.current.forEach((item, index) => {
+      if (item) {
+        item.style.setProperty("--delay", `${index * 150}ms`);
+        itemObserver.observe(item);
+      }
+    });
+
+    return () => {
+      headerObserver.disconnect();
+      itemObserver.disconnect();
+    };
+  }, []);
 
   const images = [
     {
@@ -73,20 +122,26 @@ const MemberGallery = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div className={styles.header} ref={headerRef}>
         <h1 className={styles.mainTitle}>청라콩 갤러리</h1>
         <p className={styles.subtitle}>우리의 열정과 재능이 만나는 곳</p>
       </div>
 
       <div className={styles.grid}>
-        {images.map((image) => (
+        {images.map((image, index) => (
           <div
             key={image.id}
             className={styles.gridItem}
             onClick={() => openModal(image)}
+            ref={(el) => (itemRefs.current[index] = el)}
           >
             <div className={styles.imageWrapper}>
-              <img src={image.src} alt={image.title} className={styles.image} />
+              <img
+                src={image.src}
+                alt={image.title}
+                className={styles.image}
+                loading="lazy"
+              />
               <div className={styles.overlay}>
                 <div className={styles.iconWrapper}>
                   <span className={styles.icon}>{image.icon}</span>
@@ -114,7 +169,10 @@ const MemberGallery = () => {
           className={`${styles.modal} ${styles.modalVisible}`}
           onClick={closeModal}
         >
-          <div className={styles.modalContent}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className={styles.modalImageWrapper}>
               <img
                 src={selectedImage.src}
@@ -122,7 +180,6 @@ const MemberGallery = () => {
                 className={styles.modalImage}
               />
             </div>
-
             <div className={styles.modalInfo}>
               <div className={styles.modalHeader}>
                 <span className={styles.modalIcon}>{selectedImage.icon}</span>

@@ -98,8 +98,6 @@
 
 .cardContent {
   flex: 1;
- 
-
 }
 
 .mainInfo h3 {
@@ -188,7 +186,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-
 .description {
   color: #666;
   font-size: 1rem;
@@ -232,22 +229,22 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 0.8rem;  /* 제목 아래 여백 조정 */
-  line-height: 1.3;  /* 제목 줄 간격 추가 */
+  margin-bottom: 0.8rem; /* 제목 아래 여백 조정 */
+  line-height: 1.3; /* 제목 줄 간격 추가 */
 }
 
 .instructor {
   color: #666;
   font-size: 1rem;
-  margin-bottom: 0.8rem;  /* 강사명 아래 여백 조정 */
-  line-height: 1.4;  /* 줄 간격 추가 */
+  margin-bottom: 0.8rem; /* 강사명 아래 여백 조정 */
+  line-height: 1.4; /* 줄 간격 추가 */
 }
 
 .lessonInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.8rem;  /* 여백 조정 */
+  margin-bottom: 0.8rem; /* 여백 조정 */
 }
 
 .time {
@@ -259,21 +256,206 @@
 .description {
   color: #666;
   font-size: 1rem;
-  line-height: 1.5;  /* 설명 텍스트 줄 간격 조정 */
-  margin-top: 0.5rem;  /* 위 여백 추가 */
+  line-height: 1.5; /* 설명 텍스트 줄 간격 조정 */
+  margin-top: 0.5rem; /* 위 여백 추가 */
 }
 
 .rankingHeader h2 {
   font-size: 2rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 0.8rem;  /* 헤더 제목 아래 여백 조정 */
+  margin-bottom: 0.8rem; /* 헤더 제목 아래 여백 조정 */
   line-height: 1.3;
 }
 
 .subTitle {
   color: #666;
   font-size: 1.1rem;
-  line-height: 1.4;  /* 부제목 줄 간격 추가 */
-  margin-top: 0.3rem;  /* 상단 여백 추가 */
+  line-height: 1.4; /* 부제목 줄 간격 추가 */
+  margin-top: 0.3rem; /* 상단 여백 추가 */
 }
+.rankingSection {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* 헤더 애니메이션 */
+.rankingHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rankingHeader.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rankingHeader h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.subTitle {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+/* 카드 애니메이션 */
+.rankingCard {
+  display: flex;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+}
+
+.rankingCard.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.rankingCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.topRank {
+  border: 2px solid #ffd700;
+}
+
+/* 뱃지 애니메이션 */
+.rankBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  z-index: 2;
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.goldTrophy {
+  color: #ffd700;
+  font-size: 1.4rem;
+}
+
+.cardImage {
+  position: relative;
+  width: 280px;
+  flex-shrink: 0;
+  margin-right: 2rem;
+  overflow: hidden;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rankingCard:hover .cardImage img {
+  transform: scale(1.08);
+}
+
+/* 모바일 최적화 */
+@media (max-width: 1024px) {
+  .rankingSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .rankingCard {
+    flex-direction: column;
+    transform: translateY(50px);
+  }
+
+  .rankingCard.animate {
+    transform: translateY(0);
+  }
+
+  .cardImage {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .cardContent {
+    width: 100%;
+  }
+
+  .rankingHeader h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rankingSection {
+    padding: 2rem 1rem;
+  }
+
+  .rankingHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .subTitle {
+    font-size: 1rem;
+  }
+
+  .cardImage img {
+    height: 180px;
+  }
+
+  .mainInfo h3 {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .rankBadge {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+}
+
+/* 기타 스타일 유지... */

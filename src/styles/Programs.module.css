@@ -1,270 +1,98 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
-@import "./base.css";
 
-.programSliderContainer {
-  position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 20px 0;
-}
-
-.programList {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
-  cursor: grab;
-  user-select: none;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
-}
-
-.programList:active {
-  cursor: grabbing;
-}
-
-.programList::-webkit-scrollbar {
-  display: none;
-}
-
-.programCard {
-  flex: 0 0 auto;
-  width: 300px;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  scroll-snap-align: start;
-}
-
-.programCard:hover {
-  transform: translateY(-10px);
-}
-
-.programCard img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 2px solid var(--primary-color);
-}
-
-.programCardContent {
-  padding: 15px;
-  text-align: center;
-}
-
-.programCardContent h3 {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.programCardContent p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.programCardContent span {
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-/* Programs.module.css 수정 */
-.programSliderContainer {
-  position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 0;
-}
-
-.programList {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 20px;
-  /* 스크롤바 스타일링 */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) #f0f0f0;
-}
-
-/* Chrome, Edge, Safari용 스크롤바 스타일링 */
-.programList::-webkit-scrollbar {
-  height: 8px;
-}
-
-.programList::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 4px;
-}
-
-.programList::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 4px;
-}
-
-.scrollButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.scrollButton:hover {
-  transform: translateY(-50%) scale(1.1);
-}
-
-.prevButton {
-  left: -20px;
-}
-
-.nextButton {
-  right: -20px;
-}
-
-/* 기존 카드 스타일은 유지 */
-.programCard {
-  flex: 0 0 auto;
-  width: 300px;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-/* 나머지 스타일은 동일하게 유지 */
-.programSliderContainer {
-  position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 50px; /* 좌우 여백 추가 */
-  overflow: visible; /* overflow를 visible로 변경 */
-}
-
-.programList {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 20px 0; /* 좌우 패딩 제거 */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) #f0f0f0;
-}
-
-.scrollButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
-}
-
-.prevButton {
-  left: 10px; /* 위치 조정 */
-}
-
-.nextButton {
-  right: 10px; /* 위치 조정 */
-}
-/* Programs.module.css */
-.programs-container {
+.programsContainer {
   max-width: 1280px;
   margin: 0 auto;
   padding: 60px 20px;
+  overflow: hidden;
 }
 
-.programs-title {
+/* 타이틀 애니메이션 */
+.programsTitle {
   font-size: 3rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 50px;
   color: #2c3e50;
   position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.programs-title:after {
+.programsTitle.animateTitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.programsTitle:after {
   content: "";
   position: absolute;
   bottom: -15px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleX(0);
   width: 60px;
   height: 4px;
   background: var(--primary-color);
   border-radius: 2px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.3s;
 }
 
-.programs-grid {
+.programsTitle.animateTitle:after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.programsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
   padding: 20px 0;
 }
 
-.program-card {
+/* 카드 애니메이션 */
+.programCard {
   background: white;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
   position: relative;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
 }
 
-.program-card:hover {
+.programCard.animateCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.programCard:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.program-image-container {
+.programImageContainer {
   position: relative;
   overflow: hidden;
 }
 
-.program-image-container img {
+.programImageContainer img {
   width: 100%;
   height: 200px;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.program-card:hover .program-image-container img {
+.programCard:hover .programImageContainer img {
   transform: scale(1.1);
 }
 
-.program-badge {
+.programBadge {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -275,20 +103,29 @@
   font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.2s;
 }
 
-.program-content {
+.programCard.animateCard .programBadge {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.programContent {
   padding: 20px;
 }
 
-.program-title {
+.programTitle {
   font-size: 1.4rem;
   color: #2c3e50;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.program-description {
+.programDescription {
   color: #666;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -297,30 +134,222 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-  .programs-container {
+  .programsContainer {
     padding: 40px 15px;
   }
 
-  .programs-title {
+  .programsTitle {
     font-size: 2.5rem;
     margin-bottom: 40px;
   }
 
-  .programs-grid {
+  .programsGrid {
     gap: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .programs-title {
+  .programsTitle {
     font-size: 2rem;
   }
 
-  .program-content {
+  .programContent {
     padding: 15px;
   }
 
-  .program-title {
+  .programTitle {
     font-size: 1.2rem;
+  }
+}
+.programsContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  overflow: hidden;
+}
+
+/* 타이틀 애니메이션 */
+.programsTitle {
+  font-size: clamp(2rem, 5vw, 3rem); /* 반응형 폰트 크기 */
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: clamp(30px, 5vw, 50px);
+  color: #2c3e50;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.programsTitle.animateTitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.programsTitle:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: clamp(40px, 5vw, 60px);
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 2px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.3s;
+}
+
+.programsTitle.animateTitle:after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.programsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(15px, 3vw, 30px);
+  padding: clamp(10px, 2vw, 20px) 0;
+  width: 100%;
+}
+
+/* 카드 애니메이션 */
+.programCard {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  position: relative;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+  width: 100%;
+  height: 100%;
+}
+
+.programCard.animateCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: hover) {
+  .programCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .programCard:hover .programImageContainer img {
+    transform: scale(1.1);
+  }
+}
+
+@media (hover: none) {
+  .programCard:active {
+    transform: scale(0.98);
+  }
+}
+
+.programImageContainer {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+
+.programImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.programBadge {
+  position: absolute;
+  top: clamp(10px, 2vw, 15px);
+  right: clamp(10px, 2vw, 15px);
+  background: var(--primary-color);
+  color: white;
+  padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 12px);
+  border-radius: 20px;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.2s;
+}
+
+.programCard.animateCard .programBadge {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.programContent {
+  padding: clamp(15px, 3vw, 20px);
+}
+
+.programTitle {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: #2c3e50;
+  margin-bottom: clamp(8px, 2vw, 10px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.programDescription {
+  color: #666;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 480px) {
+  .programsContainer {
+    padding: 30px 15px;
+  }
+
+  .programsGrid {
+    gap: 15px;
+  }
+
+  .programCard {
+    min-height: auto;
+  }
+
+  .programContent {
+    padding: 12px;
+  }
+}
+
+/* 태블릿 최적화 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .programsContainer {
+    padding: 40px 20px;
+  }
+
+  .programsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* 작은 랩톱 최적화 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .programsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 성능 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .programCard,
+  .programTitle,
+  .programBadge,
+  .programImageContainer img {
+    transition: none;
   }
 }

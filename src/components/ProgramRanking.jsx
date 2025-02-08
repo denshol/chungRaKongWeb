@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrophy, FaUsers, FaRegHeart, FaStar } from "react-icons/fa";
 import styles from "../styles/ProgramRanking.module.css";
-
-// 이미지 임포트 (프로젝트 경로에 맞게 조정)
 import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
 import imgDrum from "../assets/image/programImages/chungRaDrum.png";
 import imgVocal from "../assets/image/poster/chungRaVocalPos.jpg";
@@ -12,7 +10,55 @@ import imgEng from "../assets/image/programDetails/chungRaEng.png";
 
 const ProgramRanking = () => {
   const navigate = useNavigate();
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
 
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.animate);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.animate);
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    if (headerRef.current) {
+      headerObserver.observe(headerRef.current);
+    }
+
+    cardsRef.current.forEach((card, index) => {
+      if (card) {
+        card.style.setProperty("--delay", `${index * 200}ms`);
+        cardObserver.observe(card);
+      }
+    });
+
+    return () => {
+      headerObserver.disconnect();
+      cardObserver.disconnect();
+    };
+  }, []);
   // 임시 샘플 데이터 (필요에 따라 API 호출 등으로 대체)
   const rankings = [
     {
@@ -22,7 +68,7 @@ const ProgramRanking = () => {
       students: 128,
       rating: 4.9,
       image: imgGuitar,
-      tag: "신규 오픈",
+      // tag: "신규 오픈",
       description: "초보자도 쉽게 배우는 통기타 클래스",
       lesson_time: "60분",
       reviews: 242,
@@ -45,7 +91,7 @@ const ProgramRanking = () => {
       students: 112,
       rating: 4.9,
       image: imgVocal,
-      tag: "인기",
+      // tag: "인기",
       description: "K-POP 보컬 트레이닝",
       lesson_time: "40분",
       reviews: 156,
@@ -64,31 +110,30 @@ const ProgramRanking = () => {
   ];
 
   const handleCardClick = (programId, event) => {
-    // 좋아요 버튼 클릭 시 상세 페이지로 이동하지 않도록 방지
     if (event.target.closest(`.${styles.likeButton}`)) {
       return;
     }
     navigate(`/program/${programId}`);
   };
 
-  const handleLikeClick = (e) => {
-    e.stopPropagation();
-    // 좋아요 기능 구현 (예: 서버 API 호출 또는 로컬 상태 변경)
-  };
-
   return (
     <section className={styles.rankingSection}>
-      <div className={styles.rankingHeader}>
+      <div className={styles.rankingHeader} ref={headerRef}>
         <h2>실시간 인기 클래스 TOP 4</h2>
-        <p className={styles.subTitle}>현재 가장 인기 있는 클래스를 만나보세요!</p>
+        <p className={styles.subTitle}>
+          현재 가장 인기 있는 클래스를 만나보세요!
+        </p>
       </div>
 
       <div className={styles.rankingContainer}>
         {rankings.map((program, index) => (
           <div
             key={program.id}
-            className={`${styles.rankingCard} ${index === 0 ? styles.topRank : ""}`}
+            className={`${styles.rankingCard} ${
+              index === 0 ? styles.topRank : ""
+            }`}
             onClick={(e) => handleCardClick(program.id, e)}
+            ref={(el) => (cardsRef.current[index] = el)}
             role="button"
             tabIndex={0}
           >
@@ -101,7 +146,7 @@ const ProgramRanking = () => {
             </div>
 
             <div className={styles.cardImage}>
-              <img src={program.image} alt={program.title} />
+              <img src={program.image} alt={program.title} loading="lazy" />
               {program.tag && <span className={styles.tag}>{program.tag}</span>}
             </div>
 
@@ -111,7 +156,7 @@ const ProgramRanking = () => {
                 <p className={styles.instructor}>{program.instructor}</p>
               </div>
               <div className={styles.lessonInfo}>
-                <span className={styles.time}>⏰ {program.lesson_time}</span> 
+                <span className={styles.time}>⏰ {program.lesson_time}</span>
               </div>
               <p className={styles.description}>{program.description}</p>
             </div>
