@@ -53,7 +53,7 @@
     ]
   },
   "devDependencies": {
-    "terser": "^5.38.1",
-    "clean-css-cli": "^5.7.3"
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.38.1"
   }
 }
