@@ -1,68 +1,108 @@
-.bannerContainer {
-  position: relative;
+/* PromotionBanner.module.css */
+.bannerWrapper {
   width: 100%;
-  background-color: black;
-  color: white;
-  padding: 2rem 1rem;
+  padding: 2rem;
+  margin: 3rem 0;
+}
+
+.bannerContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-.textContainer {
-  z-index: 10;
-}
-
-.promoText {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.pagination {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  z-index: 20;
-}
-
-.decorations {
-  position: absolute;
-  right: 4rem;
-  top: 1rem;
-  display: flex;
-  gap: 0.5rem;
   align-items: center;
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  border-radius: 20px;
+  padding: 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
 }
 
-.circle {
-  width: 3rem;
-  height: 3rem;
-  background-color: #22c55e;
-  border-radius: 50%;
-  animation: bounce 1s infinite;
+.bannerContainer:hover {
+  transform: translateY(-4px);
 }
 
-.rectangle {
-  width: 4rem;
-  height: 2rem;
-  background-color: #4ade80;
-  transform: rotate(12deg);
+.contentContainer {
+  color: white;
+  z-index: 2;
 }
 
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
+.textContent h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.textContent p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.appBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.appBadge:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.appBadge svg {
+  font-size: 1.5rem;
+}
+
+.phoneContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.phoneImage {
+  width: 280px;
+  height: auto;
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease;
+}
+
+.bannerContainer:hover .phoneImage {
+  transform: rotate(-3deg) translateY(-8px);
+}
+
+@media (max-width: 768px) {
+  .bannerWrapper {
+    padding: 1rem;
   }
-  50% {
-    transform: translateY(-10px);
+
+  .bannerContainer {
+    padding: 2rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .textContent h2 {
+    font-size: 2rem;
+  }
+
+  .textContent p {
+    font-size: 1.25rem;
+  }
+
+  .phoneImage {
+    width: 200px;
+    transform: rotate(0);
+  }
+
+  .bannerContainer:hover .phoneImage {
+    transform: translateY(-8px);
   }
 }

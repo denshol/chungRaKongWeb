@@ -8,14 +8,27 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
 const NextArrow = (props) => {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props; // className 추가
   return (
     <div
-      className={`${className} ${styles.nextArrow}`}
-      style={{ ...style, display: "block", right: "-10px" }}
+      className={`${className} ${styles.nextArrow}`} // slick 기본 클래스 포함
       onClick={onClick}
+      aria-label="Next slide"
     >
-      <FaChevronRight size={30} color="#333" />
+      <FaChevronRight size={20} />
+    </div>
+  );
+};
+
+const PrevArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <div
+      className={`${className} ${styles.prevArrow}`}
+      onClick={onClick}
+      aria-label="Previous slide"
+    >
+      <FaChevronRight size={20} style={{ transform: "rotate(180deg)" }} />
     </div>
   );
 };
@@ -71,21 +84,21 @@ const FeaturedClasses = () => {
     };
   }, []);
 
+  // settings 수정
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
-    prevArrow: null,
+    prevArrow: <PrevArrow />, // 이 부분만 남기고 중복된 prevArrow: null 제거
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: true,
         },
       },
       {

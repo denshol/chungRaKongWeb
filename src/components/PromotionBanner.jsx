@@ -7,22 +7,13 @@ const PromotionBanner = () => {
       href="https://play.google.com/store/apps/details?id=com.chungrakong"
       target="_blank"
       rel="noopener noreferrer"
-      className={styles.link}
+      className={styles.bannerContainer}
     >
-      <div className={styles.bannerContainer}>
-        <div className={styles.textContainer}>
-          <h2 className={styles.promoText}>
-           청라콩 어플에서 만나요!
-          </h2>
-        </div>
-
-        <div className={styles.pagination}>1/1</div>
-
-        <div className={styles.decorations}>
-          <div className={styles.circle}></div>
-          <div className={styles.rectangle}></div>
-        </div>
-      </div>
+      <img
+        src="/image/banner/AppBanner.jpg" // ✅ 경로 확인 필수
+        alt="청라콩 어플 프로모션 배너"
+        className={styles.bannerImage}
+      />
     </a>
   );
 };
