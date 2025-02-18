@@ -31,8 +31,8 @@
     "eject": "react-scripts eject",
     "optimize": "npm run minify-css && npm run minify-js && npm run gzip",
     "minify-css": "cleancss -o build/static/css/main.min.css build/static/css/*.css",
-    "minify-js": "find build/static/js -type f -name '*.js' -exec terser {} -o {} --compress --mangle ;",
-    "gzip": "find build -type f -regex '.*\\(js\\|css\\|html\\|svg\\)' -exec gzip -9 -k {} ;"
+    "minify-js": "find build/static/js -type f -name '*.js' -exec terser {} -o {} --compress --mangle \\;",
+    "gzip": "find build -type f -regex '.*\\(js\\|css\\|html\\|svg\\)' -exec gzip -9 -k {} \\;"
   },
   "eslintConfig": {
     "extends": [

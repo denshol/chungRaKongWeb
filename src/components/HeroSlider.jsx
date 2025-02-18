@@ -18,7 +18,7 @@ const HeroSlider = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // 슬라이드 전환 애니메이션 (페이드 및 살짝 줌 효과)
+  // 슬라이드 애니메이션 (페이드 + 줌 효과)
   const variants = {
     initial: { opacity: 0, scale: 1.1 },
     animate: { opacity: 1, scale: 1 },
@@ -41,7 +41,6 @@ const HeroSlider = () => {
             src={images[currentIndex]}
             alt={`슬라이드 ${currentIndex + 1}`}
           />
-          {/* 하단 그라데이션 오버레이 */}
           <div className={styles.overlay}></div>
         </motion.div>
       </AnimatePresence>
