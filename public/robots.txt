@@ -1,5 +1,10 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt 파일 예제 - 네이버 검색 최적화
 User-agent: *
 Disallow:
-User-agent: *
+
+# 네이버 검색 로봇을 위한 추가 설정
+User-agent: Yeti
 Allow: /
+
+# 사이트맵 등록 (검색엔진이 사이트 구조를 이해하는 데 도움)
+Sitemap: https://chungrakong.kr/sitemap.xml

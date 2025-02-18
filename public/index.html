@@ -2,15 +2,25 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
       content="청라콩 - 음악 클래스, 프로그램 및 밴드 활동을 소개합니다."
     />
     <meta
       name="keywords"
-      content="청라콩, chungrakong, 음악 클래스, 청라 음악, 밴드 활동"
+      content="청라콩, 청라콩문화센터, chungrakong, 음악 클래스, 청라 음악, 밴드 활동, 밴드 레슨, 악기 레슨, 청라 악기, 음악 교육"
     />
     <meta name="author" content="청라콩 팀" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- 네이버 검색 등록 -->
+    <meta
+      name="naver-site-verification"
+      content="3f691b6dab36140dda5d31f169f15344ccbca8e2"
+    />
+
+    <!-- Open Graph (SNS 공유 시 노출) -->
     <meta property="og:title" content="청라콩 - 공식 사이트" />
     <meta
       property="og:description"
@@ -19,21 +29,41 @@
     <meta property="og:url" content="https://chungrakong.kr" />
     <meta property="og:type" content="website" />
     <meta
-      name="naver-site-verification"
-      content="3f691b6dab36140dda5d31f169f15344ccbca8e2"
+      property="og:image"
+      content="https://chungrakong.kr/assets/chungRaKong.png"
     />
-    <meta name="robots" content="index, follow" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="청라콩 - 공식 사이트" />
+    <meta
+      name="twitter:description"
+      content="음악 클래스 및 밴드 활동을 만나보세요!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://chungrakong.kr/assets/chungRaKong.png"
+    />
+
+    <!-- Favicon 설정 -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
     <title>청라콩</title>
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
   <body>
     <div id="root"></div>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging.js"></script>
 
+    <!-- Vue (필요 없으면 삭제 가능) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js"></script>
+
+    <!-- JavaScript 파일 -->
+    <script src="./assets/script.js"></script>
   </body>
 </html>
