@@ -5,7 +5,7 @@
   margin-top: -80px;
 }
 
-/* Hero Section */
+/* Hero Section Animation */
 .heroSection {
   height: 105vh;
   display: flex;
@@ -14,21 +14,24 @@
   text-align: center;
   color: white;
   position: relative;
+  background: url("../assets/image/chungRaMain.jpg") no-repeat center;
   background-size: cover;
-  background-position: center;
   opacity: 0;
   transform: scale(1.1);
   transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.heroSection.animate {
+.heroSection.animateHero {
   opacity: 1;
   transform: scale(1);
 }
 
 .heroOverlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -39,7 +42,7 @@
   text-align: center;
 }
 
-/* Section Animations */
+/* Section Animation */
 .visionSection,
 .programSection,
 .facilitySection {
@@ -50,14 +53,14 @@
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.visionSection.animate,
-.programSection.animate,
-.facilitySection.animate {
+.visionSection.animateSection,
+.programSection.animateSection,
+.facilitySection.animateSection {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Card Styles */
+/* Card Animation */
 .visionCard,
 .programCard,
 .facilityCard {
@@ -72,9 +75,9 @@
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
 }
 
-.visionCard.animate,
-.programCard.animate,
-.facilityCard.animate {
+.visionCard.animateCard,
+.programCard.animateCard,
+.facilityCard.animateCard {
   opacity: 1;
   transform: translateY(0);
 }
@@ -87,17 +90,7 @@
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Grid Layout */
-.visionGrid,
-.programGrid,
-.facilityGrid {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Typography */
+/* Existing Styles */
 .heroTitle {
   font-size: 4.5rem;
   font-weight: 800;
@@ -120,7 +113,7 @@
   color: rgba(255, 255, 255, 0.9);
   margin-top: 15px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 0.5;
 }
 
 .visionSection h2,
@@ -129,10 +122,33 @@
   font-size: 3rem;
   font-weight: bold;
   color: #333;
-  line-height: 1.2;
+  line-height: 0.6;
 }
 
-/* Responsive */
+.sectionText {
+  font-size: 1.8rem;
+  color: #555;
+  max-width: 900px;
+  margin: 20px auto;
+  line-height: 1.3;
+}
+
+.visionGrid,
+.programGrid,
+.facilityGrid {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.icon {
+  font-size: 5rem;
+  color: #2563eb;
+  margin-bottom: 25px;
+}
+
+/* 반응형 */
 @media (max-width: 768px) {
   .heroTitle {
     font-size: 3.5rem;
@@ -168,5 +184,284 @@
   .programSection h2,
   .facilitySection h2 {
     font-size: 2.5rem;
+  }
+}
+.aboutContainer {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Noto Sans KR", sans-serif;
+  margin-top: -80px;
+}
+
+/* Hero 섹션 */
+.heroSection {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.heroSection.animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: min(800px, 90vw);
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  color: white;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.heroGradient {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: bold;
+  background: linear-gradient(90deg, #38bdf8, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.heroText {
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* 섹션 공통 스타일 */
+.visionSection,
+.programSection,
+.facilitySection {
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 3vw, 2rem);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.visionSection.animate,
+.programSection.animate,
+.facilitySection.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 카드 스타일 */
+.visionCard,
+.programCard,
+.facilityCard {
+  background: white;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+}
+
+.visionCard.animate,
+.programCard.animate,
+.facilityCard.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 그리드 레이아웃 */
+.visionGrid,
+.programGrid,
+.facilityGrid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vw, 2rem) 0;
+}
+
+/* 반응형 그리드 */
+@media (min-width: 768px) {
+  .visionGrid,
+  .programGrid,
+  .facilityGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .visionGrid,
+  .programGrid,
+  .facilityGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: hover) {
+  .visionCard:hover,
+  .programCard:hover,
+  .facilityCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (hover: none) {
+  .visionCard:active,
+  .programCard:active,
+  .facilityCard:active {
+    transform: scale(0.98);
+  }
+}
+
+/* 성능 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .heroSection,
+  .visionCard,
+  .programCard,
+  .facilityCard {
+    transition: none;
+  }
+}
+
+/* 접근성 */
+@media (prefers-color-scheme: dark) {
+  .visionCard,
+  .programCard,
+  .facilityCard {
+    background: #1a1a1a;
+    color: #fff;
+  }
+}
+
+/* 폰트 최적화 */
+@media (max-width: 480px) {
+  .visionCard h3,
+  .programCard h3,
+  .facilityCard h3 {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+  }
+
+  .visionCard p,
+  .programCard p,
+  .facilityCard p {
+    font-size: clamp(0.875rem, 3vw, 1rem);
+  }
+}
+.heroSection {
+  background: url("../assets/image/chungRaMain.jpg") no-repeat center;
+  background-size: cover;
+  background-blend-mode: normal !important; /* 🎯 배경 색상 혼합 제거 */
+  filter: none !important; /* 🎯 밝기 조절 제거 */
+  opacity: 1 !important; /* 🎯 투명도 원래대로 */
+}
+
+.heroOverlay {
+  background: rgba(0, 0, 0, 0) !important; /* 🎯 검은색 오버레이 제거 */
+}
+.heroSection {
+  height: 100vh; /* 이 부분을 수정 */
+  min-height: 600px; /* 최소 높이 설정 */
+  max-height: 800px; /* 최대 높이 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  background: url("../assets/image/chungRaMain.jpg") no-repeat center;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* 이미지 넘침 방지 */
+}
+
+.aboutContainer {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Noto Sans KR", sans-serif;
+  margin-top: -80px;
+  position: relative; /* 추가 */
+}
+
+/* 모바일 대응을 위한 미디어 쿼리 추가 */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 60vh; /* 모바일에서는 더 작게 */
+    min-height: 400px;
+    max-height: 600px;
+  }
+
+  .aboutContainer {
+    margin-top: -60px; /* 모바일에서는 마진 줄임 */
+  }
+}
+.visionGrid,
+.programGrid,
+.facilityGrid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vw, 2rem);
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
+  grid-template-columns: repeat(3, minmax(300px, 1fr)); /* 균등한 3열 그리드 */
+  justify-content: center; /* 그리드 자체를 중앙 정렬 */
+  align-items: stretch; /* 카드 높이 맞추기 */
+}
+
+.visionCard,
+.programCard,
+.facilityCard {
+  width: 100%; /* 카드 너비를 그리드 셀에 맞춤 */
+  max-width: 350px; /* 카드 최대 너비 제한 */
+  margin: 0 auto; /* 카드 중앙 정렬 */
+  background: white;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* 반응형 처리 */
+@media (max-width: 1024px) {
+  .visionGrid,
+  .programGrid,
+  .facilityGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .visionGrid,
+  .programGrid,
+  .facilityGrid {
+    grid-template-columns: 1fr; /* 모바일에서는 한 열로 */
+    max-width: 90%;
+  }
+
+  .visionCard,
+  .programCard,
+  .facilityCard {
+    max-width: 100%;
   }
 }
