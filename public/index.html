@@ -3,16 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO 최적화 -->
     <meta
       name="description"
-      content="청라콩 - 청라 최고의 음악 클래스 | 다양한 음악 프로그램과 밴드 활동을 만나보세요!"
+      content="청라콩 - 청라에서 최고의 음악 클래스를 제공합니다. 다양한 음악 프로그램과 악기 레슨을 만나보세요."
     />
     <meta
       name="keywords"
-      content="청라콩, 청라콩문화센터, chungrakong, 음악 클래스, 청라 음악, 밴드 활동, 밴드 레슨, 악기 레슨, 청라 악기, 음악 교육, 청라 레슨"
+      content="청라콩, 청라콩 문화센터, chungrakong, 음악 클래스, 청라 음악, 밴드 활동, 악기 레슨, 음악 교육"
     />
     <meta name="author" content="청라콩 팀" />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- 네이버 검색 등록 -->
     <meta
@@ -20,15 +24,12 @@
       content="3f691b6dab36140dda5d31f169f15344ccbca8e2"
     />
 
-    <!-- Open Graph (SNS 공유 시 노출) -->
-    <meta property="og:site_name" content="청라콩 공식 사이트" />
-    <meta
-      property="og:title"
-      content="청라콩 - 청라 최고의 음악 클래스 | 공식 사이트"
-    />
+    <!-- Open Graph (SNS 공유) -->
+    <meta property="og:site_name" content="청라콩" />
+    <meta property="og:title" content="청라콩 - 공식 사이트" />
     <meta
       property="og:description"
-      content="청라콩에서 다양한 음악 프로그램과 밴드 활동을 만나보세요. 청라 최고의 음악 클래스를 제공합니다."
+      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요!"
     />
     <meta property="og:url" content="https://chungrakong.kr" />
     <meta property="og:type" content="website" />
@@ -36,38 +37,64 @@
       property="og:image"
       content="https://chungrakong.kr/assets/chungRaKong.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="청라콩 - 청라 최고의 음악 클래스" />
+    <meta name="twitter:title" content="청라콩 - 공식 사이트" />
     <meta
       name="twitter:description"
-      content="청라콩에서 다양한 음악 프로그램과 밴드 활동을 만나보세요!"
+      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요!"
     />
     <meta
       name="twitter:image"
       content="https://chungrakong.kr/assets/chungRaKong.png"
     />
 
+    <!-- 성능 최적화 -->
+    <link rel="preload" href="./assets/styles.css" as="style" />
+    <link rel="preload" href="./assets/script.js" as="script" />
+    <link rel="dns-prefetch" href="https://www.gstatic.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
     <!-- Favicon 설정 -->
-    <link rel="icon" type="image/png" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/favicon.ico" />
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.manifest" />
 
     <title>청라콩 - 청라 최고의 음악 클래스 | 공식 사이트</title>
+
+    <!-- 스타일시트 -->
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
   <body>
+    <noscript>
+      <strong
+        >이 사이트를 이용하기 위해서는 자바스크립트를 활성화해주세요.</strong
+      >
+    </noscript>
+
     <div id="root"></div>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging.js"></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging.js"
+    ></script>
 
-    <!-- Vue (필요 없으면 삭제 가능) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js"></script>
+    <!-- Vue CDN -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js"
+    ></script>
 
-    <!-- JavaScript 파일 -->
-    <script src="./assets/script.js"></script>
+    <!-- 메인 JavaScript -->
+    <script defer src="./assets/script.js"></script>
   </body>
 </html>
