@@ -1,8 +1,10 @@
 /* FeaturedClasses.module.css */
+
+/* 섹션 컨테이너 */
 .featuredClasses {
   width: 100%;
   padding: 2rem 1rem;
-  background: #fff;
+  background: var(--white);
   overflow: visible;
   position: relative;
 }
@@ -10,7 +12,7 @@
 .carouselContainer {
   position: relative;
   overflow: visible;
-  padding: 0 20px;
+  margin: 0 50px;
 }
 
 /* 헤더 스타일 */
@@ -33,28 +35,34 @@
 .header h2 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a1a;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-primary);
 }
 
 .viewAll {
   font-size: 0.95rem;
-  color: #666;
+  font-family: "Outfit", sans-serif;
+  color: var(--primary-color);
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   transition: all 0.3s ease;
-  background: rgba(76, 175, 80, 0.1);
+  background: rgba(106, 191, 105, 0.1);
   font-weight: 500;
 }
 
 .viewAll:hover {
-  background: rgba(76, 175, 80, 0.15);
-  color: #4caf50;
+  background: rgba(106, 191, 105, 0.15);
+  color: var(--primary-dark);
 }
 
 /* 카드 스타일 */
+.classList {
+  user-select: none;
+}
+
 .classCard {
-  background: white;
+  background: var(--white);
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -62,6 +70,7 @@
   opacity: 0;
   transform: translateY(50px);
   will-change: transform, opacity;
+  border: 1px solid rgba(106, 191, 105, 0.1);
 }
 
 .classCard.animate {
@@ -72,12 +81,16 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  height: 240px;
+  padding-top: 56.25%; /* 16:9 비율 */
+  height: 0;
   overflow: hidden;
-  background: #000;
+  background: var(--secondary-color);
 }
 
 .classImage {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -87,11 +100,12 @@
 
 .classInfo {
   padding: 1.25rem;
+  font-family: "Outfit", sans-serif;
 }
 
 .classDate {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-secondary);
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
@@ -99,20 +113,21 @@
 .classTitle {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
 .classLocation {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 0.75rem;
 }
 
 .classPrice {
   font-size: 1rem;
   font-weight: 600;
-  color: #2ecc71;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -123,41 +138,62 @@
   padding: 0.3rem 0.8rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.1);
+  color: var(--primary-dark);
+  background: rgba(106, 191, 105, 0.1);
   border-radius: 6px;
 }
 
 /* 네비게이션 화살표 */
+.prevArrow,
 .nextArrow {
   position: absolute;
   top: 50%;
-  right: -5px;
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background: white;
   border-radius: 50%;
-  display: flex;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.15);
+  cursor: pointer;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  color: var(--primary-color);
+  transition: all 0.2s ease;
   z-index: 10;
-  cursor: pointer;
+  border: none;
 }
 
+.prevArrow {
+  left: -50px;
+}
+
+.nextArrow {
+  right: -50px;
+}
+
+.prevArrow:hover,
 .nextArrow:hover {
-  background: white;
-  transform: translateY(-50%) translateX(4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  background: rgba(106, 191, 105, 0.1);
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+}
+
+/* 드래그 관련 스타일 */
+:global(.slick-list) {
+  cursor: grab;
+  overflow: visible !important;
+}
+
+:global(.slick-list:active) {
+  cursor: grabbing;
 }
 
 /* 호버 효과 */
 @media (hover: hover) {
   .classCard:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 30px rgba(106, 191, 105, 0.15);
+    border-color: var(--primary-color);
   }
 
   .classCard:hover .classImage {
@@ -175,184 +211,16 @@
 
 @media (max-width: 768px) {
   .featuredClasses {
-    padding: 1rem;
-  }
-
-  .imageWrapper {
-    height: 200px;
-  }
-
-  .classInfo {
-    padding: 1rem;
-  }
-
-  .classTitle {
-    font-size: 1.1rem;
+    padding: 1rem 0;
   }
 
   .classCard {
-    max-width: calc(100vw - 3rem);
-  }
-
-  .nextArrow {
-    display: none !important;
-  }
-}
-
-/* 성능 최적화 */
-@media (prefers-reduced-motion: reduce) {
-  .header,
-  .classCard,
-  .classImage,
-  .nextArrow {
-    transition: none;
-  }
-}
-/* 화살표 스타일 수정 */
-.nextArrow {
-  position: absolute;
-  top: 50%;
-  right: -16px; /* 위치 조정 */
-  transform: translateY(
-    -50%
-  ) !important; /* !important로 slick 기본 스타일 덮어쓰기 */
-  width: 36px;
-  height: 36px;
-  background: white;
-  border-radius: 50%;
-  display: flex !important; /* slick 기본 스타일 덮어쓰기 */
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.nextArrow:hover {
-  transform: translateY(-50%) !important; /* 수직 위치 유지 */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.carouselContainer {
-  position: relative;
-  overflow: visible;
-  margin: 0 20px; /* padding 대신 margin 사용 */
-}
-.nextArrow {
-  position: absolute;
-  top: 50%;
-  right: -50px; /* 여유있게 배치 */
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-  transition: all 0.2s ease;
-  z-index: 10;
-}
-
-.nextArrow:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.carouselContainer {
-  position: relative;
-  margin: 0 50px; /* 화살표 공간 확보 */
-}
-.prevArrow {
-  position: absolute;
-  top: 50%;
-  left: -50px;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-  transition: all 0.2s ease;
-  z-index: 10;
-}
-
-.prevArrow:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* 기존 nextArrow는 그대로 유지 */
-.prevArrow,
-.nextArrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-  transition: all 0.2s ease;
-  z-index: 10;
-  border: none;
-}
-
-.prevArrow {
-  left: -50px;
-}
-
-.nextArrow {
-  right: -50px;
-}
-
-.prevArrow:hover,
-.nextArrow:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-/* FeaturedClasses.module.css */
-
-/* 이미지 래퍼 높이 조정 */
-.imageWrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 비율 유지 */
-  height: 0;
-  overflow: hidden;
-}
-
-.classImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 모바일 반응형 스타일 수정 */
-@media (max-width: 768px) {
-  .classCard {
-    max-width: 280px; /* 카드 최대 너비 제한 */
+    max-width: 280px;
     margin: 0 auto;
   }
 
   .imageWrapper {
-    padding-top: 66.67%; /* 3:2 비율로 변경 */
+    padding-top: 66.67%; /* 3:2 비율 */
   }
 
   .classInfo {
@@ -378,20 +246,373 @@
     margin: 0;
     padding: 0 1rem;
   }
-  
-  /* 모바일에서 불필요한 여백 제거 */
-  .featuredClasses {
-    padding: 1rem 0;
+
+  :global(.slick-slide) {
+    padding: 0 8px;
+  }
+
+  .prevArrow,
+  .nextArrow {
+    display: none !important;
   }
 }
 
-/* 추가: 슬라이더 컨테이너 관련 스타일 */
-:global(.slick-list) {
-  overflow: visible !important;
+/* 성능 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .classCard,
+  .classImage,
+  .prevArrow,
+  .nextArrow {
+    transition: none;
+  }
+}
+.classCard {
+  background: #f0f5f0; /* 연한 초록빛 배경 */
+  /* 또는 */
+  background: rgba(106, 191, 105, 0.05); /* primary-color의 아주 연한 버전 */
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(50px);
+  will-change: transform, opacity;
+  border: 1px solid rgba(106, 191, 105, 0.1);
 }
 
+/* 호버 효과도 약간 수정 */
+@media (hover: hover) {
+  .classCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(106, 191, 105, 0.15);
+    border-color: var(--primary-color);
+    background: #e8f2e8; /* 호버 시 약간 더 진한 배경 */
+  }
+}
+/* 네비게이션 화살표 스타일 수정 */
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; /* 크기 키움 */
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 그림자 강화 */
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-dark); /* 색상 진하게 */
+  transition: all 0.2s ease;
+  z-index: 10;
+  border: 1px solid rgba(106, 191, 105, 0.2); /* 테두리 추가 */
+}
+
+.prevArrow {
+  left: -20px;
+}
+
+.nextArrow {
+  right: -20px;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  background: var(--primary-color); /* 호버 시 배경색 변경 */
+  color: var(--white); /* 호버 시 아이콘 색상 변경 */
+  box-shadow: 0 6px 16px rgba(106, 191, 105, 0.25);
+  transform: translateY(-50%) scale(1.05); /* 살짝 커지는 효과 */
+}
+/* 화살표 스타일 */
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px !important; /* 크기 증가 */
+  height: 48px !important;
+  border-radius: 50%;
+  background: var(--primary-color) !important; /* 배경색 변경 */
+  color: white !important; /* 아이콘 색상 */
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  border: none;
+  opacity: 0.9;
+}
+
+.prevArrow {
+  left: -24px;
+}
+
+.nextArrow {
+  right: -24px;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  background: var(--primary-dark) !important;
+  opacity: 1;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 16px rgba(106, 191, 105, 0.3);
+}
+
+/* 모바일에서 화살표 숨기기 */
 @media (max-width: 768px) {
-  :global(.slick-slide) {
-    padding: 0 8px; /* 카드 사이 간격 조정 */
+  .prevArrow,
+  .nextArrow {
+    display: none !important;
+  }
+}
+/* 화살표 스타일 */
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #6abf69;
+  color: white;
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  opacity: 0.9;
+}
+
+.prevArrow {
+  left: -24px;
+}
+
+.nextArrow {
+  right: -24px;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  background: #4d8c4d;
+  opacity: 1;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 16px rgba(106, 191, 105, 0.3);
+}
+/* 화살표 스타일 */
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  border: none;
+  opacity: 0.9;
+}
+
+.prevArrow {
+  left: -24px; /* 필요시 값 조절 */
+}
+
+.nextArrow {
+  right: -24px; /* 필요시 값 조절 */
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  background: var(--primary-dark);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 16px rgba(106, 191, 105, 0.3);
+}
+
+/* 모바일에서 화살표 숨기기 */
+@media (max-width: 768px) {
+  .prevArrow,
+  .nextArrow {
+    display: none !important;
+  }
+}
+/* 섹션 컨테이너 */
+.featuredClasses {
+  width: 100%;
+  padding: 2rem 1rem;
+  background: var(--white);
+  overflow: visible;
+  position: relative;
+}
+
+/* 슬라이더 컨테이너 */
+.carouselContainer {
+  position: relative;
+  overflow: visible;
+  margin: 0 50px;
+}
+
+/* 카드 리스트 */
+.classList {
+  user-select: none;
+}
+
+/* 카드 */
+.classCard {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(50px);
+  will-change: transform, opacity;
+  border: 1px solid rgba(106, 191, 105, 0.1);
+}
+
+/* 애니메이션 */
+.classCard.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 비율 */
+  height: 0;
+  overflow: hidden;
+  background: var(--secondary-color);
+}
+
+.classImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: all 0.5s ease;
+}
+
+.classInfo {
+  padding: 1.25rem;
+  font-family: "Outfit", sans-serif;
+}
+
+.classDate {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.classTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.classLocation {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.classPrice {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priceTag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+  background: rgba(106, 191, 105, 0.1);
+  border-radius: 6px;
+}
+
+/* 호버 효과 */
+@media (hover: hover) {
+  .classCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(106, 191, 105, 0.15);
+    border-color: var(--primary-color);
+  }
+
+  .classCard:hover .classImage {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* 화살표 스타일 */
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  border: none;
+  opacity: 0.9;
+}
+
+.prevArrow {
+  left: -24px;
+}
+
+.nextArrow {
+  right: -24px;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  background: rgba(106, 191, 105, 0.1);
+  color: var(--primary-dark);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+}
+
+/* 모바일에서 화살표 숨기기 */
+@media (max-width: 768px) {
+  .prevArrow,
+  .nextArrow {
+    display: none !important;
   }
 }

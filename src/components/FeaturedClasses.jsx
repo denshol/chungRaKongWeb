@@ -1,41 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMusicPrograms } from "../data/programs";
+import { getMusicPrograms } from "../data/programs"; // 예시 함수
 import styles from "../styles/FeaturedClasses.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaChevronRight } from "react-icons/fa";
 
-const NextArrow = (props) => {
-  const { className, onClick } = props;
-  return (
-    <div
-      className={`${className} ${styles.nextArrow}`}
-      onClick={onClick}
-      aria-label="Next slide"
+// 화살표 컴포넌트 (인라인 SVG 버전)
+const Arrow = ({ className, onClick, isNext }) => {
+  // isNext === true 이면 오른쪽 화살표, false 이면 왼쪽 화살표
+  const arrowSVG = isNext ? (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <FaChevronRight size={20} style={{ strokeWidth: 1 }} />{" "}
-      {/* 스타일 통일 */}
-    </div>
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  ) : (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ transform: "rotate(180deg)" }}
+    >
+      <path d="M9 18l6-6-6-6" />
+    </svg>
   );
-};
 
-const PrevArrow = (props) => {
-  const { className, onClick } = props;
   return (
     <div
-      className={`${className} ${styles.prevArrow}`}
+      className={`${className} ${isNext ? styles.nextArrow : styles.prevArrow}`}
       onClick={onClick}
-      aria-label="Previous slide"
+      aria-label={isNext ? "Next slide" : "Previous slide"}
     >
-      <FaChevronRight
-        size={20}
-        style={{
-          transform: "rotate(180deg)",
-          strokeWidth: 1,
-        }}
-      />
+      {arrowSVG}
     </div>
   );
 };
@@ -45,51 +54,65 @@ const FeaturedClasses = () => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const cardRefs = useRef([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartTime = useRef(0);
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+    dragStartTime.current = Date.now();
+  };
+
+  const handleDragEnd = () => {
+    const dragEndTime = Date.now();
+    const dragDuration = dragEndTime - dragStartTime.current;
+    setTimeout(() => setIsDragging(false), dragDuration < 100 ? 100 : 0);
+  };
+
+  const handleCardClick = (id) => {
+    if (!isDragging) {
+      navigate(`/program/${id}`);
+    }
+  };
 
   useEffect(() => {
-    const headerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.animate);
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "-50px 0px",
-      }
-    );
+    const observers = {
+      header: new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(styles.animate);
+            }
+          });
+        },
+        { threshold: 0.5, rootMargin: "-50px 0px" }
+      ),
 
-    const cardObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.animate);
-            cardObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "-50px 0px",
-      }
-    );
+      card: new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(styles.animate);
+              observers.card.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: "-50px 0px" }
+      ),
+    };
 
     if (headerRef.current) {
-      headerObserver.observe(headerRef.current);
+      observers.header.observe(headerRef.current);
     }
 
     cardRefs.current.forEach((card, index) => {
       if (card) {
         card.style.setProperty("--delay", `${index * 150}ms`);
-        cardObserver.observe(card);
+        observers.card.observe(card);
       }
     });
 
     return () => {
-      headerObserver.disconnect();
-      cardObserver.disconnect();
+      Object.values(observers).forEach((observer) => observer.disconnect());
     };
   }, []);
 
@@ -99,8 +122,12 @@ const FeaturedClasses = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />, // 이 부분만 남기고 중복된 prevArrow: null 제거
+    nextArrow: <Arrow isNext={true} />,
+    prevArrow: <Arrow isNext={false} />,
+    swipe: true,
+    swipeToSlide: true,
+    beforeChange: handleDragStart,
+    afterChange: handleDragEnd,
     responsive: [
       {
         breakpoint: 1024,
@@ -112,16 +139,15 @@ const FeaturedClasses = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1.2, // 1.2개의 슬라이드를 보여줘서 다음 카드가 살짝 보이게 함
+          slidesToShow: 1.2,
           slidesToScroll: 1,
-          centerMode: false, // centerMode 제거
-          arrows: false, // 모바일에서는 화살표 숨김
+          arrows: false,
         },
       },
     ],
   };
 
-  const musicPrograms = getMusicPrograms();
+  const musicPrograms = getMusicPrograms(); // 예시 데이터 불러오기
 
   return (
     <section className={styles.featuredClasses} ref={sectionRef}>
@@ -145,8 +171,8 @@ const FeaturedClasses = () => {
             <div
               key={item.id}
               className={styles.classCard}
-              onClick={() => navigate(`/program/${item.id}`)}
-              style={{ cursor: "pointer" }}
+              onClick={() => handleCardClick(item.id)}
+              style={{ cursor: isDragging ? "grabbing" : "pointer" }}
               ref={(el) => (cardRefs.current[index] = el)}
             >
               <div className={styles.imageWrapper}>

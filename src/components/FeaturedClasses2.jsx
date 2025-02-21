@@ -1,98 +1,84 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { programs } from "../data/programs";
-import styles from "../styles/FeaturedClasses2.module.css";
+import styles from "../styles/FeaturedClasses.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronRight } from "react-icons/fa";
 
-const NextArrow = (props) => {
-  const { className, onClick } = props; // className 추가
-  return (
-    <div
-      className={`${className} ${styles.nextArrow}`} // slick 기본 클래스 포함
-      onClick={onClick}
-      aria-label="Next slide"
-    >
-      <FaChevronRight size={20} />
-    </div>
-  );
-};
+const Arrow = ({ className, onClick, direction, ariaLabel }) => (
+  <div
+    className={`${className} ${
+      direction === "prev" ? styles.prevArrow : styles.nextArrow
+    }`}
+    onClick={onClick}
+    aria-label={ariaLabel}
+  >
+    <FaChevronRight
+      size={20}
+      style={direction === "prev" ? { transform: "rotate(180deg)" } : undefined}
+    />
+  </div>
+);
 
-const PrevArrow = (props) => {
-  const { className, onClick } = props;
-  return (
-    <div
-      className={`${className} ${styles.prevArrow}`}
-      onClick={onClick}
-      aria-label="Previous slide"
-    >
-      <FaChevronRight size={20} style={{ transform: "rotate(180deg)" }} />
-    </div>
-  );
-};
-
-const FeaturedClasses = () => {
+const FeaturedClasses2 = () => {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    const headerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.animate);
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "-50px 0px",
-      }
-    );
+    const observers = {
+      header: new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(styles.animate);
+            }
+          });
+        },
+        { threshold: 0.5, rootMargin: "-50px 0px" }
+      ),
 
-    const cardObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.animate);
-            cardObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "-50px 0px",
-      }
-    );
+      cards: new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(styles.animate);
+              observers.cards.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: "-50px 0px" }
+      ),
+    };
 
     if (headerRef.current) {
-      headerObserver.observe(headerRef.current);
+      observers.header.observe(headerRef.current);
     }
 
-    const cards = document.querySelectorAll(`.${styles.classCard}`);
-    cards.forEach((card, index) => {
-      card.style.setProperty("--delay", `${index * 150}ms`);
-      cardObserver.observe(card);
+    cardRefs.current.forEach((card, index) => {
+      if (card) {
+        card.style.setProperty("--delay", `${index * 150}ms`);
+        observers.cards.observe(card);
+      }
     });
 
     return () => {
-      headerObserver.disconnect();
-      cardObserver.disconnect();
+      Object.values(observers).forEach((observer) => observer.disconnect());
     };
   }, []);
 
-  // settings 수정
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />, // 이 부분만 남기고 중복된 prevArrow: null 제거
+    nextArrow: <Arrow direction="next" ariaLabel="Next slide" />,
+    prevArrow: <Arrow direction="prev" ariaLabel="Previous slide" />,
+    swipe: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -102,12 +88,11 @@ const FeaturedClasses = () => {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.2,
           slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: "40px",
+          arrows: false,
         },
       },
     ],
@@ -147,6 +132,7 @@ const FeaturedClasses = () => {
               className={styles.classCard}
               onClick={() => handleCardClick(item.id)}
               style={{ cursor: "pointer" }}
+              ref={(el) => (cardRefs.current[index] = el)}
               role="button"
               tabIndex={0}
             >
@@ -162,9 +148,7 @@ const FeaturedClasses = () => {
                 <span className={styles.classDate}>{item.schedule}</span>
                 <h3 className={styles.classTitle}>{item.title}</h3>
                 <p className={styles.classLocation}>{item.location}</p>
-                <p className={styles.classPrice} style={{ color: "green" }}>
-                  {item.price}
-                </p>
+                <p className={styles.classPrice}>{item.price}</p>
               </div>
             </div>
           ))}
@@ -174,4 +158,4 @@ const FeaturedClasses = () => {
   );
 };
 
-export default FeaturedClasses;
+export default FeaturedClasses2;
