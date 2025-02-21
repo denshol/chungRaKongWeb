@@ -110,12 +110,12 @@ const FeaturedClasses = () => {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.2, // 1.2개의 슬라이드를 보여줘서 다음 카드가 살짝 보이게 함
           slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: "40px",
+          centerMode: false, // centerMode 제거
+          arrows: false, // 모바일에서는 화살표 숨김
         },
       },
     ],
