@@ -10,7 +10,7 @@ const PromotionBanner = () => {
       className={styles.bannerContainer}
     >
       <img
-        src="/image/banner/AppBanner.jpg" // ✅ 경로 확인 필수
+        src="/image/banner/AppBanner2.jpg" // ✅ 경로 확인 필수
         alt="청라콩 어플 프로모션 배너"
         className={styles.bannerImage}
       />
