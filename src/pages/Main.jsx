@@ -17,7 +17,7 @@ const Main = () => {
       <FeaturedClasses ref={musicRef} />
       <FeaturedClasses2 />
       <ProgramRanking ref={rankingRef} />
-      <MemberGallery /> {/* 추가 */}
+      {/* <MemberGallery /> 추가 */}
       <PromotionBanner />
     </main>
   );
