@@ -139,9 +139,11 @@ const FeaturedClasses = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          centerMode: true,
+          centerPadding: "30px",
         },
       },
     ],
@@ -168,31 +170,32 @@ const FeaturedClasses = () => {
       <div className={styles.carouselContainer}>
         <Slider {...settings} className={styles.classList}>
           {musicPrograms.map((item, index) => (
-            <div
-              key={item.id}
-              className={styles.classCard}
-              onClick={() => handleCardClick(item.id)}
-              style={{ cursor: isDragging ? "grabbing" : "pointer" }}
-              ref={(el) => (cardRefs.current[index] = el)}
-            >
-              <div className={styles.imageWrapper}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={styles.classImage}
-                  loading="lazy"
-                />
-              </div>
-              <div className={styles.classInfo}>
-                <span className={styles.classDate}>{item.schedule}</span>
-                <h3 className={styles.classTitle}>{item.title}</h3>
-                <p className={styles.classLocation}>{item.location}</p>
-                <p className={styles.classPrice}>
-                  {item.price}
-                  {item.price !== "무료" && (
-                    <span className={styles.priceTag}>유료</span>
-                  )}
-                </p>
+            <div key={item.id} className={styles.cardWrapper}>
+              <div
+                className={styles.classCard}
+                onClick={() => handleCardClick(item.id)}
+                style={{ cursor: isDragging ? "grabbing" : "pointer" }}
+                ref={(el) => (cardRefs.current[index] = el)}
+              >
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles.classImage}
+                    loading="lazy"
+                  />
+                </div>
+                <div className={styles.classInfo}>
+                  <span className={styles.classDate}>{item.schedule}</span>
+                  <h3 className={styles.classTitle}>{item.title}</h3>
+                  <p className={styles.classLocation}>{item.location}</p>
+                  <p className={styles.classPrice}>
+                    {item.price}
+                    {item.price !== "무료" && (
+                      <span className={styles.priceTag}>유료</span>
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
