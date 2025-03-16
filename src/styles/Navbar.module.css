@@ -1,7 +1,6 @@
 /* Navbar.module.css */
 
 .navbar {
-  background: transparent;
   padding: 0.75rem 5%;
   position: fixed;
   top: 0;
@@ -13,7 +12,7 @@
   align-items: center;
   transition: all 0.3s ease;
   height: 80px;
-  background: rgba(0, 0, 0, 0);
+  background-color: transparent;
   backdrop-filter: blur(0px);
 }
 
@@ -77,7 +76,7 @@
 
 /* 스크롤된 상태 스타일 */
 .scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1001;
 }
@@ -195,25 +194,25 @@
 @media (max-width: 768px) {
   /* 모바일에서도 navbar가 투명하게 유지되도록 수정 */
   .navbar {
-    background: transparent !important; /* 중요: 다른 스타일보다 우선 적용 */
+    background-color: transparent !important; /* 중요: 다른 스타일보다 우선 적용 */
     box-shadow: none;
   }
 
   /* 메뉴가 펼쳐질 때만 배경색 변경 */
   .navbar.active {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
   /* 스크롤된 상태에서도 투명 유지 */
   .navbar.scrolled {
-    background: transparent !important;
+    background-color: transparent !important;
     box-shadow: none;
   }
 
   /* 메뉴가 활성화된 경우에만 배경색과 그림자 적용 */
   .navbar.scrolled.active {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 

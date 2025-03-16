@@ -1,6 +1,5 @@
 import React, { Suspense, lazy, useContext } from "react";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
@@ -44,7 +43,7 @@ function App() {
   const { user } = useContext(AuthContext);
 
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <Navbar />
       <Suspense fallback={<Loading />}>
@@ -79,7 +78,7 @@ function App() {
         </Routes>
       </Suspense>
       <Footer />
-    </Router>
+    </>
   );
 }
 

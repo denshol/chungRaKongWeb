@@ -29,12 +29,13 @@ const Navbar = () => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // 클래스 이름에 isMenuOpen 상태를 반영하여 메뉴가 열릴 때만 active 클래스 추가
   return (
     <header
-      className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""} ${
-        isMenuOpen ? styles.active : ""
-      }`}
+      className={`
+        ${styles.navbar} 
+        ${isScrolled ? styles.scrolled : ""} 
+        ${isMenuOpen ? styles.active : ""}
+      `}
     >
       <div className={styles.navbarContainer}>
         <div className={styles.navLeftGroup}>
