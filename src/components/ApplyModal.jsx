@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FiUser, FiMail, FiPhone, FiMessageSquare, FiX } from "react-icons/fi";
+import {
+  FiUser,
+  FiPhone,
+  FiMessageSquare,
+  FiX,
+  FiClock,
+  FiUsers,
+} from "react-icons/fi";
 import axios from "axios";
 import styles from "../styles/ApplyModal.module.css";
 
@@ -8,8 +15,9 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
 
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phone: "",
+    preferredTime: "", // 선택사항: 선호 시간대
+    companions: "0", // 기본값: 없음 (혼자 참석)
     message: "",
     programTitle: initialProgramTitle,
   });
@@ -32,22 +40,13 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     const errors = {};
 
     if (!formData.name || formData.name.trim().length < 2) {
-      errors.name = "이름을 2자 이상 입력해주세요.";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email || !emailRegex.test(formData.email.trim())) {
-      errors.email = "유효한 이메일 주소를 입력해주세요.";
+      errors.name = "이름을 입력해주세요.";
     }
 
     const phoneRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
     const plainPhone = formData.phone.replace(/-/g, "");
     if (!plainPhone || !phoneRegex.test(plainPhone)) {
       errors.phone = "유효한 전화번호를 입력해주세요.";
-    }
-
-    if (!formData.programTitle || formData.programTitle.trim() === "") {
-      errors.programTitle = "프로그램 제목이 누락되었습니다.";
     }
 
     setFieldErrors(errors);
@@ -80,11 +79,21 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     setLoading(true);
     setError("");
 
+    // 임시 성공 처리로 변경 (실제 API 호출 주석 처리)
+    setTimeout(() => {
+      console.log("제출된 데이터:", formData);
+      onSubmit(formData);
+      onClose();
+      setLoading(false);
+    }, 1000);
+
+    // API 서버 문제가 해결된 후에 아래 코드 주석 해제
+    /*
     try {
       const apiUrl =
         process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
-      console.log("API URL:", apiUrl); // 사용 중인 API URL 확인
-      console.log("보내는 데이터:", formData); // 보내는 데이터 확인
+      console.log("API URL:", apiUrl);
+      console.log("보내는 데이터:", formData);
 
       const response = await axios.post(
         `${apiUrl}/api/applications`,
@@ -92,19 +101,18 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
         {
           headers: {
             "Content-Type": "application/json",
-          },
-          // withCredentials: true 옵션 제거
+          }
         }
       );
 
-      console.log("응답 데이터:", response.data); // 응답 데이터 확인
+      console.log("응답 데이터:", response.data);
 
       if (response.data) {
         onSubmit(formData);
         onClose();
       }
     } catch (err) {
-      console.error("신청 실패 상세 정보:", err); // 더 상세한 오류 정보 출력
+      console.error("신청 실패 상세 정보:", err);
       const errorMessage =
         err.response?.data?.message ||
         (err.code === "ERR_NETWORK"
@@ -114,6 +122,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   if (!isOpen) return null;
@@ -125,14 +134,14 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
           <FiX size={24} />
         </button>
 
-        <h2 className={styles.modalTitle}>프로그램 신청</h2>
-        <p className={styles.modalSubtitle}>
-          {formData.programTitle} 프로그램 신청 정보를 입력해주세요.
-        </p>
+        <div className={styles.modalHeader}>
+          <h2 className={styles.modalTitle}>프로그램 신청</h2>
+          <p className={styles.modalSubtitle}>{formData.programTitle}</p>
+        </div>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
 
-        <form onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit} noValidate className={styles.simpleForm}>
           <div className={styles.inputGroup}>
             <div className={styles.inputIcon}>
               <FiUser />
@@ -140,7 +149,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
             <input
               type="text"
               name="name"
-              placeholder="이름을 입력해주세요"
+              placeholder="이름"
               value={formData.name}
               onChange={handleChange}
               className={`${styles.input} ${
@@ -155,32 +164,12 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
 
           <div className={styles.inputGroup}>
             <div className={styles.inputIcon}>
-              <FiMail />
-            </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="이메일을 입력해주세요"
-              value={formData.email}
-              onChange={handleChange}
-              className={`${styles.input} ${
-                fieldErrors.email ? styles.inputError : ""
-              }`}
-              required
-            />
-            {fieldErrors.email && (
-              <div className={styles.fieldError}>{fieldErrors.email}</div>
-            )}
-          </div>
-
-          <div className={styles.inputGroup}>
-            <div className={styles.inputIcon}>
               <FiPhone />
             </div>
             <input
               type="tel"
               name="phone"
-              placeholder="전화번호를 입력해주세요"
+              placeholder="전화번호"
               value={formData.phone}
               onChange={handleChange}
               className={`${styles.input} ${
@@ -194,16 +183,50 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
           </div>
 
           <div className={styles.inputGroup}>
+            <div className={styles.inputIcon}>
+              <FiClock />
+            </div>
+            <select
+              name="preferredTime"
+              value={formData.preferredTime}
+              onChange={handleChange}
+              className={styles.input}
+            >
+              <option value="">선호하는 시간대 (선택사항)</option>
+              <option value="평일 오전">평일 오전</option>
+              <option value="평일 오후">평일 오후</option>
+              <option value="평일 저녁">평일 저녁</option>
+              <option value="주말">주말</option>
+            </select>
+          </div>
+
+          <div className={styles.inputGroup}>
+            <div className={styles.inputIcon}>
+              <FiUsers />
+            </div>
+            <select
+              name="companions"
+              value={formData.companions}
+              onChange={handleChange}
+              className={styles.input}
+            >
+              <option value="0">혼자 참석</option>
+              <option value="1">1명과 함께</option>
+              <option value="2+">2명 이상과 함께</option>
+            </select>
+          </div>
+
+          <div className={styles.inputGroup}>
             <div className={styles.inputIcon} style={{ top: "24px" }}>
               <FiMessageSquare />
             </div>
             <textarea
               name="message"
-              placeholder="남기실 말씀을 입력해주세요"
+              placeholder="남기실 말씀 (선택사항)"
               value={formData.message}
               onChange={handleChange}
               className={`${styles.input} ${styles.textarea}`}
-              rows="4"
+              rows="2"
             />
           </div>
 
@@ -214,14 +237,6 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
               disabled={loading}
             >
               {loading ? "처리중..." : "신청하기"}
-            </button>
-            <button
-              type="button"
-              className={styles.cancelButton}
-              onClick={onClose}
-              disabled={loading}
-            >
-              취소
             </button>
           </div>
         </form>
