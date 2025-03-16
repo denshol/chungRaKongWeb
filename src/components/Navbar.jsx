@@ -12,25 +12,19 @@ const Navbar = () => {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false); // ApplyModal 상태 추가
 
   useEffect(() => {
-    // 컴포넌트가 마운트된 후에만 isScrolled 상태 업데이트
-    setIsMounted(true);
-
     const handleScroll = () => {
-      if (isMounted) {
-        // 스크롤 위치가 10px 이상일 때만 스크롤된 것으로 처리
-        setIsScrolled(window.scrollY > 10);
-      }
+      // 스크롤 위치가 10px 이상일 때만 스크롤된 것으로 처리
+      setIsScrolled(window.scrollY > 10);
     };
 
-    // 초기 스크롤 위치 확인 - 초기값 강제로 false 설정
+    // 초기에 무조건 false로 설정
     setIsScrolled(false);
-    handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isMounted]);
+  }, []); // isMounted 의존성 제거
 
   // 메뉴 토글 함수 정의
   const toggleMenu = useCallback(() => {

@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -572,4 +572,43 @@
   .navLinks .navLink {
     color: var(--text-secondary) !important;
   }
+}
+.navbar {
+  background-color: transparent !important;
+  backdrop-filter: blur(0px);
+  transition: background-color 0.3s ease;
+}
+
+.navbar:not(.scrolled):not(.active) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* Navbar.module.css */
+.navbar {
+  padding: 0.75rem 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  height: 70px;
+  background-color: transparent !important;
+  backdrop-filter: blur(0px);
+}
+
+/* 추가: 초기 상태에서 완전히 투명하게 만들기 */
+.navbar:not(.scrolled):not(.active) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 스크롤 또는 메뉴 활성화 시 */
+.scrolled,
+.navbar.active {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
