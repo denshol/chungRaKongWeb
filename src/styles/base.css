@@ -48,15 +48,48 @@ img {
   body {
     margin-top: 0; /* 모바일에서는 margin-top 제거 */
   }
-  
+
   .responsive-image-container {
     height: auto;
   }
-  
+
   .responsive-image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+} /* main.css에 추가해야 하는 코드 */
+body {
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.responsive-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  body {
+    margin-top: 0; /* 모바일에서는 margin-top 제거 */
+  }
+
+  .responsive-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .responsive-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }

@@ -19,6 +19,7 @@ const HeroSlider = () => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
+
     return () => clearInterval(timer);
   }, [images.length]);
 
@@ -58,12 +59,12 @@ const HeroSlider = () => {
   // 더 자연스러운 이미지 줌 효과
   const imageVariants = {
     enter: {
-      scale: 1.05,
+      scale: isMobile ? 1.02 : 1.05, // 모바일에서는 작은 스케일만 적용
     },
     center: {
       scale: 1,
       transition: {
-        duration: 3,
+        duration: isMobile ? 2 : 3, // 모바일에서는 더 짧은 시간
         ease: "easeOut",
       },
     },
@@ -86,7 +87,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className={styles.heroSlider}>
+    <div className={`${styles.heroSlider} responsive-container`}>
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentIndex}
