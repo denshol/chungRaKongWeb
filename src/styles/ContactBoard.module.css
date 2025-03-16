@@ -1,0 +1,80 @@
+.contactBoardContainer {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.boardTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.boardNav {
+  display: flex;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 30px;
+}
+
+.tab,
+.activeTab {
+  padding: 14px 25px;
+  margin-right: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.tab {
+  color: #6b7280;
+  background-color: #f3f4f6;
+}
+
+.activeTab {
+  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+}
+
+.tab:hover {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.boardContent {
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .contactBoardContainer {
+    padding: 20px;
+    margin: 40px auto;
+  }
+
+  .boardTitle {
+    font-size: 2rem;
+  }
+
+  .tab,
+  .activeTab {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+}

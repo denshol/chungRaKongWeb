@@ -1,0 +1,138 @@
+.detailContainer {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.detailHeader {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.detailTitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.detailInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.status {
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.completed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.detailContent {
+  margin-bottom: 30px;
+}
+
+.detailContent h3 {
+  font-size: 1.2rem;
+  color: #374151;
+  margin-bottom: 15px;
+}
+
+.message {
+  line-height: 1.6;
+  color: #4b5563;
+  background-color: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  white-space: pre-line;
+  min-height: 100px;
+}
+
+.responseContainer {
+  margin-bottom: 30px;
+}
+
+.responseContainer h3 {
+  font-size: 1.2rem;
+  color: #374151;
+  margin-bottom: 15px;
+}
+
+.response {
+  background-color: #f0fdf4;
+  border-left: 4px solid var(--primary-color);
+  padding: 20px;
+  border-radius: 0 8px 8px 0;
+  line-height: 1.6;
+}
+
+.responseInfo {
+  margin-top: 20px;
+  text-align: right;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.backButton {
+  padding: 10px 20px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.backButton:hover {
+  background-color: #e5e7eb;
+}
+
+.notFound {
+  text-align: center;
+  padding: 60px 0;
+  color: #6b7280;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .detailContainer {
+    padding: 20px;
+  }
+
+  .detailTitle {
+    font-size: 1.5rem;
+  }
+}

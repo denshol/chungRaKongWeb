@@ -1,9 +1,5 @@
 import React, { Suspense, lazy, useContext } from "react";
-import {
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./styles/main.css";
@@ -18,6 +14,7 @@ import Main from "./pages/Main";
 import ProgramRanking from "./components/ProgramRanking";
 import ScrollToTop from "./components/ScrollToTop";
 import Loading from "./components/Loading";
+import ContactBoard from "./components/ContactBoard";
 
 const HeroSlider = lazy(() => import("./components/HeroSlider"));
 const ProgramList = lazy(() => import("./components/ProgramList"));
@@ -60,7 +57,7 @@ function App() {
           <Route path="/program/:id" element={<ProgramDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Programs />} />
-          <Route path="/contact" element={<ContactForm />} />
+          <Route path="/contact/*" element={<ContactBoard />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/video-lectures" element={<VideoLectureBoard />} />

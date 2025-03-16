@@ -1,0 +1,171 @@
+.listContainer {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.listHeader {
+  display: flex;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #4b5563;
+}
+
+.inquiryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inquiryItem {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.inquiryItem:hover {
+  background-color: #f9fafb;
+}
+
+.inquiryLink {
+  display: flex;
+  padding: 15px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.idCol {
+  width: 10%;
+  text-align: center;
+}
+
+.subjectCol {
+  width: 45%;
+  font-weight: 500;
+}
+
+.nameCol {
+  width: 15%;
+  text-align: center;
+}
+
+.dateCol {
+  width: 15%;
+  text-align: center;
+}
+
+.statusCol {
+  width: 15%;
+  text-align: center;
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 0.9rem;
+}
+
+.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.completed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.loading,
+.error,
+.noInquiries {
+  text-align: center;
+  padding: 40px 0;
+  color: #6b7280;
+}
+
+.error {
+  color: #ef4444;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.writeButton {
+  padding: 12px 24px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(106, 191, 105, 0.2);
+}
+
+.writeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(106, 191, 105, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .listHeader,
+  .inquiryLink {
+    font-size: 0.9rem;
+  }
+
+  .idCol {
+    width: 15%;
+  }
+
+  .subjectCol {
+    width: 40%;
+  }
+
+  .nameCol,
+  .dateCol,
+  .statusCol {
+    width: 15%;
+  }
+
+  .statusCol {
+    font-size: 0.8rem;
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nameCol,
+  .dateCol {
+    display: none;
+  }
+
+  .idCol {
+    width: 20%;
+  }
+
+  .subjectCol {
+    width: 60%;
+  }
+
+  .statusCol {
+    width: 20%;
+  }
+}
