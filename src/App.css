@@ -1,0 +1,51 @@
+/* 
+ * 슬라이더의 부모 컨테이너에 적용하면 좋은 설정
+ * 
+ * 이 스타일은 슬라이더가 포함된 컨테이너나 레이아웃에 
+ * 적용하여 슬라이더가 가로로 잘리는 문제를 해결합니다.
+ */
+
+/* App.css나 전역 스타일에 추가 */
+.container,
+.wrapper,
+.content,
+.main,
+.page-container,
+section {
+  overflow-x: hidden; /* 가로 스크롤바 방지 */
+  max-width: 100%; /* 최대 너비를 100%로 제한 */
+  box-sizing: border-box; /* 테두리와 패딩이 너비에 포함되도록 설정 */
+}
+
+body {
+  overflow-x: hidden; /* 페이지 전체 가로 스크롤바 방지 */
+  width: 100%; /* 너비를 100%로 설정 */
+  margin: 0; /* 마진 제거 */
+  padding: 0; /* 패딩 제거 */
+}
+
+/* 또는 직접 슬라이더 컨테이너를 감싸는 div에 적용 */
+.slider-container {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+/* 최상위 레벨에 적용 */
+html,
+body,
+#root,
+.app {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* 스크롤바 관련 문제 방지 */
+html {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}

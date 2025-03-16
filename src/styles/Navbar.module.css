@@ -355,3 +355,87 @@
     width: fit-content;
   }
 }
+/* Navbar.module.css에 추가할 스타일 */
+
+/* CTA 버튼 스타일 */
+.cta {
+  background-color: var(--primary-color, #6abf69);
+  color: white !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(106, 191, 105, 0.25);
+}
+
+.cta:hover {
+  background-color: var(--primary-dark, #4c9e4a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(106, 191, 105, 0.35);
+}
+
+.ctaIcon {
+  font-size: 1rem;
+}
+
+/* 오른쪽 그룹 컨테이너 */
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 모바일 CTA 버튼 */
+.mobileCtaButton {
+  display: none;
+  background-color: var(--primary-color, #6abf69);
+  color: white;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
+  transition: all 0.3s ease;
+}
+
+.mobileCtaButton:hover {
+  background-color: var(--primary-dark, #4c9e4a);
+  transform: translateY(-2px);
+}
+
+/* 스크롤 상태에서의 CTA 버튼 */
+.scrolled .cta {
+  background-color: var(--primary-color, #6abf69);
+  color: white !important;
+}
+
+/* 모바일 미디어 쿼리 */
+@media (max-width: 768px) {
+  .contactInfo {
+    display: none;
+  }
+
+  .mobileCtaButton {
+    display: flex;
+  }
+
+  /* 모바일 메뉴에서의 CTA 버튼 스타일 */
+  .navLinks .cta {
+    margin-top: 0.5rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 메뉴가 열렸을 때 모바일 CTA 버튼 숨기기 */
+  .navbar.active .mobileCtaButton {
+    display: none;
+  }
+}
