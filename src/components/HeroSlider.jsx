@@ -32,7 +32,7 @@ const HeroSlider = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 더 부드러운 슬라이드 애니메이션
+  // 슬라이드 애니메이션
   const slideVariants = {
     enter: (direction) => ({
       x: direction > 0 ? 100 : -100,
@@ -56,21 +56,21 @@ const HeroSlider = () => {
     }),
   };
 
-  // 더 자연스러운 이미지 줌 효과
+  // 이미지 줌 효과
   const imageVariants = {
     enter: {
-      scale: isMobile ? 1.02 : 1.05, // 모바일에서는 작은 스케일만 적용
+      scale: isMobile ? 1.02 : 1.05,
     },
     center: {
       scale: 1,
       transition: {
-        duration: isMobile ? 2 : 3, // 모바일에서는 더 짧은 시간
+        duration: isMobile ? 2 : 3,
         ease: "easeOut",
       },
     },
   };
 
-  // 더 부드러운 페이지네이션 애니메이션
+  // 페이지네이션 애니메이션
   const numberVariants = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -80,14 +80,31 @@ const HeroSlider = () => {
   const handleImageLoad = (e) => {
     setImagesLoaded(true);
 
-    // 모바일 환경에서 이미지 위치 조정
+    // 이미지 비율 분석 및 최적화
+    const img = e.target;
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+
     if (isMobile) {
-      e.target.style.objectPosition = "center center";
+      // 모바일 환경 최적화
+      if (imgRatio > 1.2) {
+        // 가로로 긴 이미지
+        img.style.objectFit = "cover";
+        img.style.objectPosition = "center center";
+      } else {
+        img.style.objectFit = "cover";
+        img.style.objectPosition = "center center";
+      }
+    } else {
+      // 데스크탑 환경 최적화
+      img.style.objectFit = "cover";
+      img.style.objectPosition = "center center";
     }
   };
 
   return (
-    <div className={`${styles.heroSlider} responsive-container`}>
+    <div
+      className={`${styles.heroSlider} ${isMobile ? styles.mobileSlider : ""}`}
+    >
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentIndex}

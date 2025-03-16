@@ -2,7 +2,7 @@
 .heroSlider {
   position: relative;
   width: 100%;
-  padding-top: 28.9%; /* 데스크톱 비율 */
+  padding-top: 42%; /* 데스크탑에서 16:7 비율 (넓고 낮게) */
   overflow: hidden;
   margin-top: -70px;
   background: #000;
@@ -92,10 +92,13 @@
 /* 모바일 환경 설정 */
 @media screen and (max-width: 768px) {
   .heroSlider {
-    padding-top: 100%; /* 정사각형 비율로 변경 (1:1) */
-    margin-top: 0; /* 모바일에서는 마진 제거 */
+    padding-top: 75%; /* 모바일에서는 4:3 비율로 변경 */
+    margin-top: 0;
     height: auto;
-    max-height: 70vh; /* 뷰포트 높이의 70%로 제한 */
+  }
+
+  .mobileSlider {
+    max-height: none; /* 높이 제한 제거 */
   }
 
   .slide {
@@ -107,10 +110,9 @@
   }
 
   .slide img {
+    object-fit: cover; /* 이미지가 컨테이너를 채우도록 설정 */
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center; /* 이미지 중앙 정렬 */
   }
 
   .pagination {
@@ -126,49 +128,5 @@
   .loadingSpinner {
     width: 40px;
     height: 40px;
-  }
-}
-/* HeroSlider.module.css */
-.heroSlider {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 비율 (데스크톱) */
-  overflow: hidden;
-  margin-top: -70px;
-  background: #000;
-}
-
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-}
-
-.slide img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  will-change: transform;
-}
-
-/* 모바일 환경 설정 */
-@media screen and (max-width: 768px) {
-  .heroSlider {
-    padding-top: 120%; /* 더 세로로 길게 설정 (5:6 비율) */
-    margin-top: 0;
-    height: auto;
-  }
-
-  .slide img {
-    object-fit: contain; /* 변경: cover에서 contain으로 변경하여 이미지 전체가 보이도록 함 */
-    background-color: #000; /* 배경색 설정 */
   }
 }
