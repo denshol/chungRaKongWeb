@@ -12,8 +12,13 @@
   --text-secondary: #5d6470;
   --background-color: #f4f6f7;
   --white: #ffffff;
+  --error-color: #e53935;
+  --success-color: #43a047;
+  --pending-color: #ff9800;
+  --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+  --border-radius: 12px;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;

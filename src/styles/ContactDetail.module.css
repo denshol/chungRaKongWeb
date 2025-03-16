@@ -1,47 +1,49 @@
+/* ContactDetail.module.css */
 .detailContainer {
-  background-color: #fff;
-  border-radius: 12px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   animation: fadeIn 0.4s ease-in-out;
 }
 
 .detailHeader {
   border-bottom: 1px solid #eaeaea;
   padding-bottom: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .detailTitle {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #111827;
-  margin-bottom: 10px;
+  color: var(--text-primary);
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
 }
 
 .detailInfo {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  color: #6b7280;
+  gap: 16px;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
 .status {
-  border-radius: 20px;
-  padding: 3px 12px;
+  border-radius: 30px;
+  padding: 4px 14px;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .pending {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: rgba(255, 152, 0, 0.15);
+  color: var(--pending-color);
 }
 
 .completed {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: rgba(106, 191, 105, 0.15);
+  color: var(--success-color);
 }
 
 .detailContent {
@@ -49,19 +51,21 @@
 }
 
 .detailContent h3 {
-  font-size: 1.2rem;
-  color: #374151;
+  font-size: 1.25rem;
+  color: var(--text-primary);
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .message {
-  line-height: 1.6;
-  color: #4b5563;
+  line-height: 1.7;
+  color: var(--text-primary);
   background-color: #f9fafb;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 22px;
+  border-radius: 10px;
   white-space: pre-line;
-  min-height: 100px;
+  min-height: 120px;
+  border: 1px solid #eaeaea;
 }
 
 .responseContainer {
@@ -69,23 +73,25 @@
 }
 
 .responseContainer h3 {
-  font-size: 1.2rem;
-  color: #374151;
+  font-size: 1.25rem;
+  color: var(--text-primary);
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .response {
-  background-color: #f0fdf4;
+  background-color: rgba(106, 191, 105, 0.08);
   border-left: 4px solid var(--primary-color);
-  padding: 20px;
-  border-radius: 0 8px 8px 0;
-  line-height: 1.6;
+  padding: 22px;
+  border-radius: 0 10px 10px 0;
+  line-height: 1.7;
+  color: var(--text-primary);
 }
 
 .responseInfo {
   margin-top: 20px;
   text-align: right;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -96,43 +102,110 @@
 }
 
 .backButton {
-  padding: 10px 20px;
-  background-color: #f3f4f6;
-  color: #4b5563;
+  padding: 12px 26px;
+  background-color: #f1f3f5;
+  color: var(--text-secondary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  transition: var(--transition);
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .backButton:hover {
-  background-color: #e5e7eb;
+  background-color: #e9ecef;
+  color: var(--text-primary);
 }
 
 .notFound {
   text-align: center;
-  padding: 60px 0;
-  color: #6b7280;
+  padding: 70px 0;
+  color: var(--text-secondary);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* 반응형 스타일 */
 @media (max-width: 768px) {
-  .detailContainer {
-    padding: 20px;
+  .contactBoardContainer {
+    padding: 25px;
+    margin: 30px 15px;
+    border-radius: 10px;
   }
 
+  .boardTitle {
+    font-size: 2rem;
+  }
+
+  .tab,
+  .activeTab {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+
+  .formContainer,
+  .detailContainer {
+    padding: 25px;
+  }
+
+  .formTitle,
   .detailTitle {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  .listHeader,
+  .inquiryLink {
+    font-size: 0.9rem;
+  }
+
+  .idCol {
+    width: 15%;
+  }
+
+  .subjectCol {
+    width: 40%;
+  }
+
+  .nameCol,
+  .dateCol,
+  .statusCol {
+    width: 15%;
+  }
+
+  .statusCol {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .nameCol,
+  .dateCol {
+    display: none;
+  }
+
+  .idCol {
+    width: 20%;
+  }
+
+  .subjectCol {
+    width: 60%;
+  }
+
+  .statusCol {
+    width: 20%;
+  }
+
+  .detailInfo {
+    flex-direction: column;
+    gap: 8px;
   }
 }
