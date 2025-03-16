@@ -81,10 +81,11 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     setError("");
 
     try {
-      // ApplyModal.js 파일에서
       const apiUrl =
         process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
-      // "https://api.chungrakong.kr" 대신 Render 주소를 직접 사용
+      console.log("API URL:", apiUrl); // 사용 중인 API URL 확인
+      console.log("보내는 데이터:", formData); // 보내는 데이터 확인
+
       const response = await axios.post(
         `${apiUrl}/api/applications`,
         formData,
@@ -92,16 +93,18 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true,
+          // withCredentials: true 옵션 제거
         }
       );
+
+      console.log("응답 데이터:", response.data); // 응답 데이터 확인
 
       if (response.data) {
         onSubmit(formData);
         onClose();
       }
     } catch (err) {
-      console.error("신청 실패:", err);
+      console.error("신청 실패 상세 정보:", err); // 더 상세한 오류 정보 출력
       const errorMessage =
         err.response?.data?.message ||
         (err.code === "ERR_NETWORK"
