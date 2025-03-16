@@ -102,3 +102,41 @@
     height: 40px;
   }
 }
+/* HeroSlider.module.css */
+.heroSlider {
+  position: relative;
+  width: 100%;
+  padding-top: 28.9%; /* 데스크톱 비율 */
+  overflow: hidden;
+  margin-top: -70px; /* navbar 높이만큼 올림 */
+  background: #000;
+}
+
+/* 모바일 환경에서의 스타일 수정 */
+@media screen and (max-width: 768px) {
+  .heroSlider {
+    padding-top: 56.25%; /* 16:9 비율로 조정 (모바일에 더 적합) */
+    margin-top: -70px; /* navbar와 겹치도록 유지 */
+    height: auto; /* 높이 자동 설정 */
+  }
+
+  .slide {
+    height: 100%; /* 높이 100% 유지 */
+  }
+
+  .slide img {
+    object-position: center center; /* 이미지 중앙 정렬 */
+  }
+
+  .pageNumber {
+    font-size: 12px; /* 작은 화면에 맞게 폰트 크기 축소 */
+    padding: 4px 10px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .pagination {
+    bottom: 15px;
+    right: 15px;
+  }
+}

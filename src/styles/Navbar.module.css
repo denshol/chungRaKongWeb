@@ -380,3 +380,145 @@
   /* 나머지 모바일 스타일은 유지 */
   /* ... */
 }
+/* Navbar.module.css */
+
+/* 기본 스타일은 그대로 유지하고 아래 코드 추가/수정 */
+
+/* 모바일 네비게이션 전용 클래스 */
+.mobileNavbar {
+  background-color: transparent !important;
+  height: 70px; /* 모바일에서는 좀 더 작게 */
+}
+
+@media (max-width: 768px) {
+  /* 모바일에서 navbar 스타일 */
+  .navbar {
+    padding: 0.5rem 1rem;
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+
+  /* 항상 적용되어야 하는 스타일 */
+  .mobileNavbar .brandName,
+  .mobileNavbar .navLink,
+  .mobileNavbar .dropdownTrigger {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .mobileNavbar .hamburger,
+  .mobileNavbar .hamburger::before,
+  .mobileNavbar .hamburger::after {
+    background-color: white !important;
+  }
+
+  /* 로고 크기 조정 */
+  .logo img {
+    height: 36px;
+    width: 36px;
+  }
+
+  .brandName {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* 메뉴가 펼쳐진 상태 */
+  .navbar.active {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .navbar.active .brandName {
+    color: var(--primary-color) !important;
+  }
+
+  .navbar.active .hamburger,
+  .navbar.active .hamburger::before,
+  .navbar.active .hamburger::after {
+    background-color: var(--text-secondary) !important;
+  }
+
+  /* 네비게이션 메뉴 */
+  .navLinks {
+    position: absolute;
+    top: 70px; /* 헤더 높이에 맞춤 */
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1rem 0;
+    z-index: 1000;
+  }
+}
+/* Navbar.module.css */
+
+.navbar {
+  padding: 0.75rem 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  height: 70px; /* 기존 80px에서 70px로 조정 */
+  background-color: transparent;
+  backdrop-filter: blur(0px);
+}
+
+/* 나머지 CSS는 그대로 유지 */
+
+@media (max-width: 768px) {
+  .navbar {
+    background-color: transparent !important;
+    box-shadow: none;
+    height: 70px; /* 모바일에서도 동일한 높이 유지 */
+  }
+
+  /* 로고와 브랜드 이름 */
+  .logo img {
+    height: 32px;
+    width: 32px;
+  }
+
+  .brandName {
+    font-size: 1.1rem;
+    color: white !important; /* 모바일에서 항상 흰색으로 표시 */
+  }
+
+  /* 햄버거 메뉴도 항상 흰색으로 */
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    background-color: white !important;
+  }
+
+  /* 메뉴가 열릴 때만 스타일 변경 */
+  .navbar.active {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .navbar.active .brandName {
+    color: var(--primary-color) !important;
+  }
+
+  .navbar.active .hamburger,
+  .navbar.active .hamburger::before,
+  .navbar.active .hamburger::after {
+    background-color: var(--text-secondary) !important;
+  }
+
+  /* 스크롤 상태에서도 투명 배경 유지 */
+  .navbar.scrolled:not(.active) {
+    background-color: transparent !important;
+  }
+
+  /* 스크롤 상태에서도 텍스트와 아이콘은 흰색 유지 */
+  .navbar.scrolled:not(.active) .brandName,
+  .navbar.scrolled:not(.active) .hamburger,
+  .navbar.scrolled:not(.active) .hamburger::before,
+  .navbar.scrolled:not(.active) .hamburger::after {
+    color: white !important;
+    background-color: white !important;
+  }
+}

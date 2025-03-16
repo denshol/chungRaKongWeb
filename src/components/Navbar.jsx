@@ -8,31 +8,32 @@ import logo from "../assets/image/chungRaKong.png";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // 초기 상태 설정 (페이지 로드 시)
-    setIsScrolled(window.scrollY > 80);
+    // 컴포넌트가 마운트된 후에만 isScrolled 상태 업데이트
+    setIsMounted(true);
 
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 80);
-          ticking = false;
-        });
-        ticking = true;
+      if (isMounted) {
+        setIsScrolled(window.scrollY > 80);
       }
     };
 
+    // 초기 스크롤 위치 확인
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMounted]);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // 클래스명을 간결하게 정리
+  // 모바일 메뉴가 열려있을 때만 active 클래스 적용
   const navbarClasses = [
     styles.navbar,
     isScrolled ? styles.scrolled : "",
