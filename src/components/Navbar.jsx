@@ -10,6 +10,9 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    // 초기 상태 설정 (페이지 로드 시)
+    setIsScrolled(window.scrollY > 80);
+
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -29,14 +32,17 @@ const Navbar = () => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  // 클래스명을 간결하게 정리
+  const navbarClasses = [
+    styles.navbar,
+    isScrolled ? styles.scrolled : "",
+    isMenuOpen ? styles.active : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <header
-      className={`
-        ${styles.navbar} 
-        ${isScrolled ? styles.scrolled : ""} 
-        ${isMenuOpen ? styles.active : ""}
-      `}
-    >
+    <header className={navbarClasses}>
       <div className={styles.navbarContainer}>
         <div className={styles.navLeftGroup}>
           <div className={styles.brand}>

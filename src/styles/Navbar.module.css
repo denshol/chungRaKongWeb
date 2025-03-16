@@ -331,3 +331,52 @@
     width: fit-content;
   }
 }
+
+/* Navbar.module.css 수정 부분 */
+
+/* 모바일 환경에 추가할 코드 */
+@media (max-width: 768px) {
+  /* 모바일에서 navbar가 투명하게 유지되도록 수정 */
+  .navbar {
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+
+  /* 스크롤 상태와 상관없이 텍스트 색상은 항상 흰색으로 유지 */
+  .brandName {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .navLink,
+  .dropdownTrigger {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* 햄버거 메뉴 색상도 항상 흰색으로 유지 */
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    background-color: white !important;
+  }
+
+  /* 메뉴가 펼쳐질 때만 배경색 변경 */
+  .navbar.active {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 메뉴가 활성화된 상태에서는 햄버거 메뉴 색상을 어둡게 변경 */
+  .navbar.active .hamburger,
+  .navbar.active .hamburger::before,
+  .navbar.active .hamburger::after {
+    background-color: var(--text-secondary) !important;
+  }
+
+  /* 메뉴가 활성화된 상태에서는 브랜드 이름 색상 변경 */
+  .navbar.active .brandName {
+    color: var(--primary-color) !important;
+  }
+
+  /* 나머지 모바일 스타일은 유지 */
+  /* ... */
+}
