@@ -81,8 +81,10 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     setError("");
 
     try {
+      // ApplyModal.js 파일에서
       const apiUrl =
-        process.env.REACT_APP_API_URL || "https://api.chungrakong.kr";
+        process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
+      // "https://api.chungrakong.kr" 대신 Render 주소를 직접 사용
       const response = await axios.post(
         `${apiUrl}/api/applications`,
         formData,

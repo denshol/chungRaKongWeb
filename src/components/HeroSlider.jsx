@@ -1,4 +1,3 @@
-// HeroSlider.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import img1 from "../assets/image/banner/chungRaMain1.jpg";
@@ -11,6 +10,7 @@ const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const images = [img1, img2, img3, img4];
 
@@ -20,6 +20,15 @@ const HeroSlider = () => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
+  }, [images.length]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // 더 부드러운 슬라이드 애니메이션
@@ -67,8 +76,13 @@ const HeroSlider = () => {
     exit: { opacity: 0 },
   };
 
-  const handleImageLoad = () => {
+  const handleImageLoad = (e) => {
     setImagesLoaded(true);
+
+    // 모바일 환경에서 이미지 위치 조정
+    if (isMobile) {
+      e.target.style.objectPosition = "center center";
+    }
   };
 
   return (
