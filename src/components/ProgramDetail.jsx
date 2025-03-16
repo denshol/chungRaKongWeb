@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { programs } from "../data/programs"; // 수정된 부분
+import { programs } from "../data/programs";
 import styles from "../styles/program.module.css";
 import ApplyModal from "./ApplyModal";
 import SuccessModal from "./SuccessModal";
@@ -92,21 +92,18 @@ const ProgramDetail = () => {
         </div>
       </div>
 
-      {isApplyModalOpen && (
-        <ApplyModal
-          isOpen={isApplyModalOpen}
-          onClose={() => setIsApplyModalOpen(false)}
-          onSubmit={handleFormSubmit}
-          program={program}
-        />
-      )}
+      {/* 모달 컴포넌트: 항상 렌더링하고 isOpen 속성으로 표시 제어 */}
+      <ApplyModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        onSubmit={handleFormSubmit}
+        initialProgramId={program.id}
+      />
 
-      {isSuccessModalOpen && (
-        <SuccessModal
-          isOpen={isSuccessModalOpen}
-          onClose={() => setIsSuccessModalOpen(false)}
-        />
-      )}
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+      />
     </div>
   );
 };

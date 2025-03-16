@@ -1,57 +1,64 @@
+/* ApplyModal.module.css */
+
+/* 모달 오버레이 */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+  z-index: 1500;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1rem;
 }
 
+/* 모달 컨텐츠 */
 .modalContent {
   background-color: #ffffff;
   border-radius: 24px;
   padding: 2rem;
-  width: 90%;
-  max-width: 450px; /* 폭 줄임 */
+  width: 95%;
+  max-width: 520px;
   position: relative;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: slideUp 0.4s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-  max-height: 90vh;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 85vh;
   overflow-y: auto;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+/* 닫기 버튼 */
 .closeButton {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.25rem;
+  right: 1.25rem;
   background: rgba(106, 191, 105, 0.1);
   border: none;
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--primary-color, #6abf69);
   transition: all 0.3s ease;
   padding: 0.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .closeButton:hover {
@@ -59,46 +66,359 @@
   transform: rotate(90deg);
 }
 
+/* 모달 헤더 */
 .modalHeader {
-  text-align: center;
+  text-align: left;
   margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.modalHeader::after {
+  content: "";
+  position: absolute;
+  bottom: -0.75rem;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--primary-color, #6abf69);
+  border-radius: 2px;
 }
 
 .modalTitle {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 0.5rem;
+  color: #1f2937;
   background: linear-gradient(
     135deg,
-    var(--primary-color),
-    var(--primary-dark)
+    var(--primary-color, #6abf69),
+    var(--primary-dark, #4a8b49)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.modalSubtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-  font-weight: 500;
+/* 프로그램 선택기 스타일 */
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 1.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.sectionTitle svg {
+  color: var(--primary-color, #6abf69);
+}
+
+/* 선택된 프로그램 박스 */
+.selectedProgramBox {
+  background: linear-gradient(
+    to right,
+    rgba(106, 191, 105, 0.08),
+    rgba(106, 191, 105, 0.02)
+  );
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 4px solid var(--primary-color, #6abf69);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.selectedProgramBox:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.selectedProgramInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.selectedProgramInfo svg {
+  color: var(--primary-color, #6abf69);
+  font-size: 1.75rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.15);
+}
+
+.selectedProgramText {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectedProgramTitle {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+.selectedProgramSchedule {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.selectedProgramSchedule svg {
+  font-size: 0.85rem;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.changeProgramButton {
+  background-color: white;
+  border: 1px solid var(--primary-color, #6abf69);
+  color: var(--primary-color, #6abf69);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.changeProgramButton:hover {
+  background-color: var(--primary-color, #6abf69);
+  color: white;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.3);
+}
+
+/* 프로그램 필터 */
+.programFilters {
+  margin-bottom: 1rem;
+}
+
+.searchInputContainer {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.programSearchInput {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 2.5rem;
+  border: 1px solid rgba(106, 191, 105, 0.2);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.programSearchInput:focus {
+  border-color: var(--primary-color, #6abf69);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(106, 191, 105, 0.1);
+  background-color: white;
+}
+
+.categoryFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #f1f5f9;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.categoryButton svg {
+  font-size: 1rem;
+}
+
+.categoryButton:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.activeCategory {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color, #6abf69),
+    var(--primary-dark, #4a8b49)
+  );
+  color: white;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
+}
+
+.activeCategory:hover {
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark, #4a8b49),
+    var(--primary-color, #6abf69)
+  );
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.3);
+}
+
+/* 프로그램 목록 */
+.programList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(106, 191, 105, 0.15);
+  background-color: #f8fafc;
+  padding: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(106, 191, 105, 0.5) #f1f5f9;
+}
+
+.programList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.programList::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.programList::-webkit-scrollbar-thumb {
+  background-color: rgba(106, 191, 105, 0.5);
+  border-radius: 10px;
+}
+
+.programCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background-color: white;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.programCard:last-child {
+  margin-bottom: 0;
+}
+
+.programCard:hover {
+  border-color: var(--primary-color, #6abf69);
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.15);
+  transform: translateY(-2px);
+}
+
+.programCardContent {
+  flex: 1;
+}
+
+.programCategory {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.programCategory svg {
+  color: var(--primary-color, #6abf69);
+}
+
+.programTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  color: #1f2937;
+}
+
+.programSchedule {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.programSchedule svg {
+  font-size: 0.8rem;
+  color: var(--primary-color, #6abf69);
+}
+
+.programSelectButton {
+  color: var(--primary-color, #6abf69);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background-color: rgba(106, 191, 105, 0.1);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.programCard:hover .programSelectButton {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color, #6abf69),
+    var(--primary-dark, #4a8b49)
+  );
+  color: white;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
+}
+
+.noResults {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.noResults svg {
+  font-size: 2.5rem;
+  color: #d1d5db;
+}
+
+/* 폼 스타일 개선 */
 .simpleForm {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.errorMessage {
-  background-color: #fff1f1;
-  color: #e53e3e;
-  padding: 0.75rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.9rem;
+  gap: 1.25rem;
 }
 
 .inputGroup {
@@ -108,53 +428,76 @@
 .inputIcon {
   position: absolute;
   top: 50%;
-  left: 1rem;
+  left: 1.25rem;
   transform: translateY(-50%);
-  color: var(--primary-color);
+  color: var(--primary-color, #6abf69);
   font-size: 1.1rem;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .input {
   width: 100%;
-  padding: 0.875rem 1rem 0.875rem 2.75rem;
-  border: 1px solid rgba(106, 191, 105, 0.3);
+  padding: 1rem 1rem 1rem 3rem;
+  border: 1px solid rgba(106, 191, 105, 0.2);
   border-radius: 14px;
   font-size: 1rem;
+  font-weight: 500;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   background-color: #f9fafb;
 }
 
 .input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(106, 191, 105, 0.15);
+  border-color: var(--primary-color, #6abf69);
+  box-shadow: 0 0 0 3px rgba(106, 191, 105, 0.1);
   background-color: white;
 }
 
+.input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
 .inputError {
-  border-color: #e53e3e;
-  background-color: #fff5f5;
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.inputError:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .fieldError {
-  color: #e53e3e;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-  padding-left: 0.5rem;
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding-left: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .textarea {
+  padding-top: 1.5rem;
   resize: none;
-  min-height: 80px;
+  min-height: 100px;
 }
 
+.inputIcon[style*="top: 24px"] {
+  top: 1.5rem !important;
+  transform: none;
+}
+
+/* 버튼 스타일 */
 .buttonContainer {
   margin-top: 1.5rem;
 }
 
 .submitButton {
   width: 100%;
-  padding: 0.875rem;
+  padding: 1rem;
   border: none;
   border-radius: 14px;
   font-size: 1.1rem;
@@ -163,32 +506,90 @@
   transition: all 0.3s ease;
   background: linear-gradient(
     135deg,
-    var(--primary-color),
-    var(--primary-dark)
+    var(--primary-color, #6abf69),
+    var(--primary-dark, #4a8b49)
   );
   color: white;
-  box-shadow: 0 4px 10px rgba(106, 191, 105, 0.3);
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: all 0.5s ease;
 }
 
 .submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(106, 191, 105, 0.4);
+  box-shadow: 0 6px 16px rgba(106, 191, 105, 0.4);
+}
+
+.submitButton:hover::before {
+  left: 100%;
 }
 
 .submitButton:disabled {
   background: linear-gradient(135deg, #a5d6a7, #81c784);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Select 스타일 */
 select.input {
   appearance: none;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236abf69'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-position: right 1rem center;
   background-repeat: no-repeat;
-  background-size: 1em 1em;
+  background-size: 1.2em 1.2em;
   padding-right: 2.5rem;
 }
 
+/* 에러 메시지 */
+.errorMessage {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+.errorMessage svg {
+  color: #ef4444;
+  font-size: 1.25rem;
+}
+
+/* 폼 행 레이아웃 */
+.formRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.halfWidth {
+  flex: 1;
+}
+
+/* 모바일 최적화 */
 @media (max-width: 480px) {
   .modalContent {
     padding: 1.5rem;
@@ -198,5 +599,18 @@ select.input {
 
   .modalTitle {
     font-size: 1.6rem;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .programList {
+    max-height: 250px;
+  }
+
+  .programCard {
+    padding: 0.875rem 1rem;
   }
 }
