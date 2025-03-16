@@ -6,6 +6,7 @@ import {
   FiX,
   FiClock,
   FiUsers,
+  FiMail,
 } from "react-icons/fi";
 import axios from "axios";
 import styles from "../styles/ApplyModal.module.css";
@@ -16,6 +17,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "", // 추가된 이메일 필드
     preferredTime: "", // 선택사항: 선호 시간대
     companions: "0", // 기본값: 없음 (혼자 참석)
     message: "",
@@ -49,6 +51,14 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
       errors.phone = "유효한 전화번호를 입력해주세요.";
     }
 
+    // 이메일 유효성 검사 추가
+    if (formData.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        errors.email = "유효한 이메일 주소를 입력해주세요.";
+      }
+    }
+
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -78,16 +88,6 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
 
     setLoading(true);
     setError("");
-
-    // 임시 성공 처리로 변경 (실제 API 호출 주석 처리)
-    setTimeout(() => {
-      console.log("제출된 데이터:", formData);
-      onSubmit(formData);
-      onClose();
-      setLoading(false);
-    }, 1000);
-
-    // API 서버 문제가 해결된 후에 아래 코드 주석 해제
 
     try {
       const apiUrl =
@@ -178,6 +178,25 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
             />
             {fieldErrors.phone && (
               <div className={styles.fieldError}>{fieldErrors.phone}</div>
+            )}
+          </div>
+
+          <div className={styles.inputGroup}>
+            <div className={styles.inputIcon}>
+              <FiMail />
+            </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="이메일 (연락받을 주소)"
+              value={formData.email}
+              onChange={handleChange}
+              className={`${styles.input} ${
+                fieldErrors.email ? styles.inputError : ""
+              }`}
+            />
+            {fieldErrors.email && (
+              <div className={styles.fieldError}>{fieldErrors.email}</div>
             )}
           </div>
 
