@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   FiUser,
   FiPhone,
@@ -19,16 +19,19 @@ import {
   FiFilter,
   FiGrid,
   FiInfo,
+  FiLoader,
 } from "react-icons/fi";
-import axios from "axios";
-import { programs, CATEGORIES } from "../data/programs"; // 프로그램 데이터 임포트
+import { programs, CATEGORIES } from "../data/programs";
+import apiService from "../utils/apiService";
 import styles from "../styles/ApplyModal.module.css";
 
 const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
   // 초기 프로그램 ID가 있으면 해당 프로그램 찾기, 없으면 null
-  const initialProgram = initialProgramId
-    ? programs.find((p) => p.id === initialProgramId)
-    : null;
+  const initialProgram = useMemo(
+    () =>
+      initialProgramId ? programs.find((p) => p.id === initialProgramId) : null,
+    [initialProgramId]
+  );
 
   const [formData, setFormData] = useState({
     name: "",
@@ -65,7 +68,8 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
     }
   }, [formData.programId]);
 
-  const formatPhoneNumber = (value) => {
+  // 전화번호 포맷팅 함수
+  const formatPhoneNumber = useCallback((value) => {
     const numbers = value.replace(/[^\d]/g, "");
     if (numbers.length <= 3) return numbers;
     if (numbers.length <= 7)
@@ -74,9 +78,10 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
       7,
       11
     )}`;
-  };
+  }, []);
 
-  const validateForm = () => {
+  // 폼 유효성 검사
+  const validateForm = useCallback(() => {
     const errors = {};
 
     if (!formData.name || formData.name.trim().length < 2) {
@@ -104,24 +109,29 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
-  };
+  }, [formData]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    let newValue = value;
+  // 폼 입력값 변경 핸들러
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      let newValue = value;
 
-    if (name === "phone") {
-      newValue = formatPhoneNumber(value);
-    }
+      if (name === "phone") {
+        newValue = formatPhoneNumber(value);
+      }
 
-    setFormData((prev) => ({ ...prev, [name]: newValue }));
+      setFormData((prev) => ({ ...prev, [name]: newValue }));
 
-    if (fieldErrors[name]) {
-      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
+      if (fieldErrors[name]) {
+        setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+      }
+    },
+    [fieldErrors, formatPhoneNumber]
+  );
 
-  const handleProgramSelect = (programId) => {
+  // 프로그램 선택 핸들러
+  const handleProgramSelect = useCallback((programId) => {
     const program = programs.find((p) => p.id === programId);
     setFormData((prev) => ({
       ...prev,
@@ -130,9 +140,10 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
     }));
     setShowProgramSelector(false);
     setFieldErrors((prev) => ({ ...prev, programId: "" }));
-  };
+  }, []);
 
-  const getCategoryIcon = (category) => {
+  // 카테고리별 아이콘 반환 함수
+  const getCategoryIcon = useCallback((category) => {
     switch (category) {
       case CATEGORIES.MUSIC:
         return <FiMusic />;
@@ -145,63 +156,42 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
       default:
         return null;
     }
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // 폼 제출 핸들러
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    if (!validateForm()) {
-      setError("입력 정보를 다시 확인해주세요.");
-      return;
-    }
+      if (!validateForm()) {
+        setError("입력 정보를 다시 확인해주세요.");
+        return;
+      }
 
-    setLoading(true);
-    setError("");
+      setLoading(true);
+      setError("");
 
-    try {
-      const apiUrl =
-        process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
+      try {
+        // apiService를 사용한 최적화된 요청
+        const response = await apiService.submitApplication(formData);
+        console.log("신청 완료:", response);
 
-      // API에 전송할 데이터 구성
-      const submissionData = {
-        ...formData,
-        // API에 필요한 추가 정보가 있다면 여기에 추가
-      };
-
-      console.log("API URL:", apiUrl);
-      console.log("보내는 데이터:", submissionData);
-
-      const response = await axios.post(
-        `${apiUrl}/api/applications`,
-        submissionData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("응답 데이터:", response.data);
-
-      if (response.data) {
         onSubmit(formData);
         onClose();
-      }
-    } catch (err) {
-      console.error("신청 실패 상세 정보:", err);
-      const errorMessage =
-        err.response?.data?.message ||
-        (err.code === "ERR_NETWORK"
-          ? "네트워크 연결을 확인해주세요."
-          : "신청 처리 중 오류가 발생했습니다.");
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+      } catch (error) {
+        console.error("신청 실패:", error);
 
-  // 필터링된 프로그램 목록 가져오기
-  const getFilteredPrograms = () => {
+        // apiService에서 제공하는 사용자 친화적 메시지 사용
+        setError(error.userMessage || "신청 처리 중 오류가 발생했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [formData, onClose, onSubmit, validateForm]
+  );
+
+  // 필터링된 프로그램 목록 계산 (메모이제이션)
+  const filteredPrograms = useMemo(() => {
     let filtered = programs;
 
     // 카테고리 필터링
@@ -222,18 +212,28 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
     }
 
     return filtered;
-  };
+  }, [selectedCategory, searchTerm]);
 
+  // 선택된 프로그램 계산 (메모이제이션)
+  const selectedProgram = useMemo(
+    () =>
+      formData.programId
+        ? programs.find((p) => p.id === parseInt(formData.programId))
+        : null,
+    [formData.programId]
+  );
+
+  // 모달이 닫혀있으면 렌더링하지 않음
   if (!isOpen) return null;
-
-  const selectedProgram = formData.programId
-    ? programs.find((p) => p.id === parseInt(formData.programId))
-    : null;
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={onClose}>
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="닫기"
+        >
           <FiX size={24} />
         </button>
 
@@ -265,6 +265,8 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
             <button
               className={styles.changeProgramButton}
               onClick={() => setShowProgramSelector(true)}
+              type="button"
+              aria-label="프로그램 변경"
             >
               <FiEdit /> 변경
             </button>
@@ -285,6 +287,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className={styles.programSearchInput}
+                  aria-label="프로그램 검색"
                 />
               </div>
 
@@ -294,6 +297,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                     selectedCategory === "all" ? styles.activeCategory : ""
                   }`}
                   onClick={() => setSelectedCategory("all")}
+                  type="button"
                 >
                   <FiFilter /> 전체
                 </button>
@@ -304,6 +308,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                       selectedCategory === category ? styles.activeCategory : ""
                     }`}
                     onClick={() => setSelectedCategory(category)}
+                    type="button"
                   >
                     {getCategoryIcon(category)} {category}
                   </button>
@@ -313,12 +318,15 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
 
             {/* 프로그램 목록 */}
             <div className={styles.programList}>
-              {getFilteredPrograms().length > 0 ? (
-                getFilteredPrograms().map((program) => (
+              {filteredPrograms.length > 0 ? (
+                filteredPrograms.map((program) => (
                   <div
                     key={program.id}
                     className={styles.programCard}
                     onClick={() => handleProgramSelect(program.id)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${program.title} 선택`}
                   >
                     <div className={styles.programCardContent}>
                       <div className={styles.programCategory}>
@@ -370,9 +378,11 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                 fieldErrors.name ? styles.inputError : ""
               }`}
               required
+              aria-label="이름"
+              aria-invalid={fieldErrors.name ? "true" : "false"}
             />
             {fieldErrors.name && (
-              <div className={styles.fieldError}>
+              <div className={styles.fieldError} role="alert">
                 <FiAlertCircle /> {fieldErrors.name}
               </div>
             )}
@@ -392,9 +402,11 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                 fieldErrors.phone ? styles.inputError : ""
               }`}
               required
+              aria-label="전화번호"
+              aria-invalid={fieldErrors.phone ? "true" : "false"}
             />
             {fieldErrors.phone && (
-              <div className={styles.fieldError}>
+              <div className={styles.fieldError} role="alert">
                 <FiAlertCircle /> {fieldErrors.phone}
               </div>
             )}
@@ -413,9 +425,11 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
               className={`${styles.input} ${
                 fieldErrors.email ? styles.inputError : ""
               }`}
+              aria-label="이메일"
+              aria-invalid={fieldErrors.email ? "true" : "false"}
             />
             {fieldErrors.email && (
-              <div className={styles.fieldError}>
+              <div className={styles.fieldError} role="alert">
                 <FiAlertCircle /> {fieldErrors.email}
               </div>
             )}
@@ -431,6 +445,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                 value={formData.preferredTime}
                 onChange={handleChange}
                 className={styles.input}
+                aria-label="선호 시간대"
               >
                 <option value="">선호 시간대</option>
                 <option value="평일 오전">평일 오전</option>
@@ -449,6 +464,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
                 value={formData.companions}
                 onChange={handleChange}
                 className={styles.input}
+                aria-label="동반 인원"
               >
                 <option value="0">혼자 참석</option>
                 <option value="1">1명과 함께</option>
@@ -468,6 +484,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
               onChange={handleChange}
               className={`${styles.input} ${styles.textarea}`}
               rows="2"
+              aria-label="남기실 말씀"
             />
           </div>
 
@@ -476,8 +493,15 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
               type="submit"
               className={styles.submitButton}
               disabled={loading}
+              aria-busy={loading}
             >
-              {loading ? "처리중..." : "신청하기"}
+              {loading ? (
+                <>
+                  <FiLoader className={styles.spinnerIcon} /> 처리중...
+                </>
+              ) : (
+                "신청하기"
+              )}
             </button>
           </div>
         </form>

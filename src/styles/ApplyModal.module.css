@@ -614,3 +614,95 @@ select.input {
     padding: 0.875rem 1rem;
   }
 }
+/* ApplyModal.module.css에 추가할 스타일 */
+
+/* 로딩 스피너 스타일 */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+/* 성능 개선을 위한 하드웨어 가속 활성화 */
+.modalOverlay {
+  will-change: opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.modalContent {
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* 모바일 성능 최적화를 위한 애니메이션 축소 */
+@media (max-width: 768px) {
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modalContent {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* 모바일에서 그림자 효과 간소화 */
+  .modalContent {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 모바일에서 블러 효과 제거 (성능 개선) */
+  .modalOverlay {
+    backdrop-filter: none;
+  }
+
+  /* 작은 화면에서 그라데이션 효과 제거 */
+  .activeCategory,
+  .submitButton,
+  .programCard:hover .programSelectButton {
+    background: var(--primary-color, #6abf69);
+  }
+
+  /* 선택된 프로그램 호버 효과 단순화 */
+  .selectedProgramBox:hover {
+    transform: none;
+  }
+}
+
+/* 터치 이벤트 최적화 */
+.programCard,
+.categoryButton,
+.closeButton,
+.changeProgramButton,
+.submitButton {
+  touch-action: manipulation;
+}
+
+/* 프로그램 선택기 성능 최적화 */
+.programList {
+  contain: content;
+}
+
+/* 폰트 렌더링 최적화 */
+.modalTitle,
+.sectionTitle,
+.selectedProgramTitle,
+.programTitle {
+  text-rendering: optimizeSpeed;
+}

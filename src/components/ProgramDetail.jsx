@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { programs } from "../data/programs";
 import styles from "../styles/program.module.css";
@@ -9,17 +9,46 @@ const ProgramDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const program = programs.find((p) => p.id === parseInt(id));
+  // useMemo로 프로그램 찾기 - 불필요한 재계산 방지
+  const program = useMemo(
+    () => programs.find((p) => p.id === parseInt(id)),
+    [id]
+  );
 
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-  const handleFormSubmit = (formData) => {
+  // useCallback으로 함수 최적화
+  const handleOpenApplyModal = useCallback(() => {
+    setIsApplyModalOpen(true);
+  }, []);
+
+  const handleCloseApplyModal = useCallback(() => {
+    setIsApplyModalOpen(false);
+  }, []);
+
+  const handleOpenImageModal = useCallback(() => {
+    setIsImageModalOpen(true);
+  }, []);
+
+  const handleCloseImageModal = useCallback(() => {
+    setIsImageModalOpen(false);
+  }, []);
+
+  const handleCloseSuccessModal = useCallback(() => {
+    setIsSuccessModalOpen(false);
+  }, []);
+
+  const handleFormSubmit = useCallback((formData) => {
     console.log(formData);
     setIsApplyModalOpen(false);
     setIsSuccessModalOpen(true);
-  };
+  }, []);
+
+  const handleGoBack = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
 
   if (!program) {
     return (
@@ -30,10 +59,7 @@ const ProgramDetail = () => {
   return (
     <div className={styles.programDetail}>
       <div className={styles.programDetailContainer}>
-        <div
-          className={styles.imageWrapper}
-          onClick={() => setIsImageModalOpen(true)}
-        >
+        <div className={styles.imageWrapper} onClick={handleOpenImageModal}>
           <img
             loading="lazy"
             src={program.detailImage}
@@ -49,11 +75,11 @@ const ProgramDetail = () => {
         </div>
 
         {isImageModalOpen && (
-          <div
-            className={styles.modal}
-            onClick={() => setIsImageModalOpen(false)}
-          >
-            <div className={styles.modalContent}>
+          <div className={styles.modal} onClick={handleCloseImageModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
               <img
                 src={program.detailImage}
                 alt={program.title}
@@ -79,31 +105,32 @@ const ProgramDetail = () => {
             </p>
           </div>
 
-          <button
-            className={styles.ctaButton}
-            onClick={() => setIsApplyModalOpen(true)}
-          >
+          <button className={styles.ctaButton} onClick={handleOpenApplyModal}>
             신청하기
           </button>
 
-          <button className={styles.backBtn} onClick={() => navigate("/")}>
+          <button className={styles.backBtn} onClick={handleGoBack}>
             목록으로 돌아가기
           </button>
         </div>
       </div>
 
-      {/* 모달 컴포넌트: 항상 렌더링하고 isOpen 속성으로 표시 제어 */}
-      <ApplyModal
-        isOpen={isApplyModalOpen}
-        onClose={() => setIsApplyModalOpen(false)}
-        onSubmit={handleFormSubmit}
-        initialProgramId={program.id}
-      />
+      {/* 모달 컴포넌트: 항상 렌더링하는 대신 조건부 렌더링으로 성능 향상 */}
+      {isApplyModalOpen && (
+        <ApplyModal
+          isOpen={isApplyModalOpen}
+          onClose={handleCloseApplyModal}
+          onSubmit={handleFormSubmit}
+          initialProgramId={program.id}
+        />
+      )}
 
-      <SuccessModal
-        isOpen={isSuccessModalOpen}
-        onClose={() => setIsSuccessModalOpen(false)}
-      />
+      {isSuccessModalOpen && (
+        <SuccessModal
+          isOpen={isSuccessModalOpen}
+          onClose={handleCloseSuccessModal}
+        />
+      )}
     </div>
   );
 };
