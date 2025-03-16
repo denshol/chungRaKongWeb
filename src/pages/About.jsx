@@ -142,7 +142,7 @@ const About = () => {
     <section className={styles.aboutContainer}>
       <div className={styles.heroSection} ref={heroRef}>
         <div className={styles.heroOverlay}></div>
-        {/* <div className={styles.heroContent}>
+        <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>청라콩문화센터</h1>
           <h2 className={styles.heroGradient}>가능성을 열다</h2>
           <p className={styles.heroText}>
@@ -151,7 +151,7 @@ const About = () => {
           <p className={styles.heroText}>
             창의적인 경험과 성장의 기회를 제공합니다.
           </p>
-        </div> */}
+        </div>
       </div>
 
       <div className={styles.visionSection} ref={visionRef}>

@@ -12,7 +12,6 @@
   --text-secondary: #5d6470;
   --background-color: #f4f6f7;
   --white: #ffffff;
-  margin-top: 70px;
 }
 
 * {
@@ -27,6 +26,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-primary);
   line-height: 1.6;
+  margin-top: 70px; /* navbar 높이만큼 상단 마진 추가 */
 }
 
 /* 전역 이미지 스타일 */
@@ -36,30 +36,27 @@ img {
   object-fit: cover;
   transition: all 0.3s ease;
 }
-:root {
-  --primary-color: #6abf69;
-  --primary-dark: #2e7d32;
-  --primary-light: #a5d6a7;
-  --secondary-color: #2c3e50;
-  --accent-color: #ffca28;
-  --text-primary: #2c3e50;
-  --text-secondary: #5d6470;
-  --background-color: #f4f6f7;
-  --white: #ffffff;
-  margin-top: 0; /* 70px에서 0으로 변경 */
-}
 
-body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-primary);
-  line-height: 1.6;
-  margin-top: 70px; /* body에 margin-top 추가 */
+/* 반응형 이미지 컨테이너 */
+.responsive-image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
   body {
     margin-top: 0; /* 모바일에서는 margin-top 제거 */
+  }
+  
+  .responsive-image-container {
+    height: auto;
+  }
+  
+  .responsive-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }

@@ -1,17 +1,19 @@
+/* About.module.css */
+
 /* 기본 컨테이너 */
 .aboutContainer {
   width: 100%;
   overflow-x: hidden;
   font-family: "Noto Sans KR", sans-serif;
-  margin-top: -80px;
   position: relative;
+  /* margin-top 제거하고 padding-top 추가 */
+  padding-top: 70px;
 }
 
 /* Hero 섹션 */
 .heroSection {
   height: 100vh;
-  min-height: 100vh;
-  max-height: none;
+  min-height: 80vh; /* 최소 높이 축소 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +38,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.3); /* 배경에 어두운 오버레이 추가 */
 }
 
 .heroContent {
@@ -157,14 +159,27 @@
 }
 
 @media (max-width: 768px) {
-  .heroSection {
-    height: 100vh;
-    min-height: 100vh;
-    max-height: none;
+  .aboutContainer {
+    padding-top: 0; /* 모바일에서는 상단 패딩 제거 */
   }
 
-  .aboutContainer {
-    margin-top: 0;
+  .heroSection {
+    height: 50vh; /* 모바일에서 높이 줄임 */
+    min-height: 400px; /* 최소 높이 설정 */
+    background-position: center; /* 배경 이미지 위치 중앙으로 */
+    background-size: cover; /* 배경 이미지가 컨테이너를 완전히 덮도록 설정 */
+  }
+
+  .heroTitle {
+    font-size: 2.5rem; /* 모바일에서 제목 크기 줄임 */
+  }
+
+  .heroGradient {
+    font-size: 1.8rem; /* 모바일에서 부제목 크기 줄임 */
+  }
+
+  .heroText {
+    font-size: 1rem; /* 모바일에서 텍스트 크기 줄임 */
   }
 
   .visionGrid,
@@ -182,6 +197,10 @@
 
   .sectionText {
     font-size: 1.5rem;
+  }
+
+  .sectionText br {
+    display: none; /* 모바일에서는, 줄바꿈 제거 */
   }
 }
 
@@ -219,10 +238,4 @@
   .facilityCard {
     transition: none;
   }
-}
-@media (max-width: 768px) {
-  .aboutContainer {
-    margin-top: -60px; /* 모바일에서는 좀 더 작게 */
-  }
-  /* 나머지 모바일 스타일은 동일 */
 }
