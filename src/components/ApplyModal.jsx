@@ -88,7 +88,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     }, 1000);
 
     // API 서버 문제가 해결된 후에 아래 코드 주석 해제
-    /*
+
     try {
       const apiUrl =
         process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
@@ -101,7 +101,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
         {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         }
       );
 
@@ -122,7 +122,6 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, programTitle }) => {
     } finally {
       setLoading(false);
     }
-    */
   };
 
   if (!isOpen) return null;
