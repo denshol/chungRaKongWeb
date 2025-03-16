@@ -1,0 +1,12 @@
+/* SliderWrapper.css */
+.slider-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: -70px;
+  z-index: -2;
+}

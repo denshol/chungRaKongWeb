@@ -17,11 +17,13 @@ const Navbar = () => {
 
     const handleScroll = () => {
       if (isMounted) {
-        setIsScrolled(window.scrollY > 80);
+        // 스크롤 위치가 10px 이상일 때만 스크롤된 것으로 처리
+        setIsScrolled(window.scrollY > 10);
       }
     };
 
-    // 초기 스크롤 위치 확인
+    // 초기 스크롤 위치 확인 - 초기값 강제로 false 설정
+    setIsScrolled(false);
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -30,6 +32,7 @@ const Navbar = () => {
     };
   }, [isMounted]);
 
+  // 메뉴 토글 함수 정의
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
