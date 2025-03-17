@@ -1,4 +1,4 @@
-/* Navbar.module.css - 어학연수 및 수강신청 버튼 스타일 개선 */
+/* Navbar.module.css - 통일된 네비게이션 버튼 스타일 */
 
 .navbar {
   padding: 0.75rem 5%;
@@ -63,6 +63,7 @@
   will-change: opacity, transform;
 }
 
+/* 모든 네비게이션 링크를 위한 기본 스타일 */
 .navLink {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
@@ -124,74 +125,18 @@
   color: var(--text-secondary);
 }
 
-/* 어학연수 강조 스타일 - 더 세련된 디자인 */
+/* 어학연수 링크 - 일반 링크와 스타일 통일 */
 .highlightedLink {
-  background: rgba(255, 255, 255, 0.15);
-  color: white !important;
-  padding: 9px 16px !important;
-  border-radius: 8px;
-  display: flex !important;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.highlightedLink:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.highlightedLink::after {
-  display: none;
-}
-
-.scrolled .highlightedLink {
-  background: var(--primary-color);
-  color: white !important;
-  border: none;
-}
-
-.scrolled .highlightedLink:hover {
-  background: var(--primary-dark);
-}
-
-/* CTA 버튼 - 수강신청 스타일 개선 */
-.navLink.cta {
-  background-color: transparent;
-  color: white !important;
-  padding: 9px 18px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-weight: 500;
 }
 
-.navLink.cta::after {
-  display: none;
-}
-
-.navLink.cta:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.scrolled .navLink.cta {
-  background-color: var(--primary-color);
-  border: none;
-  color: white !important;
-}
-
-.scrolled .navLink.cta:hover {
-  background-color: var(--primary-dark);
+/* CTA 버튼(수강신청) - 일반 링크와 스타일 통일 */
+.navLink.cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .ctaIcon {
@@ -348,7 +293,7 @@
   gap: 1rem;
 }
 
-/* 모바일 CTA 버튼 개선 */
+/* 모바일 CTA 버튼 */
 .mobileCtaButton {
   display: none;
   background-color: transparent;
@@ -379,7 +324,7 @@
   background-color: var(--primary-dark);
 }
 
-/* 모바일 스타일 - 개선된 부분 */
+/* 모바일 스타일 */
 @media (max-width: 768px) {
   /* 모바일에서 navbar 기본 스타일 */
   .navbar {
@@ -427,7 +372,7 @@
     transform: translateY(0);
   }
 
-  /* 모바일 메뉴 링크 스타일 개선 */
+  /* 모바일 메뉴 링크 스타일 */
   .navLinks .navLink {
     color: var(--text-primary) !important;
     font-size: 1.1rem;
@@ -451,22 +396,13 @@
     color: var(--primary-color) !important;
   }
 
-  /* 어학연수 강조 스타일 - 모바일 */
+  /* 어학연수 링크 - 모바일에서도 일반 링크와 통일 */
   .highlightedLink {
-    margin: 10px auto !important;
-    width: 100% !important;
-    max-width: 300px !important;
-    justify-content: center !important;
-    padding: 12px 20px !important;
-    background-color: var(--primary-color) !important;
-    border: none !important;
+    justify-content: center;
+    margin: 0 auto;
   }
 
-  .highlightedLink:hover {
-    background-color: var(--primary-dark) !important;
-  }
-
-  /* 드롭다운 모바일 개선 */
+  /* 드롭다운 모바일 */
   .dropdown {
     width: 100%;
     max-width: 300px;
@@ -525,23 +461,6 @@
   .dropdownItem:hover {
     background-color: rgba(106, 191, 105, 0.1);
     color: var(--primary-color) !important;
-  }
-
-  /* CTA 버튼 모바일 스타일 개선 */
-  .navLinks .cta {
-    margin: 1rem auto;
-    width: 100%;
-    max-width: 300px;
-    justify-content: center;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem;
-    background-color: var(--primary-color);
-    color: white !important;
-    border: none;
-  }
-
-  .navLinks .cta:hover {
-    background-color: var(--primary-dark);
   }
 
   /* 로고와 브랜드 이름 - 항상 보이도록 */

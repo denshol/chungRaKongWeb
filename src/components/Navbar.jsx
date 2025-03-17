@@ -152,10 +152,10 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* 어학연수 메뉴 - 개선된 디자인 적용 */}
+              {/* 어학연수 메뉴 - 일반 네비게이션 링크 스타일로 변경 */}
               <Link
                 to="/study-abroad"
-                className={`${styles.navLink} ${styles.highlightedLink}`}
+                className={styles.navLink}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FiGlobe style={{ marginRight: "4px" }} />
@@ -170,13 +170,9 @@ const Navbar = () => {
                 문의
               </Link>
 
-              {/* 수강신청 버튼 - 개선된 디자인 */}
-              <a
-                href="#"
-                onClick={openApplyModal}
-                className={`${styles.navLink} ${styles.cta}`}
-              >
-                <FiEdit3 className={styles.ctaIcon} />
+              {/* 수강신청 버튼 - 일반 네비게이션 링크 스타일로 변경 */}
+              <a href="#" onClick={openApplyModal} className={styles.navLink}>
+                <FiEdit3 style={{ marginRight: "4px" }} />
                 수강신청
               </a>
 
@@ -194,7 +190,7 @@ const Navbar = () => {
               <span className={styles.phoneNumber}>010-8006-1715</span>
             </div>
 
-            {/* 모바일에서만 보이는 수강신청 버튼 - 개선된 디자인 */}
+            {/* 모바일에서만 보이는 수강신청 버튼 */}
             <a
               href="#"
               onClick={openApplyModal}

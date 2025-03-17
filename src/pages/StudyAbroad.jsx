@@ -13,6 +13,9 @@ import {
   FiCheck,
   FiHeart,
   FiPhoneCall,
+  FiBookOpen,
+  FiFlag,
+  FiCompass,
 } from "react-icons/fi";
 import styles from "../styles/StudyAbroad.module.css";
 // 모달 컴포넌트 임포트
@@ -51,7 +54,7 @@ const programData = [
   },
   {
     id: 2,
-    icon: <FiBarChart2 />,
+    icon: <FiBookOpen />,
     title: "시험 대비 과정",
     description:
       "IELTS, OET 등 뉴질랜드 진학 및 이민에 필요한 영어 시험 대비 과정",
@@ -64,7 +67,7 @@ const programData = [
   },
   {
     id: 3,
-    icon: <FiCalendar />,
+    icon: <FiFlag />,
     title: "워킹홀리데이 패키지",
     description:
       "일하면서 배우는 뉴질랜드 워킹홀리데이 준비 및 현지 적응 프로그램",
@@ -77,7 +80,7 @@ const programData = [
   },
   {
     id: 4,
-    icon: <FiMessageSquare />,
+    icon: <FiCompass />,
     title: "액티비티 영어 과정",
     description: "뉴질랜드의 아름다운 자연 속에서 즐기는 체험형 영어 학습 과정",
     details: [
@@ -150,12 +153,12 @@ const faqData = [
     answer:
       "어학연수 기간에 따라 무비자(최대 3개월), 방문비자(최대 9개월), 학생비자(6개월 이상)로 나뉩니다. 청라콩문화센터는 학생 상황에 맞는 최적의 비자 유형을 추천하고, 필요한 서류 준비와 신청 과정을 도와드립니다. 특히 워킹홀리데이 비자는 연령 제한(만 18-30세)과 쿼터가 있으므로 사전 상담을 통해 자격 요건을 확인하시는 것이 중요합니다.",
   },
-  {
-    id: 5,
-    question: "현지 숙소는 어떤 옵션이 있나요?",
-    answer:
-      "뉴질랜드에서는 주로 홈스테이, 플랫/쉐어하우스, 학생 기숙사 등의 숙소 옵션이 있습니다. 홈스테이는 현지 가정에서 지내며 식사도 제공받을 수 있어 어학연수 초기에 추천드립니다. 플랫/쉐어하우스는 다른 학생들과 주거 공간을 공유하는 형태로 비용이 저렴합니다. 청라콩문화센터는 학생의 성향과 예산에 맞는 숙소를 연결해드리고, 현지 도착 후 숙소 변경이 필요할 경우에도 지원해드립니다.",
-  },
+  // {
+  //   id: 5,
+  //   question: "현지 숙소는 어떤 옵션이 있나요?",
+  //   answer:
+  //     "뉴질랜드에서는 주로 홈스테이, 플랫/쉐어하우스, 학생 기숙사 등의 숙소 옵션이 있습니다. 홈스테이는 현지 가정에서 지내며 식사도 제공받을 수 있어 어학연수 초기에 추천드립니다. 플랫/쉐어하우스는 다른 학생들과 주거 공간을 공유하는 형태로 비용이 저렴합니다. 청라콩문화센터는 학생의 성향과 예산에 맞는 숙소를 연결해드리고, 현지 도착 후 숙소 변경이 필요할 경우에도 지원해드립니다.",
+  // },
 ];
 
 const StudyAbroad = () => {
@@ -310,13 +313,13 @@ const StudyAbroad = () => {
                   </li>
                 ))}
               </ul>
-              <button
+              {/* <button
                 onClick={() => setIsModalOpen(true)}
                 className={styles.learnMoreButton}
                 style={{ backgroundColor: newZealandData.accent }}
               >
                 자세히 알아보기
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -353,46 +356,6 @@ const StudyAbroad = () => {
           </div>
         </div>
       </section>
-
-      {/* 후기 섹션 */}
-      {/* <section className={styles.testimonialsSection}>
-        <div className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>연수생 후기</h2>
-            <p className={styles.sectionSubtitle}>
-              청라콩문화센터를 통해 뉴질랜드 어학연수를 다녀온 선배들의 이야기를
-              들어보세요
-            </p>
-          </div>
-
-          <div className={styles.testimonialsGrid}>
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className={styles.testimonialCard}>
-                <div className={styles.testimonialHeader}>
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className={styles.testimonialImage}
-                  />
-                  <div className={styles.testimonialInfo}>
-                    <h3 className={styles.testimonialName}>
-                      {testimonial.name}
-                    </h3>
-                    <p className={styles.testimonialDetails}>
-                      {testimonial.age}세, 뉴질랜드 {testimonial.city},{" "}
-                      {testimonial.program}
-                    </p>
-                  </div>
-                  <FiHeart className={styles.testimonialIcon} />
-                </div>
-                <p className={styles.testimonialText}>
-                  "{testimonial.testimonial}"
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* FAQ 섹션 */}
       <section className={styles.faqSection}>

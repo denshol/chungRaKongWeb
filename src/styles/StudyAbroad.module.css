@@ -953,3 +953,89 @@
     transform: translateY(0);
   }
 }
+/* 프로그램 소개 섹션 스타일 개선 */
+
+/* 기존 스타일은 유지하고 프로그램 카드 부분만 수정 */
+.programCard {
+  display: flex;
+  gap: 20px;
+  background-color: var(--gray-light);
+  padding: 30px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  align-items: flex-start;
+}
+
+.programCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.programIcon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.programContent {
+  flex-grow: 1;
+}
+
+.programTitle {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+/* 설명 텍스트 스타일 개선 - 한 줄로 깔끔하게 표시 */
+.programDescription {
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* 화면 크기가 작을 때 설명 텍스트가 두 줄로 보이도록 설정 */
+@media (max-width: 768px) {
+  .programDescription {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 2.8em;
+  }
+}
+
+.programDetails {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.programDetails li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.programDetails li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+}
