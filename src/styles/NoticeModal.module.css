@@ -1,0 +1,264 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+.modalContainer {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+}
+
+.noticeInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bellIcon {
+  font-size: 20px;
+}
+
+.modalHeader h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.counter {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg);
+}
+
+.modalContent {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+  transition: opacity 0.3s;
+}
+
+.fadeTransition {
+  opacity: 0.5;
+}
+
+.noticeTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.urgentBadge {
+  background-color: #e53935;
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.noticeDate {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.noticeContent {
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+/* 포스터 이미지 스타일 */
+.posterContainer {
+  margin: 15px 0;
+  text-align: center;
+  max-height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.posterImage {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.posterImage:hover {
+  transform: scale(1.02);
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detailsButton {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.detailsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modalNav {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+.navButton {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #444;
+}
+
+.navButton:hover {
+  background-color: #f5f5f5;
+  color: var(--primary-color);
+}
+
+.navIcon {
+  font-size: 18px;
+}
+
+.navButton:first-child {
+  border-right: 1px solid #eee;
+}
+
+.modalFooter {
+  padding: 12px 20px;
+  border-top: 1px solid #eee;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+}
+
+.checkboxText {
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .modalContainer {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .modalContent {
+    padding: 15px;
+  }
+
+  .posterContainer {
+    max-height: 200px;
+  }
+
+  .posterImage {
+    max-height: 200px;
+  }
+}
