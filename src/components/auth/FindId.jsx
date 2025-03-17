@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authAPI } from "../services/api";
-import styles from "../styles/Auth.module.css";
+import { authAPI } from "../../services/api";
+import styles from "../../styles/Auth.module.css";
 
 const FindId = () => {
   const [phoneNumber, setPhoneNumber] = useState("");

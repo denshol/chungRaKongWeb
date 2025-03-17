@@ -50,6 +50,7 @@ export const authAPI = {
   },
 
   // 로그인
+  // authAPI.login 함수 부분만 수정
   login: async (credentials) => {
     const url = `${API_URL}/auth/login`;
     console.log("로그인 요청 URL:", url);
@@ -64,8 +65,11 @@ export const authAPI = {
         body: JSON.stringify(credentials),
       });
 
+      console.log("응답 상태:", response.status);
+
       // 응답이 JSON이 아닐 경우를 대비
       const contentType = response.headers.get("content-type");
+
       if (!contentType || !contentType.includes("application/json")) {
         const text = await response.text();
         console.error("서버 응답이 JSON이 아닙니다:", text);
@@ -73,6 +77,7 @@ export const authAPI = {
       }
 
       const data = await response.json();
+      console.log("응답 데이터:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "로그인 중 오류가 발생했습니다.");

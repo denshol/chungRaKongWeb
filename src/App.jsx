@@ -23,8 +23,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import imageElecHan from "./assets/image/poster/chungRaElecHan.jpg";
 import imageUkelelePos from "./assets/image/poster/chungRaUkelelePoster.jpg";
 import imagePilatesPos from "./assets/image/programImages/chungRaPilates.jpg";
-import FindId from "./pages/FindId";
-import FindPassword from "./pages/FindPassword";
+import FindId from "./components/auth/FindId";
+import FindPassword from "./components/auth/FindPassword";
 
 // 중요하지만 초기 렌더링에 필요하지 않은 컴포넌트들은 preload 설정
 const VideoLectureBoard = lazy(() => {
@@ -348,8 +348,8 @@ const AppContent = memo(() => {
             </AdminRoute>
           }
         />
-<Route path="/find-id" element={<FindId />} />
-<Route path="/find-password" element={<FindPassword />} />
+        <Route path="/find-id" element={<FindId />} />
+        <Route path="/find-password" element={<FindPassword />} />
         {/* 404 페이지 - 라우트를 찾을 수 없을 때 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

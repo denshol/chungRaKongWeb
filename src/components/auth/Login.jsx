@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { authAPI } from "../../services/api";
 import styles from "../../styles/Login.module.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: "densh0l0709@gmail.com",
-    password: "1234",
+    email: "",
+    password: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,11 +34,23 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const data = await authAPI.login(formData);
-      login(data.user, data.token);
+      await login(formData.email, formData.password);
       navigate("/");
     } catch (error) {
-      setError(error.message || "로그인에 실패했습니다. 다시 시도해주세요.");
+      console.error("로그인 오류:", error.code, error.message);
+
+      if (
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password"
+      ) {
+        setError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("유효하지 않은 이메일 형식입니다.");
+      } else if (error.code === "auth/too-many-requests") {
+        setError("너무 많은 요청이 있었습니다. 나중에 다시 시도해주세요.");
+      } else {
+        setError("로그인 중 오류가 발생했습니다: " + error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -49,6 +60,8 @@ const Login = () => {
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
         <h2 className={styles.loginTitle}>로그인</h2>
+
+        {error && <p className={styles.errorMessage}>{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
@@ -74,9 +87,7 @@ const Login = () => {
           </div>
 
           <div className={styles.findLinks}>
-            <a href="/find-id">아이디 찾기</a>
-            <span className={styles.divider}>|</span>
-            <a href="/find-password">비밀번호 찾기</a>
+            <Link to="/find-password">비밀번호 찾기</Link>
           </div>
 
           <button
@@ -84,29 +95,15 @@ const Login = () => {
             className={styles.loginButton}
             disabled={loading}
           >
-            로그인
+            {loading ? "로그인 중..." : "로그인"}
           </button>
         </form>
 
-        <div className={styles.socialLogin}>
-          <div className={styles.orDivider}>
-            <span>또는</span>
-          </div>
-
-          <div className={styles.kakaoLogin}>
-            <img
-              src="https://k.kakaocdn.net/14/dn/btrU3xa6lnf/jUkAcXsM6kOGZmTlMLvKwT/o.jpg"
-              alt="카카오 로그인"
-              className={styles.kakaoLogo}
-            />
-          </div>
-        </div>
-
         <div className={styles.registerSection}>
           계정이 없으신가요?
-          <a href="/register" className={styles.registerLink}>
+          <Link to="/register" className={styles.registerLink}>
             회원가입
-          </a>
+          </Link>
         </div>
       </div>
     </div>

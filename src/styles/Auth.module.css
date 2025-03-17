@@ -89,3 +89,211 @@
 .linkButton:hover {
   color: #2c5282;
 }
+/* src/styles/Auth.module.css */
+.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.authForm {
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.authForm h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 14px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.errorMessage {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border-left: 3px solid #e53e3e;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.successMessage {
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f6ffed;
+  color: #52c41a;
+  border-left: 3px solid #52c41a;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.authButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #4dabf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.authButton:hover {
+  background-color: #339af0;
+}
+
+.authButton:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.authLinks {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.authLinks a {
+  color: #4dabf7;
+  text-decoration: none;
+}
+
+.authLinks a:hover {
+  text-decoration: underline;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #4dabf7;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.linkButton:hover {
+  color: #339af0;
+}
+
+.divider {
+  margin: 0 10px;
+  color: #ddd;
+}
+
+.socialLoginButton {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #fee500;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLoginButton img {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #adb5bd;
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.orDivider span {
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+/* 추가 입력 필드 스타일 */
+.inputWithIcon {
+  position: relative;
+}
+
+.inputWithIcon input {
+  padding-left: 40px;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .authForm {
+    padding: 20px;
+  }
+
+  .authForm h2 {
+    font-size: 20px;
+  }
+
+  .inputField {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .authButton {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
