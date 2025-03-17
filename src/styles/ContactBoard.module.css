@@ -88,3 +88,243 @@
 .boardContent {
   min-height: 400px;
 }
+/* ContactDetail.module.css */
+.detailContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.loading,
+.error,
+.notFound {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.detailHeader {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.detailTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.detailInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.completed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.pending {
+  background-color: #fff8e1;
+  color: #f57c00;
+}
+
+.detailContent {
+  margin-bottom: 24px;
+}
+
+.detailContent h3,
+.responseContainer h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #444;
+  font-weight: 600;
+}
+
+.message {
+  white-space: pre-line;
+  line-height: 1.6;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  min-height: 100px;
+}
+
+.responseContainer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.response {
+  padding: 16px;
+  background-color: #f0f7ff;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.responseInfo {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.backButton {
+  padding: 8px 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: #e0e0e0;
+}
+
+/* 관리자 스타일 */
+.adminLoginBtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.adminButton {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.adminLoginForm {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  justify-content: flex-end;
+}
+
+.adminPassword {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.loginButton,
+.submitButton {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loginButton:hover,
+.submitButton:hover {
+  background-color: #43a047;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  background-color: #e0e0e0;
+}
+
+.adminActions {
+  margin: 20px 0;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.adminButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.editButton {
+  padding: 8px 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background-color: #1e88e5;
+}
+
+.deleteButton {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #e53935;
+}
+
+.editResponseForm {
+  margin-top: 16px;
+}
+
+.responseTextarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

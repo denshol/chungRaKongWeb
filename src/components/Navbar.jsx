@@ -382,7 +382,9 @@ const Navbar = () => {
           </div>
 
           <button
-            className={styles.menuToggle}
+            className={`${styles.menuToggle} ${
+              isMenuOpen ? styles.active : ""
+            }`}
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
             aria-expanded={isMenuOpen}

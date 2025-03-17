@@ -7,7 +7,7 @@ import styles from "../../styles/Login.module.css";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "densh0l0709@gmail.com",
-    password: "",
+    password: "1234",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

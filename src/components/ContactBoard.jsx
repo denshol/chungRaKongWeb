@@ -96,7 +96,7 @@ const ContactBoard = () => {
           />
           <Route
             path="/:id"
-            element={<ContactDetail inquiries={inquiries} />}
+            element={<ContactDetail />}
           />
         </Routes>
       </div>
