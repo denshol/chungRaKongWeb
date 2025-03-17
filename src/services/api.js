@@ -1,7 +1,13 @@
 // src/services/api.js
 
-const API_URL =
-  process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com/api";
+// API URL 구성 - /api 경로 추가 확인
+const baseUrl =
+  process.env.REACT_APP_API_URL || "https://chungrakongback.onrender.com";
+const API_URL = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+
+// 디버깅을 위한 로그
+console.log("기본 URL:", baseUrl);
+console.log("최종 API URL:", API_URL);
 
 // 인증 토큰을 헤더에 추가하는 함수
 const getAuthHeader = () => {
@@ -13,11 +19,22 @@ const getAuthHeader = () => {
 export const authAPI = {
   // 회원가입
   register: async (userData) => {
+    const url = `${API_URL}/auth/register`;
+    console.log("회원가입 요청 URL:", url);
+
     try {
-      const response = await fetch(`${API_URL}/auth/register`, {
+      const response = await fetch(url, {
         method: "POST",
         body: userData, // FormData 객체 그대로 전송
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -34,14 +51,26 @@ export const authAPI = {
 
   // 로그인
   login: async (credentials) => {
+    const url = `${API_URL}/auth/login`;
+    console.log("로그인 요청 URL:", url);
+    console.log("로그인 요청 데이터:", credentials);
+
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -58,14 +87,25 @@ export const authAPI = {
 
   // 카카오 로그인
   kakaoLogin: async (kakaoData) => {
+    const url = `${API_URL}/auth/kakao`;
+    console.log("카카오 로그인 요청 URL:", url);
+
     try {
-      const response = await fetch(`${API_URL}/auth/kakao`, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(kakaoData),
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -85,13 +125,23 @@ export const authAPI = {
 export const userAPI = {
   // 프로필 정보 가져오기
   getProfile: async () => {
+    const url = `${API_URL}/user/profile`;
+
     try {
-      const response = await fetch(`${API_URL}/user/profile`, {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           ...getAuthHeader(),
         },
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -110,6 +160,8 @@ export const userAPI = {
 
   // 프로필 업데이트
   updateProfile: async (userData) => {
+    const url = `${API_URL}/user/profile`;
+
     try {
       // FormData는 파일 업로드를 위해 사용
       const formData = new FormData();
@@ -123,13 +175,21 @@ export const userAPI = {
         }
       });
 
-      const response = await fetch(`${API_URL}/user/profile`, {
+      const response = await fetch(url, {
         method: "PUT",
         headers: {
           ...getAuthHeader(),
         },
         body: formData,
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -148,8 +208,10 @@ export const userAPI = {
 
   // 비밀번호 변경
   changePassword: async (passwordData) => {
+    const url = `${API_URL}/user/change-password`;
+
     try {
-      const response = await fetch(`${API_URL}/user/change-password`, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,6 +219,14 @@ export const userAPI = {
         },
         body: JSON.stringify(passwordData),
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -178,13 +248,23 @@ export const userAPI = {
 export const adminAPI = {
   // 모든 사용자 목록 가져오기
   getAllUsers: async () => {
+    const url = `${API_URL}/admin/users`;
+
     try {
-      const response = await fetch(`${API_URL}/admin/users`, {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           ...getAuthHeader(),
         },
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -203,8 +283,10 @@ export const adminAPI = {
 
   // 사용자 정보 업데이트 (관리자 권한)
   updateUser: async (userId, userData) => {
+    const url = `${API_URL}/admin/users/${userId}`;
+
     try {
-      const response = await fetch(`${API_URL}/admin/users/${userId}`, {
+      const response = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -212,6 +294,14 @@ export const adminAPI = {
         },
         body: JSON.stringify(userData),
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -230,13 +320,23 @@ export const adminAPI = {
 
   // 사용자 삭제 (관리자 권한)
   deleteUser: async (userId) => {
+    const url = `${API_URL}/admin/users/${userId}`;
+
     try {
-      const response = await fetch(`${API_URL}/admin/users/${userId}`, {
+      const response = await fetch(url, {
         method: "DELETE",
         headers: {
           ...getAuthHeader(),
         },
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 
@@ -253,13 +353,23 @@ export const adminAPI = {
 
   // 대시보드 통계 가져오기
   getDashboardStats: async () => {
+    const url = `${API_URL}/admin/stats`;
+
     try {
-      const response = await fetch(`${API_URL}/admin/stats`, {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           ...getAuthHeader(),
         },
       });
+
+      // 응답이 JSON이 아닐 경우를 대비
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("서버 응답이 JSON이 아닙니다:", text);
+        throw new Error("서버에서 유효한 응답을 받지 못했습니다.");
+      }
 
       const data = await response.json();
 

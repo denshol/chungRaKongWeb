@@ -223,8 +223,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>깨끗한 발음</h3>
               <p className={styles.featureDescription}>
-                뉴질랜드식 영어는 발음이 깨끗하고 명확하여 초보자도 이해하기
-                쉽습니다
+                뉴질랜드식 영어는 발음이 <br />
+                깨끗하고 명확하여 초보자도 이해하기 쉽습니다
               </p>
             </div>
 
@@ -234,8 +234,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>아름다운 자연환경</h3>
               <p className={styles.featureDescription}>
-                수려한 자연경관 속에서 다양한 야외활동을 즐기며 영어를 배울 수
-                있습니다
+                수려한 자연경관 속에서 <br />
+                다양한 야외활동을 즐기며 영어를 배울 수 있습니다
               </p>
             </div>
 
@@ -245,8 +245,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>높은 교육 수준</h3>
               <p className={styles.featureDescription}>
-                정부 인증 교육기관에서 체계적인 커리큘럼으로 질 높은 교육을 받을
-                수 있습니다
+                정부 인증 교육기관에서 <br />
+                체계적인 커리큘럼으로 질 높은 교육을 받을 수 있습니다
               </p>
             </div>
 
@@ -256,8 +256,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>다문화 환경</h3>
               <p className={styles.featureDescription}>
-                다양한 국적의 학생들과 교류하며 글로벌 네트워크를 형성할 수
-                있습니다
+                다양한 국적의 학생들과 <br />
+                교류하며 글로벌 네트워크를 형성할 수 있습니다
               </p>
             </div>
           </div>
