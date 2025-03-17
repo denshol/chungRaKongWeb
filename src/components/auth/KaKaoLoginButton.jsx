@@ -1,4 +1,3 @@
-// src/components/auth/KakaoLoginButton.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -121,7 +120,7 @@ const KakaoLoginButton = () => {
         ) : (
           <>
             <img
-              src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+              src="https://k.kakaocdn.net/14/dn/btrU3xa6lnf/jUkAcXsM6kOGZmTlMLvKwT/o.jpg"
               alt="카카오 로그인"
               className={styles.kakaoLogo}
             />

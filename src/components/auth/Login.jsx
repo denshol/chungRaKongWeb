@@ -1,15 +1,12 @@
-// src/components/auth/Login.js
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { authAPI } from "../../services/api";
-import KakaoLoginButton from "./KaKaoLoginButton";
-import styles from "../../styles/Auth.module.css";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import styles from "../../styles/Login.module.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    email: "densh0l0709@gmail.com",
     password: "",
   });
   const [error, setError] = useState("");
@@ -30,7 +27,6 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    // 간단한 유효성 검사
     if (!formData.email || !formData.password) {
       setError("이메일과 비밀번호를 모두 입력해주세요.");
       return;
@@ -39,13 +35,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // API 호출
       const data = await authAPI.login(formData);
-
-      // 로그인 성공 처리
       login(data.user, data.token);
-
-      // 홈 또는 이전 페이지로 리다이렉트
       navigate("/");
     } catch (error) {
       setError(error.message || "로그인에 실패했습니다. 다시 시도해주세요.");
@@ -55,60 +46,67 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.authContainer}>
-      <div className={styles.authForm}>
-        <h2>로그인</h2>
-        {error && <p className={styles.errorMessage}>{error}</p>}
+    <div className={styles.loginContainer}>
+      <div className={styles.loginCard}>
+        <h2 className={styles.loginTitle}>로그인</h2>
 
         <form onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email">
-              <FaEnvelope className={styles.icon} /> 이메일
-            </label>
+          <div className={styles.inputGroup}>
+            <label>이메일</label>
             <input
               type="email"
-              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="이메일 주소"
-              required
+              className={styles.inputField}
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="password">
-              <FaLock className={styles.icon} /> 비밀번호
-            </label>
+          <div className={styles.inputGroup}>
+            <label>비밀번호</label>
             <input
               type="password"
-              id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="비밀번호"
-              required
+              className={styles.inputField}
             />
+          </div>
+
+          <div className={styles.findLinks}>
+            <a href="/find-id">아이디 찾기</a>
+            <span className={styles.divider}>|</span>
+            <a href="/find-password">비밀번호 찾기</a>
           </div>
 
           <button
             type="submit"
-            className={styles.authButton}
+            className={styles.loginButton}
             disabled={loading}
           >
-            {loading ? "로그인 중..." : "로그인"}
+            로그인
           </button>
         </form>
 
         <div className={styles.socialLogin}>
-          <p className={styles.orDivider}>또는</p>
-          <KakaoLoginButton />
+          <div className={styles.orDivider}>
+            <span>또는</span>
+          </div>
+
+          <div className={styles.kakaoLogin}>
+            <img
+              src="https://k.kakaocdn.net/14/dn/btrU3xa6lnf/jUkAcXsM6kOGZmTlMLvKwT/o.jpg"
+              alt="카카오 로그인"
+              className={styles.kakaoLogo}
+            />
+          </div>
         </div>
 
-        <div className={styles.authLinks}>
-          <p>
-            계정이 없으신가요? <Link to="/register">회원가입</Link>
-          </p>
+        <div className={styles.registerSection}>
+          계정이 없으신가요?
+          <a href="/register" className={styles.registerLink}>
+            회원가입
+          </a>
         </div>
       </div>
     </div>

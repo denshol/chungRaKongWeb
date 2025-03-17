@@ -57,3 +57,35 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
+.forgotLinks {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.forgotLink {
+  background: none;
+  border: none;
+  color: #4a5568;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.forgotLink:hover {
+  color: #3182ce;
+}
+.linkButton {
+  background: none;
+  border: none;
+  color: #3182ce;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.linkButton:hover {
+  color: #2c5282;
+}

@@ -11,7 +11,7 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./styles/main.css";
-import Loading from "./components/Loading";
+import SkeletonLoader from "./components/SkeletonLoader";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/AuthContext";
 import NoticeModal from "./components/NoticeModal";
@@ -20,6 +20,11 @@ import SideNoticeBanner from "./components/SideNoticeBanner";
 // 자주 사용되는 핵심 컴포넌트는 일반 임포트
 import Main from "./pages/Main";
 import ScrollToTop from "./components/ScrollToTop";
+import imageElecHan from "./assets/image/poster/chungRaElecHan.jpg";
+import imageUkelelePos from "./assets/image/poster/chungRaUkelelePoster.jpg";
+import imagePilatesPos from "./assets/image/programImages/chungRaPilates.jpg";
+import FindId from "./pages/FindId";
+import FindPassword from "./pages/FindPassword";
 
 // 중요하지만 초기 렌더링에 필요하지 않은 컴포넌트들은 preload 설정
 const VideoLectureBoard = lazy(() => {
@@ -49,10 +54,10 @@ const Register = lazy(() => import("./components/auth/Register"));
 
 // 메모이제이션된 보호된 라우트 컴포넌트
 const ProtectedRoute = memo(({ children }) => {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, SkeletonLoader } = useAuth();
 
-  if (loading) {
-    return <Loading />;
+  if (SkeletonLoader) {
+    return <SkeletonLoader />;
   }
 
   if (!currentUser) {
@@ -64,10 +69,10 @@ const ProtectedRoute = memo(({ children }) => {
 
 // 메모이제이션된 관리자 전용 라우트 컴포넌트
 const AdminRoute = memo(({ children }) => {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, SkeletonLoader } = useAuth();
 
-  if (loading) {
-    return <Loading />;
+  if (SkeletonLoader) {
+    return <SkeletonLoader />;
   }
 
   if (!currentUser || !currentUser.isAdmin) {
@@ -79,10 +84,10 @@ const AdminRoute = memo(({ children }) => {
 
 // 메모이제이션된 공개 전용 라우트 컴포넌트
 const PublicOnlyRoute = memo(({ children }) => {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, SkeletonLoader } = useAuth();
 
-  if (loading) {
-    return <Loading />;
+  if (SkeletonLoader) {
+    return <SkeletonLoader />;
   }
 
   if (currentUser) {
@@ -135,68 +140,27 @@ const AppContent = memo(() => {
           id: 1,
           title: "3월 신규 강좌 개설 안내",
           content:
-            "음악 이론 및 작곡 클래스가 새롭게 개설되었습니다. 많은 관심 부탁드립니다.",
+            "청라콩 문화센터의 새로운 강좌를 소개합니다! 전기이론, 우쿨렐레, 필라테스 수업이 새롭게 개설되었습니다. 각 분야의 전문 강사와 함께 즐거운 학습의 기회를 가져보세요. 지금 바로 수강 신청하세요!",
           date: "2025-03-15",
           urgent: true,
           link: "/services",
           imageUrl: [
-            "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1514119412350-e174d90d280e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+            imageElecHan, // 전기이론 관련 이미지
+            imageUkelelePos, // 우쿨렐레 관련 이미지
+            imagePilatesPos, // 필라테스 관련 이미지
           ],
         },
         {
           id: 2,
-          title: "청라콩 음악회 개최 안내",
+          title: "청라콩 봄 음악회 개최 안내 - 4월 26일",
           content:
-            "오는 4월 10일 청라콩 음악회가 개최됩니다. 학생들의 많은 참여 바랍니다.",
+            "4월 26일, 청라콩 봄 음악회가 열립니다! 우리 학생들의 갈고닦은 실력을 직접 확인해보세요. 피아노, 바이올린, 성악 등 다양한 공연이 여러분을 기다리고 있습니다. 가족과 친구들과 함께 오셔서 특별한 음악의 순간을 만끽하세요.",
           date: "2025-03-14",
           urgent: false,
           link: "/about",
           imageUrl: [
             "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
             "https://images.unsplash.com/photo-1470019693664-1d202d2c0907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-          ],
-        },
-        {
-          id: 3,
-          title: "프로그래밍 특강: 코딩 부트캠프",
-          content:
-            "4월 15일부터 시작되는 코딩 부트캠프에 참여하세요. 초보자도 참여 가능합니다.",
-          date: "2025-03-12",
-          urgent: false,
-          link: "/services",
-          imageUrl: [
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-          ],
-        },
-        {
-          id: 4,
-          title: "신규 도서관 자료 소개",
-          content:
-            "청라콩 문화센터 도서관에 신규 도서 및 멀티미디어 자료가 입고되었습니다.",
-          date: "2025-03-10",
-          urgent: false,
-          link: "/about",
-          imageUrl: [
-            "https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-          ],
-        },
-        {
-          id: 5,
-          title: "여름방학 특별 프로그램 안내",
-          content:
-            "6월부터 시작되는 여름방학 특별 프로그램 등록이 시작되었습니다. 조기 등록 시 할인 혜택을 드립니다.",
-          date: "2025-03-08",
-          urgent: true,
-          link: "/services",
-          imageUrl: [
-            "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
           ],
         },
       ];
@@ -277,7 +241,7 @@ const AppContent = memo(() => {
         <Route
           path="/program/:id"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <ProgramDetail />
             </Suspense>
           }
@@ -285,7 +249,7 @@ const AppContent = memo(() => {
         <Route
           path="/about"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <About />
             </Suspense>
           }
@@ -293,7 +257,7 @@ const AppContent = memo(() => {
         <Route
           path="/services"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <Programs />
             </Suspense>
           }
@@ -301,7 +265,7 @@ const AppContent = memo(() => {
         <Route
           path="/contact/*"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <ContactBoard />
             </Suspense>
           }
@@ -309,7 +273,7 @@ const AppContent = memo(() => {
         <Route
           path="/video-lectures"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <VideoLectureBoard />
             </Suspense>
           }
@@ -317,7 +281,7 @@ const AppContent = memo(() => {
         <Route
           path="/ranking"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <ProgramRanking />
             </Suspense>
           }
@@ -325,7 +289,7 @@ const AppContent = memo(() => {
         <Route
           path="/music"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <FeaturedClasses />
             </Suspense>
           }
@@ -333,7 +297,7 @@ const AppContent = memo(() => {
         <Route
           path="/study-abroad"
           element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<SkeletonLoader />}>
               <StudyAbroad />
             </Suspense>
           }
@@ -344,7 +308,7 @@ const AppContent = memo(() => {
           path="/login"
           element={
             <PublicOnlyRoute>
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<SkeletonLoader />}>
                 <Login />
               </Suspense>
             </PublicOnlyRoute>
@@ -354,7 +318,7 @@ const AppContent = memo(() => {
           path="/register"
           element={
             <PublicOnlyRoute>
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<SkeletonLoader />}>
                 <Register />
               </Suspense>
             </PublicOnlyRoute>
@@ -366,7 +330,7 @@ const AppContent = memo(() => {
           path="/mypage"
           element={
             <ProtectedRoute>
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<SkeletonLoader />}>
                 <MyPage />
               </Suspense>
             </ProtectedRoute>
@@ -378,13 +342,14 @@ const AppContent = memo(() => {
           path="/admin/*"
           element={
             <AdminRoute>
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<SkeletonLoader />}>
                 <AdminDashboard />
               </Suspense>
             </AdminRoute>
           }
         />
-
+<Route path="/find-id" element={<FindId />} />
+<Route path="/find-password" element={<FindPassword />} />
         {/* 404 페이지 - 라우트를 찾을 수 없을 때 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

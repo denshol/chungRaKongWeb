@@ -23,3 +23,50 @@
   width: 24px;
   height: 24px;
 }
+.kakaoLoginWrapper {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.kakaoButton {
+  width: 100%;
+  height: 50px; /* 약간 높이 증가 */
+  background: #fee500;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3c1e1e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 미세한 그림자 추가 */
+}
+
+.kakaoButton:hover {
+  background: #fdd835;
+  transform: translateY(-2px); /* 살짝 위로 올라오는 효과 */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.kakaoButton:disabled {
+  background: #f0f0f0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.kakaoLogo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%; /* 로고에 약간의 둥근 테두리 */
+}
+
+.errorMessage {
+  color: #e53e3e;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
