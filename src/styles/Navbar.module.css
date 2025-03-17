@@ -1,4 +1,4 @@
-/* Navbar.module.css */
+/* Navbar.module.css - 모바일 메뉴 개선 */
 
 .navbar {
   padding: 0.75rem 5%;
@@ -97,11 +97,21 @@
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(106, 191, 105, 0.25);
 }
 
 .navLink.cta:hover {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(106, 191, 105, 0.35);
+}
+
+.ctaIcon {
+  font-size: 1rem;
 }
 
 /* 드롭다운 */
@@ -140,12 +150,16 @@
   transition: all 0.3s ease;
 }
 
-/* 모바일 메뉴 */
+/* 햄버거 아이콘 */
 .menuToggle {
   display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1002;
 }
 
-/* 햄버거 아이콘 */
 .hamburger {
   display: block;
   width: 24px;
@@ -191,7 +205,7 @@
   background-color: var(--text-secondary);
 }
 
-/* contactInfo 스타일 추가 */
+/* contactInfo 스타일 */
 .contactInfo {
   display: flex;
   align-items: center;
@@ -212,6 +226,11 @@
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.5px;
+}
+
+/* 모바일 메뉴 전용 연락처 정보 (중복 방지) */
+.mobileContactInfo {
+  display: none; /* 기본적으로 숨김 */
 }
 
 /* 스크롤 상태에서의 스타일 */
@@ -238,11 +257,41 @@
   color: white;
 }
 
+/* 오른쪽 그룹 */
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 모바일 CTA 버튼 */
+.mobileCtaButton {
+  display: none;
+  background-color: var(--primary-color);
+  color: white;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
+  transition: all 0.3s ease;
+}
+
+.mobileCtaButton:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* 모바일 스타일 - 개선된 부분 */
 @media (max-width: 768px) {
   /* 모바일에서 navbar 기본 스타일 */
   .navbar {
     padding: 0.5rem 1rem;
-    height: 70px;
+    height: 60px;
   }
 
   /* 로고 크기 조정 */
@@ -258,39 +307,127 @@
   /* 메뉴 토글 버튼 표시 */
   .menuToggle {
     display: block;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    z-index: 1002;
   }
 
-  /* 네비게이션 메뉴 */
+  /* 네비게이션 메뉴 - 전체 화면 스타일로 개선 */
   .navLinks {
-    position: absolute;
-    top: 70px;
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.98);
     flex-direction: column;
-    padding: 1rem 0;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
+    z-index: 1000;
   }
 
   .navLinks.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+
+  /* 모바일 메뉴 링크 스타일 개선 */
+  .navLinks .navLink {
+    color: var(--text-primary) !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .navLinks .navLink:hover,
+  .navLinks .navLink:active {
+    background-color: rgba(106, 191, 105, 0.1);
+    color: var(--primary-color) !important;
+  }
+
+  /* 드롭다운 모바일 개선 */
+  .dropdown {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .dropdownTrigger {
+    display: block;
+    color: var(--text-primary) !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .dropdownTrigger:hover {
+    background-color: rgba(106, 191, 105, 0.1);
+    color: var(--primary-color) !important;
+  }
+
+  .dropdownMenu {
+    position: static;
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+    margin-top: 0.5rem;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .dropdownMenu.active {
+    max-height: 200px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dropdown:hover .dropdownMenu {
+    max-height: 200px;
+  }
+
+  .dropdownItem {
+    color: var(--text-secondary) !important;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .dropdownItem:hover {
+    background-color: rgba(106, 191, 105, 0.1);
+    color: var(--primary-color) !important;
+  }
+
+  /* CTA 버튼 모바일 스타일 개선 */
+  .navLinks .cta {
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* 로고와 브랜드 이름 - 항상 보이도록 */
+  .logo img {
     z-index: 1001;
   }
 
-  .navLinks .navLink {
-    color: var(--text-secondary) !important;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+  .brandName {
+    z-index: 1001;
   }
 
   /* 기본 상태 (투명 배경) */
@@ -309,26 +446,10 @@
     background-color: white !important;
   }
 
-  /* 스크롤 상태 (백색 배경) */
-  .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .navbar.scrolled .brandName {
-    color: var(--primary-color) !important;
-  }
-
-  .navbar.scrolled .hamburger,
-  .navbar.scrolled .hamburger::before,
-  .navbar.scrolled .hamburger::after {
-    background-color: var(--text-secondary) !important;
-  }
-
   /* 메뉴 활성화 상태 */
   .navbar.active {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent !important;
+    box-shadow: none;
   }
 
   .navbar.active .brandName {
@@ -341,274 +462,57 @@
 
   .navbar.active .hamburger::before,
   .navbar.active .hamburger::after {
-    background-color: var(--text-secondary) !important;
+    background-color: var(--text-primary) !important;
   }
 
-  /* 연락처 정보 */
-  .contactInfo {
+  /* 모바일 메뉴 열렸을 때 햄버거 버튼 스타일 */
+  .navbar.active .menuToggle {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 1002;
+  }
+
+  /* 연락처 정보 - 헤더에 있는 것은 숨김 */
+  .rightGroup .contactInfo {
     display: none;
   }
 
-  .navLinks.active .contactInfo {
+  /* 모바일 메뉴 내부 연락처 정보는 표시 */
+  .mobileContactInfo {
     display: flex;
     margin: 1rem auto;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(106, 191, 105, 0.1);
+    border-radius: 30px;
     width: fit-content;
   }
-}
-/* Navbar.module.css에 추가할 스타일 */
 
-/* CTA 버튼 스타일 */
-.cta {
-  background-color: var(--primary-color, #6abf69);
-  color: white !important;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(106, 191, 105, 0.25);
-}
+  .mobileContactInfo .phoneIcon {
+    color: var(--primary-color);
+  }
 
-.cta:hover {
-  background-color: var(--primary-dark, #4c9e4a);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(106, 191, 105, 0.35);
-}
+  .mobileContactInfo .phoneNumber {
+    color: var(--text-secondary);
+  }
 
-.ctaIcon {
-  font-size: 1rem;
-}
+  .mobileContactInfo:hover {
+    background: var(--primary-color);
+  }
 
-/* 오른쪽 그룹 컨테이너 */
-.rightGroup {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* 모바일 CTA 버튼 */
-.mobileCtaButton {
-  display: none;
-  background-color: var(--primary-color, #6abf69);
-  color: white;
-  height: 36px;
-  width: 36px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
-  transition: all 0.3s ease;
-}
-
-.mobileCtaButton:hover {
-  background-color: var(--primary-dark, #4c9e4a);
-  transform: translateY(-2px);
-}
-
-/* 스크롤 상태에서의 CTA 버튼 */
-.scrolled .cta {
-  background-color: var(--primary-color, #6abf69);
-  color: white !important;
-}
-
-/* 모바일 미디어 쿼리 */
-@media (max-width: 768px) {
-  .contactInfo {
-    display: none;
+  .mobileContactInfo:hover .phoneIcon,
+  .mobileContactInfo:hover .phoneNumber {
+    color: white;
   }
 
   .mobileCtaButton {
     display: flex;
   }
 
-  /* 모바일 메뉴에서의 CTA 버튼 스타일 */
-  .navLinks .cta {
-    margin-top: 0.5rem;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   /* 메뉴가 열렸을 때 모바일 CTA 버튼 숨기기 */
   .navbar.active .mobileCtaButton {
     display: none;
   }
-}
-.navbar {
-  background-color: transparent;
-  backdrop-filter: blur(0px);
-}
-
-.scrolled {
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-}
-@media (max-width: 768px) {
-  /* 모바일에서 navbar 기본 스타일 */
-  .navbar {
-    padding: 0.5rem 1rem;
-    height: 70px;
-    background-color: transparent !important; /* 초기에는 반드시 투명하게 */
-    box-shadow: none;
-  }
-
-  /* 스크롤 상태일 때만 배경색 변경 */
-  .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 메뉴 활성화 상태일 때도 배경색 변경 */
-  .navbar.active {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-}
-/* Navbar.module.css에 추가 */
-.navbar:not(.scrolled):not(.active) {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-/* 기존 미디어 쿼리 내에서도 강화 */
-@media (max-width: 768px) {
-  .navbar:not(.scrolled):not(.active) {
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-}
-/* Navbar.module.css */
-
-.navbar {
-  background-color: transparent !important;
-  backdrop-filter: blur(0px);
-  color: white;
-}
-
-.brandName {
-  color: white !important;
-}
-
-.navLink,
-.dropdownTrigger {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-  background-color: white !important;
-}
-
-.contactInfo {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.phoneNumber {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.phoneIcon {
-  color: var(--primary-color);
-}
-
-/* Scrolled state */
-.scrolled {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.scrolled .brandName {
-  color: var(--primary-color) !important;
-}
-
-.scrolled .navLink,
-.scrolled .dropdownTrigger {
-  color: var(--text-secondary) !important;
-}
-
-.scrolled .hamburger,
-.scrolled .hamburger::before,
-.scrolled .hamburger::after {
-  background-color: var(--text-secondary) !important;
-}
-
-.scrolled .contactInfo {
-  background: rgba(34, 197, 94, 0.1);
-}
-
-.scrolled .phoneNumber {
-  color: var(--text-secondary);
-}
-
-/* Mobile Specific Styles */
-@media (max-width: 768px) {
-  .navbar {
-    background-color: transparent !important;
-    box-shadow: none;
-  }
-
-  .navbar:not(.scrolled):not(.active) {
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-
-  .navbar.scrolled,
-  .navbar.active {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .navLinks {
-    background-color: transparent;
-  }
-
-  .navLinks .navLink {
-    color: var(--text-secondary) !important;
-  }
-}
-.navbar {
-  background-color: transparent !important;
-  backdrop-filter: blur(0px);
-  transition: background-color 0.3s ease;
-}
-
-.navbar:not(.scrolled):not(.active) {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-/* Navbar.module.css */
-.navbar {
-  padding: 0.75rem 5%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  height: 70px;
-  background-color: transparent !important;
-  backdrop-filter: blur(0px);
-}
-
-/* 추가: 초기 상태에서 완전히 투명하게 만들기 */
-.navbar:not(.scrolled):not(.active) {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-/* 스크롤 또는 메뉴 활성화 시 */
-.scrolled,
-.navbar.active {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }

@@ -11,7 +11,7 @@
     />
     <meta
       name="keywords"
-      content="청라콩, 청라콩 문화센터, chungrakong, 음악 클래스, 청라 음악, 밴드 활동, 악기 레슨, 음악 교육"
+      content="청라콩, 청라콩문화센터, 청라콩 음악, 청라 음악센터, 인천 청라콩, 청라 악기 레슨, 청라 음악 교육, chungrakong"
     />
     <meta name="author" content="청라콩 팀" />
     <meta name="robots" content="index, follow" />
@@ -25,11 +25,11 @@
     />
 
     <!-- Open Graph (SNS 공유) -->
-    <meta property="og:site_name" content="청라콩" />
-    <meta property="og:title" content="청라콩 - 공식 사이트" />
+    <meta property="og:site_name" content="청라콩문화센터" />
+    <meta property="og:title" content="청라콩 | 청라콩문화센터 - 공식 사이트" />
     <meta
       property="og:description"
-      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요!"
+      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요! 인천 청라 최고의 음악교육센터"
     />
     <meta property="og:url" content="https://chungrakong.kr" />
     <meta property="og:type" content="website" />
@@ -42,10 +42,13 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="청라콩 - 공식 사이트" />
+    <meta
+      name="twitter:title"
+      content="청라콩 | 청라콩문화센터 - 공식 사이트"
+    />
     <meta
       name="twitter:description"
-      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요!"
+      content="청라콩에서 다양한 음악 클래스와 악기 레슨을 만나보세요! 인천 청라 최고의 음악교육센터"
     />
     <meta
       name="twitter:image"
@@ -59,12 +62,36 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
     <!-- Favicon 설정 -->
+    <link rel="icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.manifest" />
+    <link rel="manifest" href="/manifest.json" />
 
-    <title>청라콩 - 청라 최고의 음악 클래스 | 공식 사이트</title>
+    <title>청라콩 | 청라콩문화센터 - 청라 최고의 음악 클래스</title>
+
+    <!-- 구조화된 데이터 추가 (Schema.org) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MusicSchool",
+        "name": "청라콩문화센터",
+        "alternateName": "청라콩",
+        "url": "https://chungrakong.kr",
+        "logo": "https://chungrakong.kr/logo192.png",
+        "description": "청라에서 최고의 음악 클래스를 제공하는 청라콩문화센터입니다.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "청라",
+          "addressRegion": "인천"
+        },
+        "telephone": "+82-10-8006-1715",
+        "sameAs": [
+          "https://www.instagram.com/chungrakong",
+          "https://blog.naver.com/chungrakong"
+        ]
+      }
+    </script>
 
     <!-- 스타일시트 -->
     <link rel="stylesheet" href="./assets/styles.css" />
@@ -76,7 +103,13 @@
       >
     </noscript>
 
-    <div id="root"></div>
+    <div id="root">
+      <!-- 페이지 첫 부분에 키워드 강조 -->
+      <header>
+        <h1>청라콩 | 청라콩문화센터</h1>
+        <p>인천 청라 지역 최고의 음악 교육 센터</p>
+      </header>
+    </div>
 
     <!-- Firebase SDK -->
     <script
