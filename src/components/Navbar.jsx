@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FiPhone, FiEdit3, FiChevronDown } from "react-icons/fi";
+import { FiPhone, FiEdit3, FiChevronDown, FiGlobe } from "react-icons/fi";
 import styles from "../styles/Navbar.module.css";
 import logo from "../assets/image/chungRaKong.png";
 import ApplyModal from "./ApplyModal";
@@ -21,7 +21,7 @@ const Navbar = () => {
     // 초기 설정
     setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -30,7 +30,11 @@ const Navbar = () => {
   // 메뉴 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMenuOpen && navRef.current && !navRef.current.contains(event.target)) {
+      if (
+        isMenuOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target)
+      ) {
         setIsMenuOpen(false);
       }
     };
@@ -105,8 +109,8 @@ const Navbar = () => {
               }`}
               aria-hidden={!isMenuOpen}
             >
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className={styles.navLink}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -114,29 +118,32 @@ const Navbar = () => {
               </Link>
 
               <div className={`${styles.dropdown}`}>
-                <div 
+                <div
                   className={styles.dropdownTrigger}
-                  onClick={() => toggleDropdown('programs')}
+                  onClick={() => toggleDropdown("programs")}
                   role="button"
                   tabIndex={0}
-                  aria-expanded={activeDropdown === 'programs'}
+                  aria-expanded={activeDropdown === "programs"}
                 >
-                  프로그램 <FiChevronDown style={{ marginLeft: '4px', fontSize: '0.9rem' }} />
+                  프로그램{" "}
+                  <FiChevronDown
+                    style={{ marginLeft: "4px", fontSize: "0.9rem" }}
+                  />
                 </div>
-                <div 
+                <div
                   className={`${styles.dropdownMenu} ${
-                    activeDropdown === 'programs' ? styles.active : ''
+                    activeDropdown === "programs" ? styles.active : ""
                   }`}
                 >
-                  <Link 
-                    to="/services" 
+                  <Link
+                    to="/services"
                     className={styles.dropdownItem}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     전체 프로그램
                   </Link>
-                  <Link 
-                    to="/video-lectures" 
+                  <Link
+                    to="/video-lectures"
                     className={styles.dropdownItem}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -145,8 +152,18 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <Link 
-                to="/contact" 
+              {/* 어학연수 메뉴 - 강조 스타일 적용 */}
+              <Link
+                to="/study-abroad"
+                className={`${styles.navLink} ${styles.highlightedLink}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FiGlobe style={{ marginRight: "4px" }} />
+                뉴질랜드 어학연수
+              </Link>
+
+              <Link
+                to="/contact"
                 className={styles.navLink}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -201,6 +218,8 @@ const Navbar = () => {
           </button>
         </div>
       </header>
+
+      {/* 스타일 수정 - CSS Module로 이동 */}
 
       {/* ApplyModal 컴포넌트 */}
       <ApplyModal

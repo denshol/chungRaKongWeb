@@ -1,4 +1,4 @@
-/* Navbar.module.css - 모바일 메뉴 개선 */
+/* Navbar.module.css - 어학연수 강조 스타일 추가 */
 
 .navbar {
   padding: 0.75rem 5%;
@@ -76,7 +76,9 @@
 
 /* 스크롤된 상태 스타일 */
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1001;
 }
@@ -88,6 +90,49 @@
 .scrolled .navLink,
 .scrolled .dropdownTrigger {
   color: var(--text-secondary);
+}
+
+/* 어학연수 강조 스타일 */
+.highlightedLink {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white !important;
+  padding: 8px 15px !important;
+  border-radius: 20px;
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.highlightedLink:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.highlightedLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+.highlightedLink:hover:before {
+  opacity: 1;
+}
+
+.scrolled .highlightedLink {
+  color: white !important;
 }
 
 /* CTA 버튼 */
@@ -354,6 +399,16 @@
     color: var(--primary-color) !important;
   }
 
+  /* 어학연수 강조 스타일 - 모바일 */
+  .highlightedLink {
+    margin: 10px auto !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
   /* 드롭다운 모바일 개선 */
   .dropdown {
     width: 100%;
@@ -515,17 +570,4 @@
   .navbar.active .mobileCtaButton {
     display: none;
   }
-}
-/* 스크롤된 상태 스타일 수정 */
-.scrolled {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.85
-  ) !important; /* 85% 불투명도로 변경 */
-  backdrop-filter: blur(8px); /* 블러 효과 추가 */
-  -webkit-backdrop-filter: blur(8px); /* Safari 지원 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
 }

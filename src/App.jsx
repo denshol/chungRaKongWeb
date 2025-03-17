@@ -17,6 +17,7 @@ import Loading from "./components/Loading";
 import ContactBoard from "./components/ContactBoard";
 import NoticeModal from "./components/NoticeModal";
 import SideNoticeBanner from "./components/SideNoticeBanner";
+import StudyAbroad from "./pages/StudyAbroad";
 
 const HeroSlider = lazy(() => import("./components/HeroSlider"));
 const ProgramList = lazy(() => import("./components/ProgramList"));
@@ -177,6 +178,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/study-abroad" element={<StudyAbroad />} />
         </Routes>
       </Suspense>
       <Footer />
