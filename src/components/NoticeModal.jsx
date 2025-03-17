@@ -1,140 +1,237 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { FiX, FiBell, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styles from "../styles/NoticeModal.module.css";
 
 const NoticeModal = ({ isOpen, notices, onClose }) => {
-  const [activeNotice, setActiveNotice] = useState(0);
-  const [doNotShowToday, setDoNotShowToday] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeNoticeIndex, setActiveNoticeIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [isAutoSlide, setIsAutoSlide] = useState(true);
 
-  // 모달 열릴 때 애니메이션 효과
+  const activeNotice = notices[activeNoticeIndex];
+  const isImageArray = Array.isArray(activeNotice?.imageUrl);
+  const imageUrls = isImageArray
+    ? activeNotice?.imageUrl
+    : [activeNotice?.imageUrl];
+
+  // 자동 슬라이드
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"; // 모달 열릴 때 스크롤 방지
+    let interval;
+
+    // 3초마다 다음 이미지로
+    if (isAutoSlide && isImageArray && imageUrls.length > 1) {
+      interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length);
+      }, 3000);
     }
+
     return () => {
-      document.body.style.overflow = "auto"; // 모달 닫힐 때 스크롤 복원
+      if (interval) clearInterval(interval);
     };
-  }, [isOpen]);
+  }, [
+    activeNoticeIndex,
+    currentImageIndex,
+    isAutoSlide,
+    imageUrls,
+    isImageArray,
+  ]);
 
-  // 모달 닫기 함수
-  const closeModal = () => {
-    // 오늘 하루 보지 않기 설정 시 로컬 스토리지에 저장
-    if (doNotShowToday) {
-      localStorage.setItem("noticeModalLastClosed", new Date().toDateString());
+  // 이미지 변경
+  const changeImage = useCallback(
+    (direction) => {
+      setIsAutoSlide(false); // 수동 제어 시 자동 슬라이드 중지
+
+      if (direction === "next") {
+        setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length);
+      } else {
+        setCurrentImageIndex(
+          (prev) => (prev - 1 + imageUrls.length) % imageUrls.length
+        );
+      }
+
+      // 일정 시간 후 자동 슬라이드 재개
+      setTimeout(() => setIsAutoSlide(true), 5000);
+    },
+    [imageUrls]
+  );
+
+  // 공지사항 변경
+  const changeNotice = useCallback(
+    (direction) => {
+      if (direction === "next") {
+        setActiveNoticeIndex((prev) => (prev + 1) % notices.length);
+      } else {
+        setActiveNoticeIndex(
+          (prev) => (prev - 1 + notices.length) % notices.length
+        );
+      }
+      setCurrentImageIndex(0); // 공지사항 변경 시 이미지 인덱스 초기화
+    },
+    [notices]
+  );
+
+  // 터치 이벤트 처리
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+
+    // 50px 이상 스와이프해야 동작
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // 이미지가 여러 개라면 이미지 변경, 아니면 공지사항 변경
+        if (isImageArray && imageUrls.length > 1) {
+          changeImage("next");
+        } else {
+          changeNotice("next");
+        }
+      } else {
+        if (isImageArray && imageUrls.length > 1) {
+          changeImage("prev");
+        } else {
+          changeNotice("prev");
+        }
+      }
     }
-    onClose();
   };
 
-  // 다음/이전 공지 버튼 핸들러
-  const handlePrev = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveNotice((prev) => (prev > 0 ? prev - 1 : notices.length - 1));
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  const handleNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveNotice((prev) => (prev < notices.length - 1 ? prev + 1 : 0));
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  // 모달이 열려있지 않거나 공지사항이 없으면 렌더링하지 않음
   if (!isOpen || !notices || notices.length === 0) {
     return null;
   }
 
-  const currentNotice = notices[activeNotice];
+  // 모달 닫기 및 로컬 스토리지에 날짜 저장
+  const handleClose = () => {
+    onClose();
+    localStorage.setItem("noticeModalLastClosed", new Date().toDateString());
+  };
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modalContainer}>
-        <div className={styles.modalHeader}>
-          <div className={styles.noticeInfo}>
-            <FiBell className={styles.bellIcon} />
-            <h3>공지사항</h3>
-            {notices.length > 1 && (
-              <span className={styles.counter}>
-                {activeNotice + 1}/{notices.length}
-              </span>
-            )}
+      <div
+        className={styles.modalContent}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <button className={styles.closeButton} onClick={handleClose}>
+          <FiX />
+        </button>
+
+        {/* 공지사항 내비게이션 (여러 개일 때만 표시) */}
+        {notices.length > 1 && (
+          <div className={styles.noticeNav}>
+            <button
+              className={styles.navButton}
+              onClick={() => changeNotice("prev")}
+              aria-label="이전 공지사항"
+            >
+              <FiChevronLeft />
+            </button>
+            <div className={styles.noticeIndicator}>
+              {notices.map((_, index) => (
+                <span
+                  key={index}
+                  className={`${styles.noticeIndicatorDot} ${
+                    index === activeNoticeIndex ? styles.active : ""
+                  }`}
+                  onClick={() => {
+                    setActiveNoticeIndex(index);
+                    setCurrentImageIndex(0);
+                  }}
+                ></span>
+              ))}
+            </div>
+            <button
+              className={styles.navButton}
+              onClick={() => changeNotice("next")}
+              aria-label="다음 공지사항"
+            >
+              <FiChevronRight />
+            </button>
           </div>
-          <button
-            className={styles.closeButton}
-            onClick={closeModal}
-            aria-label="닫기"
-          >
-            <FiX />
-          </button>
+        )}
+
+        {/* 이미지 영역 */}
+        <div className={styles.imageContainer}>
+          {/* 이미지가 여러 개일 때만 내비게이션 표시 */}
+          {isImageArray && imageUrls.length > 1 && (
+            <>
+              <button
+                className={`${styles.imageNavButton} ${styles.prevButton}`}
+                onClick={() => changeImage("prev")}
+                aria-label="이전 이미지"
+              >
+                <FiChevronLeft />
+              </button>
+              <button
+                className={`${styles.imageNavButton} ${styles.nextButton}`}
+                onClick={() => changeImage("next")}
+                aria-label="다음 이미지"
+              >
+                <FiChevronRight />
+              </button>
+
+              {/* 이미지 인디케이터 */}
+              <div className={styles.imageIndicator}>
+                {imageUrls.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`${styles.imageIndicatorDot} ${
+                      index === currentImageIndex ? styles.active : ""
+                    }`}
+                    onClick={() => {
+                      setCurrentImageIndex(index);
+                      setIsAutoSlide(false);
+                      setTimeout(() => setIsAutoSlide(true), 5000);
+                    }}
+                  ></span>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* 이미지 */}
+          <img
+            src={imageUrls[currentImageIndex]}
+            alt={activeNotice.title}
+            className={styles.noticeImage}
+            onError={(e) => {
+              e.target.src =
+                "https://via.placeholder.com/800x400?text=이미지+없음";
+              e.target.onerror = null;
+            }}
+          />
         </div>
 
-        <div
-          className={`${styles.modalContent} ${
-            isAnimating ? styles.fadeTransition : ""
-          }`}
-        >
-          <h4 className={styles.noticeTitle}>
-            {currentNotice.urgent && (
+        {/* 공지사항 내용 */}
+        <div className={styles.noticeDetails}>
+          <h3 className={styles.noticeTitle}>
+            {activeNotice.urgent && (
               <span className={styles.urgentBadge}>중요</span>
             )}
-            {currentNotice.title}
-          </h4>
+            {activeNotice.title}
+          </h3>
           <p className={styles.noticeDate}>
-            {new Date(currentNotice.date).toLocaleDateString("ko-KR", {
+            {new Date(activeNotice.date).toLocaleDateString("ko-KR", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </p>
+          <p className={styles.noticeContent}>{activeNotice.content}</p>
 
-          {/* 포스터/이미지 표시 영역 */}
-          {currentNotice.imageUrl && (
-            <div className={styles.posterContainer}>
-              <img
-                src={currentNotice.imageUrl}
-                alt={`${currentNotice.title} 포스터`}
-                className={styles.posterImage}
-              />
-            </div>
-          )}
-
-          <div className={styles.noticeContent}>{currentNotice.content}</div>
-          <div className={styles.modalActions}>
+          {activeNotice.link && (
             <Link
-              to={currentNotice.link}
-              className={styles.detailsButton}
-              onClick={closeModal}
+              to={activeNotice.link}
+              className={styles.noticeLink}
+              onClick={handleClose}
             >
               자세히 보기
             </Link>
-          </div>
-        </div>
-
-        {notices.length > 1 && (
-          <div className={styles.modalNav}>
-            <button className={styles.navButton} onClick={handlePrev}>
-              <FiChevronLeft className={styles.navIcon} /> 이전
-            </button>
-            <button className={styles.navButton} onClick={handleNext}>
-              다음 <FiChevronRight className={styles.navIcon} />
-            </button>
-          </div>
-        )}
-
-        <div className={styles.modalFooter}>
-          <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              checked={doNotShowToday}
-              onChange={() => setDoNotShowToday(!doNotShowToday)}
-            />
-            <span className={styles.checkboxText}>
-              오늘 하루 이 창 보지 않기
-            </span>
-          </label>
+          )}
         </div>
       </div>
     </div>

@@ -1,52 +1,50 @@
+/* FeaturedClasses.module.css */
 
-/* 컨테이너 */
+/* 섹션 컨테이너 */
 .featuredClasses {
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 1rem;
+  background: var(--white);
   overflow: hidden;
+  position: relative;
 }
 
 .carouselContainer {
   position: relative;
-  overflow: visible;
-  margin: 0 30px;
+  margin: 0 50px;
 }
 
-/* 헤더 */
+/* 헤더 스타일 */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.header.animate {
-  opacity: 1;
-  transform: translateY(0);
+  padding: 0 0.5rem;
 }
 
 .header h2 {
   font-size: 1.75rem;
   font-weight: 700;
+  font-family: "Poppins", sans-serif;
   color: var(--text-primary);
 }
 
 .viewAll {
   font-size: 0.95rem;
+  font-family: "Outfit", sans-serif;
+  color: var(--primary-color);
+  text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  background: rgba(106, 191, 105, 0.1);
-  color: var(--text-secondary);
-  font-weight: 500;
   transition: all 0.3s ease;
+  background: rgba(106, 191, 105, 0.1);
+  font-weight: 500;
 }
 
 .viewAll:hover {
   background: rgba(106, 191, 105, 0.15);
-  color: var(--primary-color);
+  color: var(--primary-dark);
 }
 
 /* 카드 스타일 */
@@ -54,30 +52,30 @@
   user-select: none;
 }
 
-.classCard {
-  background: #f0f5f0;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
-  border: 1px solid rgba(106, 191, 105, 0.1);
+/* 카드 wrapper */
+.cardWrapper {
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.classCard.animate {
-  opacity: 1;
-  transform: translateY(0);
+.classCard {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(106, 191, 105, 0.1);
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  padding-top: 66.67%;
+  padding-top: 56.25%; /* 16:9 비율 */
   height: 0;
   overflow: hidden;
-  background: var(--text-secondary);
+  background: var(--secondary-color);
 }
 
 .classImage {
@@ -93,6 +91,7 @@
 
 .classInfo {
   padding: 1.25rem;
+  font-family: "Outfit", sans-serif;
 }
 
 .classDate {
@@ -107,7 +106,7 @@
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
-  line-height: 1.4;
+  font-family: "Poppins", sans-serif;
 }
 
 .classLocation {
@@ -125,39 +124,50 @@
   gap: 0.5rem;
 }
 
+.priceTag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+  background: rgba(106, 191, 105, 0.1);
+  border-radius: 6px;
+}
+
 /* 네비게이션 화살표 */
 .prevArrow,
 .nextArrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.15);
   cursor: pointer;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
   transition: all 0.2s ease;
   z-index: 10;
   border: none;
 }
 
 .prevArrow {
-  left: -30px;
+  left: -24px;
 }
 
 .nextArrow {
-  right: -30px;
+  right: -24px;
 }
 
 .prevArrow:hover,
 .nextArrow:hover {
-  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.15);
   background: rgba(106, 191, 105, 0.1);
+  box-shadow: 0 4px 12px rgba(106, 191, 105, 0.2);
+  transform: translateY(-50%) scale(1.05);
 }
 
 /* 호버 효과 */
@@ -165,23 +175,19 @@
   .classCard:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 30px rgba(106, 191, 105, 0.15);
-    background: #e8f2e8;
+    border-color: var(--primary-color);
   }
 
   .classCard:hover .classImage {
-    transform: scale(1.04);
+    transform: scale(1.05);
     opacity: 1;
   }
 }
 
-/* 반응형 */
+/* 반응형 디자인 */
 @media (max-width: 1024px) {
-  .featuredClasses {
-    padding: 1.5rem;
-  }
-
-  .classCard {
-    max-width: calc(50vw - 3rem);
+  .carouselContainer {
+    margin: 0 30px;
   }
 }
 
@@ -190,14 +196,16 @@
     padding: 1rem 0;
   }
 
-  .classCard {
-    max-width: 280px;
-    margin: 0 auto;
+  .carouselContainer {
+    margin: 0 10px;
   }
 
-  .carouselContainer {
-    margin: 0;
+  .header {
     padding: 0 1rem;
+  }
+
+  .classCard {
+    max-width: 100%;
   }
 
   .classInfo {
@@ -219,37 +227,9 @@
     font-size: 0.9rem;
   }
 
-  :global(.slick-slide) {
-    padding: 0 8px;
-  }
-
+  /* 모바일에서 화살표 숨기기 */
   .prevArrow,
   .nextArrow {
     display: none !important;
-  }
-
-  .header h2 {
-    font-size: 1.5rem;
-  }
-}
-
-/* 드래그 관련 스타일 */
-:global(.slick-list) {
-  cursor: grab;
-  overflow: visible !important;
-}
-
-:global(.slick-list:active) {
-  cursor: grabbing;
-}
-
-/* 성능 최적화 */
-@media (prefers-reduced-motion: reduce) {
-  .header,
-  .classCard,
-  .classImage,
-  .prevArrow,
-  .nextArrow {
-    transition: none;
   }
 }

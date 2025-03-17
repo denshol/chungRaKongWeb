@@ -1,264 +1,266 @@
+/* NoticeModal.module.css */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
-  animation: fadeIn 0.3s ease;
-  padding: 20px;
-}
-
-.modalContainer {
-  background-color: white;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  animation: slideIn 0.3s ease;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--primary-dark)
-  );
-  color: white;
-}
-
-.noticeInfo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.bellIcon {
-  font-size: 20px;
-}
-
-.modalHeader h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.counter {
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 14px;
-  margin-left: 10px;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: transform 0.2s;
-}
-
-.closeButton:hover {
-  transform: rotate(90deg);
+  z-index: 1000;
+  padding: 1rem;
 }
 
 .modalContent {
-  padding: 20px;
-  overflow-y: auto;
-  flex-grow: 1;
-  transition: opacity 0.3s;
-}
-
-.fadeTransition {
-  opacity: 0.5;
-}
-
-.noticeTitle {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  line-height: 1.4;
-}
-
-.urgentBadge {
-  background-color: #e53935;
-  color: white;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.noticeDate {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.noticeContent {
-  line-height: 1.6;
-  color: #333;
-  margin-bottom: 20px;
-  white-space: pre-line;
-}
-
-/* 포스터 이미지 스타일 */
-.posterContainer {
-  margin: 15px 0;
-  text-align: center;
-  max-height: 300px;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  max-height: 80vh;
+  background-color: white;
+  border-radius: 8px;
   overflow: hidden;
-  border-radius: 8px;
-}
-
-.posterImage {
-  max-width: 100%;
-  max-height: 300px;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.posterImage:hover {
-  transform: scale(1.02);
-}
-
-.modalActions {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.detailsButton {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--primary-dark)
-  );
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.detailsButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.modalNav {
-  display: flex;
-  border-top: 1px solid #eee;
-}
-
-.navButton {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  color: #444;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1.2rem;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 공지사항 네비게이션 */
+.noticeNav {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.navButton {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
 }
 
 .navButton:hover {
-  background-color: #f5f5f5;
-  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
-.navIcon {
-  font-size: 18px;
+.noticeIndicator {
+  display: flex;
+  gap: 5px;
 }
 
-.navButton:first-child {
-  border-right: 1px solid #eee;
+.noticeIndicatorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.modalFooter {
-  padding: 12px 20px;
-  border-top: 1px solid #eee;
+.noticeIndicatorDot.active {
+  background-color: white;
 }
 
-.checkboxLabel {
+/* 이미지 컨테이너 */
+.imageContainer {
+  position: relative;
+  height: 40vh;
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.noticeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 이미지 네비게이션 */
+.imageNavButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 0.2s;
+  z-index: 5;
+}
+
+.imageNavButton:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+.imageIndicator {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.imageIndicatorDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.imageIndicatorDot.active {
+  background-color: white;
+  width: 12px;
+  height: 12px;
+}
+
+/* 공지사항 내용 */
+.noticeDetails {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.noticeTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #666;
-  cursor: pointer;
 }
 
-.checkboxText {
-  user-select: none;
+.urgentBadge {
+  background-color: #e53e3e;
+  color: white;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.noticeDate {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.noticeContent {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  white-space: pre-line;
 }
 
-@media (max-width: 576px) {
-  .modalContainer {
-    width: 95%;
-    max-height: 85vh;
-  }
+.noticeLink {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #3182ce;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
 
+.noticeLink:hover {
+  background-color: #2c5282;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 640px) {
   .modalContent {
-    padding: 15px;
+    max-height: 90vh;
   }
 
-  .posterContainer {
-    max-height: 200px;
+  .imageContainer {
+    height: 30vh;
   }
 
-  .posterImage {
-    max-height: 200px;
+  .noticeTitle {
+    font-size: 1.2rem;
+  }
+
+  .noticeContent {
+    font-size: 0.95rem;
+  }
+
+  .imageNavButton {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+
+  .closeButton {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .imageIndicatorDot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .imageIndicatorDot.active {
+    width: 10px;
+    height: 10px;
   }
 }
