@@ -152,7 +152,7 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* 어학연수 메뉴 - 강조 스타일 적용 */}
+              {/* 어학연수 메뉴 - 개선된 디자인 적용 */}
               <Link
                 to="/study-abroad"
                 className={`${styles.navLink} ${styles.highlightedLink}`}
@@ -170,7 +170,7 @@ const Navbar = () => {
                 문의
               </Link>
 
-              {/* 수강신청 버튼 */}
+              {/* 수강신청 버튼 - 개선된 디자인 */}
               <a
                 href="#"
                 onClick={openApplyModal}
@@ -180,7 +180,7 @@ const Navbar = () => {
                 수강신청
               </a>
 
-              {/* 모바일 메뉴에서만 보이는 연락처 정보 - 중복되지 않도록 수정 */}
+              {/* 모바일 메뉴에서만 보이는 연락처 정보 */}
               <div className={styles.mobileContactInfo}>
                 <FiPhone className={styles.phoneIcon} />
                 <span className={styles.phoneNumber}>010-8006-1715</span>
@@ -194,7 +194,7 @@ const Navbar = () => {
               <span className={styles.phoneNumber}>010-8006-1715</span>
             </div>
 
-            {/* 모바일에서만 보이는 수강신청 버튼 */}
+            {/* 모바일에서만 보이는 수강신청 버튼 - 개선된 디자인 */}
             <a
               href="#"
               onClick={openApplyModal}
@@ -218,8 +218,6 @@ const Navbar = () => {
           </button>
         </div>
       </header>
-
-      {/* 스타일 수정 - CSS Module로 이동 */}
 
       {/* ApplyModal 컴포넌트 */}
       <ApplyModal

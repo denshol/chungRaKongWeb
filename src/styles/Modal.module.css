@@ -1,0 +1,323 @@
+/* Modal.module.css 전체 재정의 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modalContainer {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+  transform: scale(1.1);
+}
+
+.modalHeader {
+  padding: 24px 24px 0;
+}
+
+.modalHeader h2 {
+  font-size: 1.8rem;
+  color: #27ae60;
+  margin: 0;
+  padding-right: 40px; /* 닫기 버튼 공간 확보 */
+}
+
+.modalContent {
+  flex: 1;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: #c9c9c9;
+  border-radius: 8px;
+}
+
+.modalImageContainer {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalTextContent h3 {
+  color: #202020;
+  font-size: 1.4rem;
+  margin: 24px 0 16px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.modalTextContent h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #27ae60;
+  border-radius: 2px;
+}
+
+.modalTextContent p {
+  color: #555;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+@media (min-width: 640px) {
+  .infoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background-color: #f7f9fa;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.infoIcon {
+  color: #27ae60;
+  font-size: 1.2rem;
+  padding: 8px;
+  background-color: rgba(39, 174, 96, 0.1);
+  border-radius: 50%;
+}
+
+.infoItem h4 {
+  margin: 0 0 6px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.infoItem p {
+  margin: 0;
+  color: #5d6470;
+  font-size: 0.95rem;
+}
+
+.visaInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (min-width: 640px) {
+  .visaInfo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.visaItem {
+  background-color: #f7f9fa;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid #27ae60;
+}
+
+.visaItem h4 {
+  margin: 0 0 6px 0;
+  color: #27ae60;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.visaItem p {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+}
+
+.visaDescription {
+  font-size: 0.9rem;
+  color: #6c757d !important;
+  font-style: italic;
+}
+
+.modalFooter {
+  padding: 16px 24px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid #f0f0f0;
+  margin-top: auto;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primaryButton {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  min-width: 160px;
+}
+
+.primaryButton:hover {
+  background-color: #229954;
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #5d6470;
+  border: 1px solid #e0e0e0;
+  min-width: 100px;
+}
+
+.secondaryButton:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 모바일 스타일 */
+@media (max-width: 767px) {
+  .modalContainer {
+    width: 95%;
+    max-height: 80vh;
+  }
+
+  .modalHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .modalContent {
+    padding: 16px 20px;
+  }
+
+  .modalImageContainer {
+    height: 200px;
+  }
+
+  .infoItem,
+  .visaItem {
+    padding: 14px;
+  }
+}
+/* Modal.module.css 수정 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  /* 다음 속성 추가 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 900px;
+  max-height: 80vh; /* 화면 높이의 80%로 제한 */
+  margin: auto; /* 자동 마진으로 중앙 정렬 */
+  position: relative;
+  overflow: auto; /* 내용이 넘치면 스크롤 */
+  animation: slideUp 0.3s ease;
+
+  /* 절대 위치 지정 방식 추가 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

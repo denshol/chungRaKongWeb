@@ -15,6 +15,8 @@ import {
   FiPhoneCall,
 } from "react-icons/fi";
 import styles from "../styles/StudyAbroad.module.css";
+// 모달 컴포넌트 임포트
+import NewZealandModal from "../components/NewZealandModal";
 
 const newZealandData = {
   id: 1,
@@ -159,6 +161,7 @@ const faqData = [
 const StudyAbroad = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -176,7 +179,8 @@ const StudyAbroad = () => {
         <div className={styles.headerContent}>
           <h1 className={styles.title}>
             <span className={styles.accentText}>뉴질랜드 어학연수</span>로
-            글로벌 경쟁력을 키우세요
+            글로벌 <br />
+            경쟁력을 키우세요
           </h1>
           <p className={styles.subtitle}>
             청라콩문화센터가 당신의 성공적인 어학연수를 함께합니다
@@ -289,7 +293,10 @@ const StudyAbroad = () => {
               >
                 {newZealandData.name}
               </h3>
-              <p className={styles.countryDescription}>
+              <p
+                className={styles.countryDescription}
+                style={{ fontSize: "0.9rem" }}
+              >
                 {newZealandData.shortDescription}
               </p>
               <ul className={styles.countryFeatures}>
@@ -303,13 +310,13 @@ const StudyAbroad = () => {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/language-study/new-zealand/details"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className={styles.learnMoreButton}
                 style={{ backgroundColor: newZealandData.accent }}
               >
                 자세히 알아보기
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -348,7 +355,7 @@ const StudyAbroad = () => {
       </section>
 
       {/* 후기 섹션 */}
-      <section className={styles.testimonialsSection}>
+      {/* <section className={styles.testimonialsSection}>
         <div className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>연수생 후기</h2>
@@ -385,7 +392,7 @@ const StudyAbroad = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ 섹션 */}
       <section className={styles.faqSection}>
@@ -443,6 +450,12 @@ const StudyAbroad = () => {
           </div>
         </div>
       </section>
+
+      {/* 모달 컴포넌트 */}
+      <NewZealandModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

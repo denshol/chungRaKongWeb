@@ -1,4 +1,4 @@
-/* Navbar.module.css - 어학연수 강조 스타일 추가 */
+/* Navbar.module.css - 어학연수 및 수강신청 버튼 스타일 개선 */
 
 .navbar {
   padding: 0.75rem 5%;
@@ -68,10 +68,42 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  position: relative;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
 }
 
 .dropdownTrigger {
   color: rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.dropdownTrigger::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.dropdownTrigger:hover::after {
+  width: 100%;
 }
 
 /* 스크롤된 상태 스타일 */
@@ -92,67 +124,74 @@
   color: var(--text-secondary);
 }
 
-/* 어학연수 강조 스타일 */
+/* 어학연수 강조 스타일 - 더 세련된 디자인 */
 .highlightedLink {
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  background: rgba(255, 255, 255, 0.15);
   color: white !important;
-  padding: 8px 15px !important;
-  border-radius: 20px;
+  padding: 9px 16px !important;
+  border-radius: 8px;
   display: flex !important;
   align-items: center;
-  gap: 5px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+  gap: 6px;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.highlightedLink:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .highlightedLink:hover {
+  background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.highlightedLink:hover:before {
-  opacity: 1;
+.highlightedLink::after {
+  display: none;
 }
 
 .scrolled .highlightedLink {
+  background: var(--primary-color);
   color: white !important;
+  border: none;
 }
 
-/* CTA 버튼 */
+.scrolled .highlightedLink:hover {
+  background: var(--primary-dark);
+}
+
+/* CTA 버튼 - 수강신청 스타일 개선 */
 .navLink.cta {
-  background-color: var(--primary-color);
+  background-color: transparent;
   color: white !important;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(106, 191, 105, 0.25);
+  font-weight: 500;
+}
+
+.navLink.cta::after {
+  display: none;
 }
 
 .navLink.cta:hover {
-  background-color: var(--primary-dark);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(106, 191, 105, 0.35);
+}
+
+.scrolled .navLink.cta {
+  background-color: var(--primary-color);
+  border: none;
+  color: white !important;
+}
+
+.scrolled .navLink.cta:hover {
+  background-color: var(--primary-dark);
 }
 
 .ctaIcon {
@@ -262,14 +301,14 @@
 }
 
 .phoneIcon {
-  color: var(--primary-color);
-  font-size: 20px;
+  color: white;
+  font-size: 16px;
 }
 
 .phoneNumber {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.95rem;
   letter-spacing: 0.5px;
 }
 
@@ -309,26 +348,35 @@
   gap: 1rem;
 }
 
-/* 모바일 CTA 버튼 */
+/* 모바일 CTA 버튼 개선 */
 .mobileCtaButton {
   display: none;
-  background-color: var(--primary-color);
+  background-color: transparent;
   color: white;
-  height: 36px;
-  width: 36px;
-  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  border-radius: 8px;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.85rem;
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(106, 191, 105, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 .mobileCtaButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.scrolled .mobileCtaButton {
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.scrolled .mobileCtaButton:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-2px);
 }
 
 /* 모바일 스타일 - 개선된 부분 */
@@ -382,8 +430,8 @@
   /* 모바일 메뉴 링크 스타일 개선 */
   .navLinks .navLink {
     color: var(--text-primary) !important;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 500;
     padding: 0.8rem 1.5rem;
     width: 100%;
     max-width: 300px;
@@ -391,6 +439,10 @@
     text-align: center;
     border-radius: 8px;
     transition: all 0.2s ease;
+  }
+
+  .navLinks .navLink::after {
+    display: none;
   }
 
   .navLinks .navLink:hover,
@@ -406,7 +458,12 @@
     max-width: 300px !important;
     justify-content: center !important;
     padding: 12px 20px !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color) !important;
+    border: none !important;
+  }
+
+  .highlightedLink:hover {
+    background-color: var(--primary-dark) !important;
   }
 
   /* 드롭다운 모바일 개선 */
@@ -419,12 +476,16 @@
   .dropdownTrigger {
     display: block;
     color: var(--text-primary) !important;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 500;
     padding: 0.8rem 1.5rem;
     text-align: center;
     border-radius: 8px;
     transition: all 0.2s ease;
+  }
+
+  .dropdownTrigger::after {
+    display: none;
   }
 
   .dropdownTrigger:hover {
@@ -474,6 +535,13 @@
     justify-content: center;
     font-size: 1.1rem;
     padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white !important;
+    border: none;
+  }
+
+  .navLinks .cta:hover {
+    background-color: var(--primary-dark);
   }
 
   /* 로고와 브랜드 이름 - 항상 보이도록 */

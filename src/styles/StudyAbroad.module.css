@@ -715,3 +715,241 @@
     grid-template-columns: 1fr;
   }
 }
+/* 모달 스타일 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+.modalContainer {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.4s ease;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.modalHeader {
+  padding: 25px 30px 0;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  color: #27ae60;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.modalContent {
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+@media (min-width: 768px) {
+  .modalContent {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.modalImageContainer {
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalTextContent h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.modalTextContent p {
+  color: #5d6470;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+@media (min-width: 768px) {
+  .infoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #f0f2f5;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.infoIcon {
+  color: #27ae60;
+  font-size: 1.4rem;
+  margin-top: 3px;
+}
+
+.infoItem h4 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.infoItem p {
+  margin: 0;
+  color: #5d6470;
+  font-size: 0.95rem;
+}
+
+.visaInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+@media (min-width: 576px) {
+  .visaInfo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.visaItem {
+  background-color: #f0f2f5;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid #27ae60;
+}
+
+.visaItem h4 {
+  margin: 0 0 5px 0;
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.visaItem p {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+}
+
+.visaDescription {
+  font-size: 0.9rem;
+  color: #5d6470 !important;
+  font-style: italic;
+}
+
+.modalFooter {
+  padding: 20px 30px 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primaryButton {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: #219653;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #5d6470;
+  border: 1px solid #ddd;
+}
+
+.secondaryButton:hover {
+  background-color: #f0f2f5;
+  transform: translateY(-2px);
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -18,12 +18,12 @@ export const navItems = [
   { id: 3, icon: FaMicrophone, label: "보컬", path: "/program/2" },
   { id: 4, icon: FaDrum, label: "드럼", path: "/program/7" },
   { id: 5, icon: FaLanguage, label: "영어회화", path: "/program/9" },
-  {
-    id: 6,
-    icon: FaChalkboardTeacher,
-    label: "영상강의",
-    path: "/video-lectures",
-  },
+  // {
+  //   id: 6,
+  //   icon: FaChalkboardTeacher,
+  //   label: "영상강의",
+  //   path: "/video-lectures",
+  // },
   {
     id: 7,
     icon: FaGlobeAmericas,

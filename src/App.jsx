@@ -133,12 +133,12 @@ function App() {
       <Navbar />
 
       {/* 사이드 공지사항 배너 추가 */}
-      {notices.length > 0 && (
+      {/* {notices.length > 0 && (
         <SideNoticeBanner
           onClick={handleBannerClick}
           noticeCount={notices.length}
         />
-      )}
+      )} */}
 
       {/* 공지사항 모달 */}
       {(showNoticeModal || manualShowModal) && notices.length > 0 && (
