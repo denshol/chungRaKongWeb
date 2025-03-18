@@ -349,7 +349,6 @@ const MyPage = () => {
                     className={styles.input}
                   />
                 </div>
-
                 {/* 확장된 프로필 정보 입력 필드 */}
                 <div className={styles.formGroup}>
                   <label htmlFor="phoneNumber">
@@ -365,7 +364,6 @@ const MyPage = () => {
                     placeholder="전화번호를 입력하세요"
                   />
                 </div>
-
                 <div className={styles.formGroup}>
                   <label htmlFor="birthDate">
                     <FaBirthdayCake className={styles.inputIcon} /> 생년월일
@@ -379,7 +377,6 @@ const MyPage = () => {
                     className={styles.input}
                   />
                 </div>
-
                 <div className={styles.formGroup}>
                   <label>
                     <FaMapMarkerAlt className={styles.inputIcon} /> 주소
@@ -411,34 +408,160 @@ const MyPage = () => {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>관심사</label>
-                  <div className={styles.interestSelector}>
-                    {[
-                      "음악",
-                      "미술",
-                      "어학",
-                      "체육",
-                      "요리",
-                      "공예",
-                      "컴퓨터",
-                      "어린이",
-                      "성인",
-                    ].map((interest) => (
-                      <div
-                        key={interest}
-                        className={`${styles.interestOption} ${
-                          extendedFormData.interests.includes(interest)
-                            ? styles.selected
-                            : ""
-                        }`}
-                        onClick={() => handleInterestToggle(interest)}
-                      >
-                        {interest}
-                      </div>
-                    ))}
+                  <label>관심 프로그램</label>
+
+                  <div className={styles.categoryGroup}>
+                    <h4>음악</h4>
+                    <div className={styles.interestSelector}>
+                      {[
+                        "통기타",
+                        "드럼",
+                        "피아노",
+                        "일렉기타",
+                        "베이스",
+                        "우쿨렐레",
+                        "카혼",
+                        "바이올린",
+                        "첼로",
+                        "밴드",
+                        "보컬",
+                      ].map((interest) => (
+                        <div
+                          key={interest}
+                          className={
+                            extendedFormData.interests.includes(interest)
+                              ? `${styles.interestOption} ${styles.selected}`
+                              : styles.interestOption
+                          }
+                          onClick={() => handleInterestToggle(interest)}
+                          style={{
+                            padding: "6px 10px",
+                            margin: "3px",
+                            border: "1px solid #ccc",
+                            borderRadius: "20px",
+                            display: "inline-block",
+                            cursor: "pointer",
+                            backgroundColor:
+                              extendedFormData.interests.includes(interest)
+                                ? "#4a6da7"
+                                : "#f8f9fa",
+                            color: extendedFormData.interests.includes(interest)
+                              ? "white"
+                              : "black",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          {interest}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={styles.categoryGroup}>
+                    <h4>교육</h4>
+                    <div className={styles.interestSelector}>
+                      {["영어 회화", "코딩"].map((interest) => (
+                        <div
+                          key={interest}
+                          className={
+                            extendedFormData.interests.includes(interest)
+                              ? `${styles.interestOption} ${styles.selected}`
+                              : styles.interestOption
+                          }
+                          onClick={() => handleInterestToggle(interest)}
+                          style={{
+                            padding: "6px 10px",
+                            margin: "3px",
+                            border: "1px solid #ccc",
+                            borderRadius: "20px",
+                            display: "inline-block",
+                            cursor: "pointer",
+                            backgroundColor:
+                              extendedFormData.interests.includes(interest)
+                                ? "#4a6da7"
+                                : "#f8f9fa",
+                            color: extendedFormData.interests.includes(interest)
+                              ? "white"
+                              : "black",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          {interest}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={styles.categoryGroup}>
+                    <h4>건강</h4>
+                    <div className={styles.interestSelector}>
+                      {["필라테스", "물리치료"].map((interest) => (
+                        <div
+                          key={interest}
+                          className={
+                            extendedFormData.interests.includes(interest)
+                              ? `${styles.interestOption} ${styles.selected}`
+                              : styles.interestOption
+                          }
+                          onClick={() => handleInterestToggle(interest)}
+                          style={{
+                            padding: "6px 10px",
+                            margin: "3px",
+                            border: "1px solid #ccc",
+                            borderRadius: "20px",
+                            display: "inline-block",
+                            cursor: "pointer",
+                            backgroundColor:
+                              extendedFormData.interests.includes(interest)
+                                ? "#4a6da7"
+                                : "#f8f9fa",
+                            color: extendedFormData.interests.includes(interest)
+                              ? "white"
+                              : "black",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          {interest}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={styles.categoryGroup}>
+                    <h4>기술</h4>
+                    <div className={styles.interestSelector}>
+                      {["전기이론"].map((interest) => (
+                        <div
+                          key={interest}
+                          className={
+                            extendedFormData.interests.includes(interest)
+                              ? `${styles.interestOption} ${styles.selected}`
+                              : styles.interestOption
+                          }
+                          onClick={() => handleInterestToggle(interest)}
+                          style={{
+                            padding: "6px 10px",
+                            margin: "3px",
+                            border: "1px solid #ccc",
+                            borderRadius: "20px",
+                            display: "inline-block",
+                            cursor: "pointer",
+                            backgroundColor:
+                              extendedFormData.interests.includes(interest)
+                                ? "#4a6da7"
+                                : "#f8f9fa",
+                            color: extendedFormData.interests.includes(interest)
+                              ? "white"
+                              : "black",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          {interest}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
                 <div className={styles.actionButtons}>
                   <button
                     className={`${styles.button} ${styles.saveButton}`}

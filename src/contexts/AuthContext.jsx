@@ -33,7 +33,8 @@ const createUserProfile = async (user, additionalData = {}) => {
 };
 
 // 그리고 signup 함수 내에서 호출
-const signup = async (email, password, name) => {
+// AuthContext.js 수정
+const signup = async (email, password, name, additionalData = {}) => {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
@@ -46,15 +47,31 @@ const signup = async (email, password, name) => {
   });
 
   // Firestore에 사용자 프로필 문서 생성
-  await createUserProfile(userCredential.user, { name });
+  try {
+    const userDocRef = doc(db, "users", userCredential.user.uid);
+    await setDoc(userDocRef, {
+      name: name,
+      email: email,
+      phoneNumber: additionalData.phoneNumber || "",
+      interests: additionalData.interests || [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Firestore 사용자 문서 생성 실패:", error);
+    // 실패해도 회원가입은 진행
+  }
 
   // 사용자 정보를 로컬 스토리지에 저장
   const userData = {
     uid: userCredential.user.uid,
     email: userCredential.user.email,
     name: name,
+    phoneNumber: additionalData.phoneNumber || "",
+    interests: additionalData.interests || [],
     emailVerified: userCredential.user.emailVerified,
     provider: "email",
+    createdAt: new Date().toISOString(),
   };
 
   localStorage.setItem("user", JSON.stringify(userData));
@@ -69,7 +86,8 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // 회원가입
-  const signup = async (email, password, name) => {
+  // AuthContext.js 수정 - signup 함수 부분
+  const signup = async (email, password, name, additionalData = {}) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -81,13 +99,32 @@ export const AuthProvider = ({ children }) => {
       displayName: name,
     });
 
+    // Firestore에 사용자 프로필 문서 생성
+    try {
+      const userDocRef = doc(db, "users", userCredential.user.uid);
+      await setDoc(userDocRef, {
+        name: name,
+        email: email,
+        phoneNumber: additionalData.phoneNumber || "",
+        interests: additionalData.interests || [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error("Firestore 사용자 문서 생성 실패:", error);
+      // 실패해도 회원가입은 진행
+    }
+
     // 사용자 정보를 로컬 스토리지에 저장
     const userData = {
       uid: userCredential.user.uid,
       email: userCredential.user.email,
       name: name,
+      phoneNumber: additionalData.phoneNumber || "",
+      interests: additionalData.interests || [],
       emailVerified: userCredential.user.emailVerified,
       provider: "email",
+      createdAt: new Date().toISOString(),
     };
 
     localStorage.setItem("user", JSON.stringify(userData));
@@ -226,7 +263,7 @@ export const AuthProvider = ({ children }) => {
     resetPassword,
     updateUser,
     isAuthenticated: () => !!user,
-    isAdmin: () => user?.email === "admin@example.com", // 관리자 체크 로직
+    isAdmin: () => user?.email === "denshol0709@gmail.com", // 관리자 체크 로직
   };
 
   return (

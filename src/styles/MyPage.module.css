@@ -392,3 +392,41 @@
     font-size: 18px;
   }
 }
+.interestSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.interestOption {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.interestOption:hover {
+  background-color: #e9ecef;
+}
+
+.interestOption.selected {
+  background-color: #4a6da7;
+  color: white;
+  border-color: #4a6da7;
+}
+
+.interestTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.interestTag {
+  background-color: #e9ecef;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  color: #495057;
+}

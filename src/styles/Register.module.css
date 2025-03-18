@@ -4,90 +4,266 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--background-color);
-  padding: 20px;
+  background-color: var(--background-color, #f5f7fa);
+  padding: 40px 20px;
 }
 
 .registerCard {
-  background-color: var(--white);
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: var(--white, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   padding: 40px;
   width: 100%;
-  max-width: 450px;
-  transition: transform 0.3s ease;
+  max-width: 550px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .registerCard:hover {
   transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .registerTitle {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   text-align: center;
   font-size: 32px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-primary, #333);
+}
+
+/* 단계 표시 스타일 */
+.stepIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.step {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  background-color: var(--primary-color, #4a6da7);
+  color: white;
+}
+
+.stepLine {
+  height: 2px;
+  width: 80px;
+  background-color: #e0e0e0;
+  margin: 0 10px;
+}
+
+.formStep {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .inputGroup {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   position: relative;
 }
 
 .inputGroup label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-secondary, #555);
+}
+
+.inputWithIcon {
+  position: relative;
 }
 
 .icon {
   position: absolute;
-  top: 38px;
-  left: 10px;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
   font-size: 18px;
-  color: var(--primary-color);
+  color: var(--primary-color, #4a6da7);
 }
 
 .inputField {
   width: 100%;
-  padding: 12px 16px 12px 40px; /* 아이콘 공간 확보 */
+  padding: 14px 16px 14px 45px;
   font-size: 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: border-color 0.2s;
-}
-.inputField:focus {
-  outline: none;
-  border-color: var(--primary-color);
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.registerButton {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--white);
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.inputField:focus {
+  outline: none;
+  border-color: var(--primary-color, #4a6da7);
+  box-shadow: 0 0 0 3px rgba(74, 109, 167, 0.15);
 }
+
+.inputField::placeholder {
+  color: #aaa;
+}
+
+.helperText {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* 관심사 선택 스타일 */
+.interestsGroup {
+  margin-bottom: 30px;
+}
+
+.categoriesContainer {
+  margin-top: 15px;
+}
+
+.categoryGroup {
+  margin-bottom: 20px;
+}
+
+.categoryTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary, #555);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.categoryIcon {
+  margin-right: 8px;
+  color: var(--primary-color, #4a6da7);
+}
+
+.interestOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.interestOption {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background-color: #f0f2f5;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.interestOption:hover {
+  background-color: #e4e6eb;
+}
+
+.interestOption.selected {
+  background-color: var(--primary-color, #4a6da7);
+  color: white;
+}
+
+/* 버튼 스타일 */
+.buttonGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.nextButton,
+.backButton,
+.registerButton {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nextButton,
+.registerButton {
+  background-color: var(--primary-color, #4a6da7);
+  color: white;
+  flex: 2;
+  width: 100%;
+}
+
+.backButton {
+  background-color: #e0e0e0;
+  color: #555;
+  flex: 1;
+}
+
+.nextButton:hover,
 .registerButton:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-dark, #3a5a8f);
+}
+
+.backButton:hover {
+  background-color: #d0d0d0;
+}
+
+.registerButton:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
 }
 
 .errorMessage,
 .successMessage {
   text-align: center;
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px;
 }
+
 .errorMessage {
-  color: #dc3545;
+  color: #d32f2f;
+  background-color: rgba(211, 47, 47, 0.1);
 }
+
 .successMessage {
-  color: #28a745;
+  color: #388e3c;
+  background-color: rgba(56, 142, 60, 0.1);
+}
+
+.loginLink {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #666;
+}
+
+.loginLink a {
+  color: var(--primary-color, #4a6da7);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.loginLink a:hover {
+  color: var(--primary-dark, #3a5a8f);
+  text-decoration: underline;
 }
