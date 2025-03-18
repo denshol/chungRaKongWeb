@@ -8,6 +8,59 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../firebase";
+// AuthContext.js 파일에 추가
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
+
+// 기존 AuthProvider 컴포넌트 내부에 이 함수 추가
+const createUserProfile = async (user, additionalData = {}) => {
+  const userRef = doc(db, "users", user.uid);
+
+  const userData = {
+    email: user.email,
+    name: user.displayName || additionalData.name,
+    profileImage: user.photoURL,
+    phoneNumber: additionalData.phoneNumber || "",
+    address: additionalData.address || "",
+    birthDate: additionalData.birthDate || "",
+    interests: additionalData.interests || [],
+    createdAt: serverTimestamp(),
+    lastLogin: serverTimestamp(),
+  };
+
+  await setDoc(userRef, userData);
+  return userRef;
+};
+
+// 그리고 signup 함수 내에서 호출
+const signup = async (email, password, name) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+
+  // 사용자 프로필 업데이트 (이름 추가)
+  await updateProfile(userCredential.user, {
+    displayName: name,
+  });
+
+  // Firestore에 사용자 프로필 문서 생성
+  await createUserProfile(userCredential.user, { name });
+
+  // 사용자 정보를 로컬 스토리지에 저장
+  const userData = {
+    uid: userCredential.user.uid,
+    email: userCredential.user.email,
+    name: name,
+    emailVerified: userCredential.user.emailVerified,
+    provider: "email",
+  };
+
+  localStorage.setItem("user", JSON.stringify(userData));
+
+  return userCredential.user;
+};
 
 export const AuthContext = createContext(null);
 
@@ -77,13 +130,14 @@ export const AuthProvider = ({ children }) => {
     await sendPasswordResetEmail(auth, email);
   };
 
-  // 사용자 정보 업데이트
+  // updateUser 함수 수정
   const updateUser = async (userData) => {
     if (!auth.currentUser) return;
 
     const updates = {};
     if (userData.name) updates.displayName = userData.name;
-    if (userData.photoURL) updates.photoURL = userData.photoURL;
+    // 프로필 이미지 업데이트 부분 수정
+    if (userData.profileImage) updates.photoURL = userData.profileImage;
 
     await updateProfile(auth.currentUser, updates);
 
@@ -96,10 +150,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   // 인증 상태 변경 감지
+  // AuthContext.js 파일에서 기존 useEffect 훅을 아래 코드로 대체
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        // Firebase 사용자 객체를 앱에서 사용하기 쉬운 형태로 변환
+        // Firebase Auth 기본 정보
         const userData = {
           uid: currentUser.uid,
           email: currentUser.email,
@@ -112,8 +167,45 @@ export const AuthProvider = ({ children }) => {
               : "social",
         };
 
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        // Firestore에서 추가 정보 가져오기
+        try {
+          const userDocRef = doc(db, "users", currentUser.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            // Firestore 데이터와 병합
+            const firestoreData = userDoc.data();
+            const extendedUserData = {
+              ...userData,
+              phoneNumber: firestoreData.phoneNumber,
+              address: firestoreData.address,
+              birthDate: firestoreData.birthDate,
+              interests: firestoreData.interests,
+              enrolledPrograms: firestoreData.enrolledPrograms,
+              createdAt: firestoreData.createdAt?.toDate?.() || new Date(),
+              lastLogin: firestoreData.lastLogin?.toDate?.() || new Date(),
+            };
+
+            // 로그인 시 lastLogin 업데이트
+            await setDoc(
+              userDocRef,
+              { lastLogin: serverTimestamp() },
+              { merge: true }
+            );
+
+            setUser(extendedUserData);
+            localStorage.setItem("user", JSON.stringify(extendedUserData));
+          } else {
+            // 사용자 문서가 없으면 새로 생성
+            await createUserProfile(currentUser, {});
+            setUser(userData);
+            localStorage.setItem("user", JSON.stringify(userData));
+          }
+        } catch (error) {
+          console.error("Firestore 사용자 데이터 가져오기 실패:", error);
+          setUser(userData);
+          localStorage.setItem("user", JSON.stringify(userData));
+        }
       } else {
         setUser(null);
         localStorage.removeItem("user");

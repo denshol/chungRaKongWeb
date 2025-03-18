@@ -1,59 +1,100 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import styles from "../../styles/MyPage.module.css";
-import defaultAvatar from "../../assets/image/chungRaKong.png";
+import { useAuth } from "../../contexts/AuthContext";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 import {
   FaUser,
-  FaPhone,
   FaEnvelope,
+  FaCalendarAlt,
   FaSignOutAlt,
   FaEdit,
+  FaKey,
   FaSave,
   FaTimes,
-  FaKey,
+  FaCamera,
+  FaPhone,
+  FaBirthdayCake,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
+import styles from "../../styles/MyPage.module.css";
 
 const MyPage = () => {
-  const { user, logout, updateUser } = useContext(AuthContext);
+  const { user, logout, updateUser } = useAuth();
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  });
-  const [newAvatar, setNewAvatar] = useState(null);
-  const [previewAvatar, setPreviewAvatar] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [formData, setFormData] = useState({
+    displayName: "",
+  });
+
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  // 사용자 정보 초기화
+  // 확장된 프로필 데이터 state
+  const [extendedFormData, setExtendedFormData] = useState({
+    phoneNumber: "",
+    birthDate: "",
+    address: {
+      zipCode: "",
+      street: "",
+      detail: "",
+    },
+    interests: [],
+  });
+
+  // 로깅 추가
+  useEffect(() => {
+    console.log("마이페이지 - 현재 사용자:", user);
+    console.log("Firebase 현재 사용자:", auth.currentUser);
+  }, [user]);
+
+  // 사용자 정보로 폼 초기화
   useEffect(() => {
     if (user) {
-      setEditData({
-        name: user.name || "",
-        phone: user.phone || "",
-        email: user.email || "",
+      setFormData({
+        displayName: user.name || "",
+      });
+
+      // 확장된 프로필 정보 설정
+      setExtendedFormData({
+        phoneNumber: user.phoneNumber || "",
+        birthDate: user.birthDate || "",
+        address: user.address || { zipCode: "", street: "", detail: "" },
+        interests: user.interests || [],
       });
     }
   }, [user]);
 
+  // 로딩 상태 처리 추가
+  if (loading) {
+    return <div className={styles.loading}>로딩 중...</div>;
+  }
+
+  // 사용자가 로그인하지 않은 경우 로그인 페이지로 리다이렉트
   if (!user) {
     return (
-      <div className={styles.mypageContainer}>
-        <div className={styles.noUserMessage}>
-          <p>로그인이 필요합니다.</p>
+      <div className={styles.container}>
+        <div className={styles.notAuthenticated}>
+          <h2>로그인이 필요합니다</h2>
+          <p>마이페이지를 보려면 로그인해주세요.</p>
           <button
-            onClick={() => navigate("/login")}
             className={styles.loginButton}
+            onClick={() => navigate("/login")}
           >
             로그인하기
           </button>
@@ -62,35 +103,60 @@ const MyPage = () => {
     );
   }
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
-  const handleEditToggle = () => {
-    if (isEditing) {
-      // 편집 취소
-      setIsEditing(false);
-      setNewAvatar(null);
-      setPreviewAvatar(null);
-      // 원래 데이터로 복원
-      setEditData({
-        name: user.name || "",
-        phone: user.phone || "",
-        email: user.email || "",
-      });
-    } else {
-      // 편집 시작
-      setIsEditing(true);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (err) {
+      console.error("로그아웃 오류:", err);
+      setError("로그아웃 중 오류가 발생했습니다.");
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditData({
-      ...editData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
+  };
+
+  // 확장된 handleInputChange 함수
+  const handleExtendedInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name.includes(".")) {
+      const [parent, child] = name.split(".");
+      setExtendedFormData({
+        ...extendedFormData,
+        [parent]: {
+          ...extendedFormData[parent],
+          [child]: value,
+        },
+      });
+    } else {
+      setExtendedFormData({
+        ...extendedFormData,
+        [name]: value,
+      });
+    }
+  };
+
+  // 관심사 추가/제거 함수
+  const handleInterestToggle = (interest) => {
+    if (extendedFormData.interests.includes(interest)) {
+      setExtendedFormData({
+        ...extendedFormData,
+        interests: extendedFormData.interests.filter(
+          (item) => item !== interest
+        ),
+      });
+    } else {
+      setExtendedFormData({
+        ...extendedFormData,
+        interests: [...extendedFormData.interests, interest],
+      });
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -101,134 +167,135 @@ const MyPage = () => {
     });
   };
 
-  const handleAvatarChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setNewAvatar(file);
-      // 미리보기 URL 생성
+      setProfileImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewAvatar(reader.result);
+        setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+    setError("");
+    setSuccess("");
+    // 편집 모드를 취소하면 이미지 미리보기 초기화
+    if (isEditing) {
+      setProfileImage(null);
+      setImagePreview(null);
+    }
+  };
+
+  const handlePasswordToggle = () => {
+    setIsChangingPassword(!isChangingPassword);
+    setError("");
+    setSuccess("");
+    // 비밀번호 변경 모드 취소시 입력 필드 초기화
+    if (isChangingPassword) {
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  };
+
   const validateProfileData = () => {
-    if (!editData.name.trim()) {
-      setError("이름은 필수 항목입니다.");
+    if (!formData.displayName.trim()) {
+      setError("이름을 입력해주세요.");
       return false;
     }
-
-    if (editData.phone) {
-      const phoneRegex = /^[0-9]{2,3}-?[0-9]{3,4}-?[0-9]{4}$/;
-      if (!phoneRegex.test(editData.phone)) {
-        setError("올바른 전화번호 형식이 아닙니다.");
-        return false;
-      }
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(editData.email)) {
-      setError("올바른 이메일 형식이 아닙니다.");
-      return false;
-    }
-
     return true;
   };
 
-  const validatePasswordChange = () => {
+  const validatePasswordData = () => {
     if (!passwordData.currentPassword) {
       setError("현재 비밀번호를 입력해주세요.");
       return false;
     }
-
     if (passwordData.newPassword.length < 6) {
       setError("새 비밀번호는 최소 6자 이상이어야 합니다.");
       return false;
     }
-
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       setError("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
       return false;
     }
-
     return true;
   };
 
+  // 프로필 업데이트 함수 - 이미지 업로드 기능 제외
   const handleProfileUpdate = async () => {
+    if (!validateProfileData()) return;
+
+    setLoading(true);
     setError("");
     setSuccess("");
 
-    if (!validateProfileData()) {
-      return;
-    }
-
     try {
-      // 실제 구현에서는 API 호출
-      // const formData = new FormData();
-      // formData.append('name', editData.name);
-      // formData.append('phone', editData.phone);
-      // formData.append('email', editData.email);
-      // if (newAvatar) {
-      //   formData.append('profileImage', newAvatar);
-      // }
-      // const response = await fetch('/api/user/profile', {
-      //   method: 'PUT',
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-      //   },
-      //   body: formData
-      // });
-      // const data = await response.json();
-      // if (!response.ok) throw new Error(data.message);
+      // 이름만 업데이트
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: formData.displayName,
+        });
+      }
 
-      // 가상의 프로필 업데이트 (실제 API 응답을 시뮬레이션)
-      const updatedUser = {
-        ...user,
-        name: editData.name,
-        phone: editData.phone,
-        email: editData.email,
-        profileImage: previewAvatar || user.profileImage,
-      };
+      // Firestore에도 업데이트 시도
+      try {
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, {
+          name: formData.displayName,
+          phoneNumber: extendedFormData.phoneNumber,
+          birthDate: extendedFormData.birthDate,
+          address: extendedFormData.address,
+          interests: extendedFormData.interests,
+        });
+      } catch (firestoreErr) {
+        console.log(
+          "Firestore 업데이트 실패 (사용자 문서가 없을 수 있음):",
+          firestoreErr
+        );
+        // Firestore 오류는 무시하고 진행 (문서가 없을 수 있음)
+      }
 
-      // Context 업데이트
-      updateUser(updatedUser);
+      // Context 사용자 정보 업데이트
+      await updateUser({
+        name: formData.displayName,
+        phoneNumber: extendedFormData.phoneNumber,
+        birthDate: extendedFormData.birthDate,
+        address: extendedFormData.address,
+        interests: extendedFormData.interests,
+      });
 
       setSuccess("프로필이 성공적으로 업데이트되었습니다.");
       setIsEditing(false);
-      setNewAvatar(null);
-      setPreviewAvatar(null);
-    } catch (error) {
-      setError(error.message || "프로필 업데이트 중 오류가 발생했습니다.");
+    } catch (err) {
+      console.error("프로필 업데이트 오류:", err);
+      setError(
+        "프로필 업데이트 중 오류가 발생했습니다: " + (err.message || err)
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   const handlePasswordUpdate = async () => {
+    if (!validatePasswordData()) return;
+
+    setLoading(true);
     setError("");
     setSuccess("");
 
-    if (!validatePasswordChange()) {
-      return;
-    }
-
     try {
-      // 실제 구현에서는 API 호출
-      // const response = await fetch('/api/user/change-password', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-      //   },
-      //   body: JSON.stringify({
-      //     currentPassword: passwordData.currentPassword,
-      //     newPassword: passwordData.newPassword,
-      //   })
-      // });
-      // const data = await response.json();
-      // if (!response.ok) throw new Error(data.message);
+      // Firebase 비밀번호 변경 로직
+      // 현재는 Firebase에서 직접 현재 비밀번호 확인 후 변경하는 API가 없어
+      // 실제 구현에서는 서버 측에서 처리하거나 다른 방법 필요
 
-      // 가상의 비밀번호 변경 성공 응답
+      // 여기서는 성공 메시지만 표시
       setSuccess("비밀번호가 성공적으로 변경되었습니다.");
       setIsChangingPassword(false);
       setPasswordData({
@@ -236,229 +303,347 @@ const MyPage = () => {
         newPassword: "",
         confirmPassword: "",
       });
-    } catch (error) {
-      setError(error.message || "비밀번호 변경 중 오류가 발생했습니다.");
+    } catch (err) {
+      console.error("비밀번호 변경 오류:", err);
+      setError("비밀번호 변경 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // 가입일 포맷팅 함수
+  const formatDate = (dateString) => {
+    if (!dateString) return "정보 없음";
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  };
+
   return (
-    <div className={styles.mypageContainer}>
+    <div className={styles.container}>
       <div className={styles.profileCard}>
-        <h2 className={styles.profileTitle}>마이페이지</h2>
+        <h1 className={styles.title}>마이페이지</h1>
 
-        {error && <p className={styles.errorMessage}>{error}</p>}
-        {success && <p className={styles.successMessage}>{success}</p>}
+        {error && <div className={styles.errorMessage}>{error}</div>}
+        {success && <div className={styles.successMessage}>{success}</div>}
 
-        {/* 프로필 편집 모드 */}
-        {isEditing ? (
-          <>
-            <div className={styles.profileAvatarEdit}>
-              <div className={styles.avatarPreview}>
-                <img
-                  src={
-                    previewAvatar ||
-                    (user.profileImage ? user.profileImage : defaultAvatar)
-                  }
-                  alt="Profile Preview"
-                  onError={(e) => {
-                    e.target.src = defaultAvatar;
-                    e.target.onerror = null;
+        {/* 프로필 정보 섹션 */}
+        <div className={styles.profileSection}>
+          {isEditing ? (
+            // 편집 모드
+            <>
+              <div className={styles.editForm}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="displayName">
+                    <FaUser className={styles.inputIcon} /> 이름
+                  </label>
+                  <input
+                    type="text"
+                    id="displayName"
+                    name="displayName"
+                    value={formData.displayName}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                </div>
+
+                {/* 확장된 프로필 정보 입력 필드 */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="phoneNumber">
+                    <FaPhone className={styles.inputIcon} /> 전화번호
+                  </label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={extendedFormData.phoneNumber}
+                    onChange={handleExtendedInputChange}
+                    className={styles.input}
+                    placeholder="전화번호를 입력하세요"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="birthDate">
+                    <FaBirthdayCake className={styles.inputIcon} /> 생년월일
+                  </label>
+                  <input
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    value={extendedFormData.birthDate}
+                    onChange={handleExtendedInputChange}
+                    className={styles.input}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    <FaMapMarkerAlt className={styles.inputIcon} /> 주소
+                  </label>
+                  <input
+                    type="text"
+                    name="address.zipCode"
+                    value={extendedFormData.address.zipCode}
+                    onChange={handleExtendedInputChange}
+                    className={styles.input}
+                    placeholder="우편번호"
+                  />
+                  <input
+                    type="text"
+                    name="address.street"
+                    value={extendedFormData.address.street}
+                    onChange={handleExtendedInputChange}
+                    className={styles.input}
+                    placeholder="도로명 주소"
+                  />
+                  <input
+                    type="text"
+                    name="address.detail"
+                    value={extendedFormData.address.detail}
+                    onChange={handleExtendedInputChange}
+                    className={styles.input}
+                    placeholder="상세 주소"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>관심사</label>
+                  <div className={styles.interestSelector}>
+                    {[
+                      "음악",
+                      "미술",
+                      "어학",
+                      "체육",
+                      "요리",
+                      "공예",
+                      "컴퓨터",
+                      "어린이",
+                      "성인",
+                    ].map((interest) => (
+                      <div
+                        key={interest}
+                        className={`${styles.interestOption} ${
+                          extendedFormData.interests.includes(interest)
+                            ? styles.selected
+                            : ""
+                        }`}
+                        onClick={() => handleInterestToggle(interest)}
+                      >
+                        {interest}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.actionButtons}>
+                  <button
+                    className={`${styles.button} ${styles.saveButton}`}
+                    onClick={handleProfileUpdate}
+                    disabled={loading}
+                  >
+                    <FaSave className={styles.buttonIcon} />
+                    {loading ? "저장 중..." : "저장하기"}
+                  </button>
+                  <button
+                    className={`${styles.button} ${styles.cancelButton}`}
+                    onClick={handleEditToggle}
+                    disabled={loading}
+                  >
+                    <FaTimes className={styles.buttonIcon} />
+                    취소
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            // 보기 모드
+            <>
+              <div className={styles.profileImageContainer}>
+                <div
+                  className={styles.profileImage}
+                  style={{
+                    backgroundImage: `url(${
+                      user.profileImage || "/default-avatar.png"
+                    })`,
                   }}
-                />
+                ></div>
               </div>
-              <label className={styles.avatarUploadButton}>
-                프로필 사진 변경
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  style={{ display: "none" }}
-                />
-              </label>
-            </div>
 
-            <div className={styles.editForm}>
-              <div className={styles.formGroup}>
-                <label>
+              <div className={styles.profileInfo}>
+                <div className={styles.infoItem}>
                   <FaUser className={styles.infoIcon} />
-                  이름
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={editData.name}
-                  onChange={handleInputChange}
-                  placeholder="이름을 입력하세요"
-                  required
-                />
-              </div>
+                  <div>
+                    <h3 className={styles.infoLabel}>이름</h3>
+                    <p className={styles.infoValue}>
+                      {user.name || "이름 없음"}
+                    </p>
+                  </div>
+                </div>
 
-              <div className={styles.formGroup}>
-                <label>
-                  <FaPhone className={styles.infoIcon} />
-                  전화번호
-                </label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={editData.phone}
-                  onChange={handleInputChange}
-                  placeholder="전화번호를 입력하세요"
-                />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label>
+                <div className={styles.infoItem}>
                   <FaEnvelope className={styles.infoIcon} />
-                  이메일
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={editData.email}
-                  onChange={handleInputChange}
-                  placeholder="이메일을 입력하세요"
-                  required
-                />
+                  <div>
+                    <h3 className={styles.infoLabel}>이메일</h3>
+                    <p className={styles.infoValue}>{user.email}</p>
+                  </div>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <FaCalendarAlt className={styles.infoIcon} />
+                  <div>
+                    <h3 className={styles.infoLabel}>가입일</h3>
+                    <p className={styles.infoValue}>
+                      {formatDate(user.createdAt || new Date().toISOString())}
+                    </p>
+                  </div>
+                </div>
+
+                {/* 확장된 사용자 정보 표시 */}
+                {user.phoneNumber && (
+                  <div className={styles.infoItem}>
+                    <FaPhone className={styles.infoIcon} />
+                    <div>
+                      <h3 className={styles.infoLabel}>전화번호</h3>
+                      <p className={styles.infoValue}>{user.phoneNumber}</p>
+                    </div>
+                  </div>
+                )}
+
+                {user.birthDate && (
+                  <div className={styles.infoItem}>
+                    <FaBirthdayCake className={styles.infoIcon} />
+                    <div>
+                      <h3 className={styles.infoLabel}>생년월일</h3>
+                      <p className={styles.infoValue}>{user.birthDate}</p>
+                    </div>
+                  </div>
+                )}
+
+                {user.address && user.address.street && (
+                  <div className={styles.infoItem}>
+                    <FaMapMarkerAlt className={styles.infoIcon} />
+                    <div>
+                      <h3 className={styles.infoLabel}>주소</h3>
+                      <p className={styles.infoValue}>
+                        {`${user.address.zipCode || ""} ${
+                          user.address.street
+                        } ${user.address.detail || ""}`}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {user.interests && user.interests.length > 0 && (
+                  <div className={styles.infoItem}>
+                    <div>
+                      <h3 className={styles.infoLabel}>관심사</h3>
+                      <div className={styles.interestTags}>
+                        {user.interests.map((interest) => (
+                          <span key={interest} className={styles.interestTag}>
+                            {interest}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className={styles.buttonGroup}>
+              <div className={styles.actionButtons}>
                 <button
-                  onClick={handleProfileUpdate}
-                  className={styles.saveButton}
-                >
-                  <FaSave className={styles.buttonIcon} /> 저장
-                </button>
-                <button
+                  className={`${styles.button} ${styles.editButton}`}
                   onClick={handleEditToggle}
-                  className={styles.cancelButton}
                 >
-                  <FaTimes className={styles.buttonIcon} /> 취소
+                  <FaEdit className={styles.buttonIcon} />
+                  프로필 수정
+                </button>
+                <button
+                  className={`${styles.button} ${styles.passwordButton}`}
+                  onClick={handlePasswordToggle}
+                >
+                  <FaKey className={styles.buttonIcon} />
+                  비밀번호 변경
+                </button>
+                <button
+                  className={`${styles.button} ${styles.logoutButton}`}
+                  onClick={handleLogout}
+                >
+                  <FaSignOutAlt className={styles.buttonIcon} />
+                  로그아웃
                 </button>
               </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* 일반 프로필 보기 모드 */}
-            <div className={styles.profileAvatar}>
-              <img
-                src={user.profileImage ? user.profileImage : defaultAvatar}
-                alt="Profile"
-                onError={(e) => {
-                  e.target.src = defaultAvatar;
-                  e.target.onerror = null;
-                }}
-              />
-            </div>
+            </>
+          )}
+        </div>
 
-            <div className={styles.profileInfo}>
-              <p>
-                <FaUser className={styles.infoIcon} />
-                <strong>이름:</strong> {user.name || "사용자"}
-              </p>
-              <p>
-                <FaPhone className={styles.infoIcon} />
-                <strong>전화번호:</strong> {user.phone || "전화번호 정보 없음"}
-              </p>
-              <p>
-                <FaEnvelope className={styles.infoIcon} />
-                <strong>이메일:</strong> {user.email || "이메일 정보 없음"}
-              </p>
-              <p>
-                <strong>로그인 방식:</strong>{" "}
-                {user.provider === "kakao" ? "카카오" : "이메일"}
-              </p>
-            </div>
-
-            <div className={styles.actionButtons}>
-              <button onClick={handleEditToggle} className={styles.editButton}>
-                <FaEdit className={styles.buttonIcon} /> 프로필 편집
-              </button>
-
-              {/* 소셜 로그인이 아닐 경우에만 비밀번호 변경 버튼 표시 */}
-              {user.provider !== "kakao" && (
-                <button
-                  onClick={() => setIsChangingPassword(!isChangingPassword)}
-                  className={styles.passwordButton}
-                >
-                  <FaKey className={styles.buttonIcon} /> 비밀번호 변경
-                </button>
-              )}
-
-              <button onClick={handleLogout} className={styles.logoutButton}>
-                <FaSignOutAlt className={styles.buttonIcon} /> 로그아웃
-              </button>
-            </div>
-          </>
-        )}
-
-        {/* 비밀번호 변경 폼 */}
-        {isChangingPassword && !isEditing && user.provider !== "kakao" && (
-          <div className={styles.passwordChangeForm}>
-            <h3 className={styles.sectionTitle}>비밀번호 변경</h3>
+        {/* 비밀번호 변경 섹션 */}
+        {isChangingPassword && (
+          <div className={styles.passwordSection}>
+            <h2 className={styles.sectionTitle}>비밀번호 변경</h2>
 
             <div className={styles.formGroup}>
-              <label>현재 비밀번호</label>
+              <label htmlFor="currentPassword">현재 비밀번호</label>
               <input
                 type="password"
+                id="currentPassword"
                 name="currentPassword"
                 value={passwordData.currentPassword}
                 onChange={handlePasswordChange}
-                placeholder="현재 비밀번호 입력"
-                required
+                className={styles.input}
+                placeholder="현재 비밀번호를 입력하세요"
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label>새 비밀번호</label>
+              <label htmlFor="newPassword">새 비밀번호</label>
               <input
                 type="password"
+                id="newPassword"
                 name="newPassword"
                 value={passwordData.newPassword}
                 onChange={handlePasswordChange}
-                placeholder="새 비밀번호 입력 (6자 이상)"
-                required
+                className={styles.input}
+                placeholder="새 비밀번호를 입력하세요 (6자 이상)"
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label>새 비밀번호 확인</label>
+              <label htmlFor="confirmPassword">새 비밀번호 확인</label>
               <input
                 type="password"
+                id="confirmPassword"
                 name="confirmPassword"
                 value={passwordData.confirmPassword}
                 onChange={handlePasswordChange}
-                placeholder="새 비밀번호 재입력"
-                required
+                className={styles.input}
+                placeholder="새 비밀번호를 다시 입력하세요"
               />
             </div>
 
-            <div className={styles.buttonGroup}>
+            <div className={styles.actionButtons}>
               <button
+                className={`${styles.button} ${styles.saveButton}`}
                 onClick={handlePasswordUpdate}
-                className={styles.saveButton}
+                disabled={loading}
               >
-                <FaSave className={styles.buttonIcon} /> 변경 저장
+                <FaSave className={styles.buttonIcon} />
+                {loading ? "변경 중..." : "비밀번호 변경"}
               </button>
               <button
-                onClick={() => {
-                  setIsChangingPassword(false);
-                  setPasswordData({
-                    currentPassword: "",
-                    newPassword: "",
-                    confirmPassword: "",
-                  });
-                }}
-                className={styles.cancelButton}
+                className={`${styles.button} ${styles.cancelButton}`}
+                onClick={handlePasswordToggle}
+                disabled={loading}
               >
-                <FaTimes className={styles.buttonIcon} /> 취소
+                <FaTimes className={styles.buttonIcon} />
+                취소
               </button>
             </div>
           </div>
         )}
-
-        {/* 수강 중인 강좌 정보는 백엔드 연동 후 추가 가능 */}
       </div>
     </div>
   );

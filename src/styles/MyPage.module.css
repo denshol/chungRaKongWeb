@@ -1,88 +1,394 @@
-/* MyPage.module.css */
-.mypageContainer {
-  width: 100%;
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.profileCard {
-  background-color: var(--white);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-.profileCard:hover {
-  transform: translateY(-5px);
-}
-
-.profileTitle {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.profileAvatar {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 30px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid var(--primary-color);
-  background-color: var(--primary-light);
-}
-.profileAvatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.profileInfo {
-  margin-bottom: 30px;
-}
-.profileInfo p {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
-  color: var(--text-secondary);
-  font-size: 16px;
-}
-.profileInfo p:last-child {
-  border-bottom: none;
-}
-.infoIcon {
-  margin-right: 8px;
-  color: var(--primary-color);
-}
-.profileInfo strong {
-  display: inline-block;
-  width: 110px;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.logoutButton {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--accent-color);
-  color: var(--white);
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 200px);
+  background-color: #f5f7fa;
+  font-family: "Noto Sans KR", sans-serif;
 }
-.logoutButton:hover {
-  background-color: var(--primary-dark);
+
+.profileCard {
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+  overflow: hidden;
 }
-.logoutIcon {
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #4f85e8, #7cb9f5);
+  border-radius: 2px;
+}
+
+/* 로딩 상태 표시 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #4f85e8;
+}
+
+/* 에러 및 성공 메시지 */
+.errorMessage,
+.successMessage {
+  margin: 15px 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.errorMessage {
+  background-color: rgba(245, 101, 101, 0.1);
+  color: #e53e3e;
+  border-left: 4px solid #e53e3e;
+}
+
+.successMessage {
+  background-color: rgba(72, 187, 120, 0.1);
+  color: #38a169;
+  border-left: 4px solid #38a169;
+}
+
+/* 프로필 정보 섹션 */
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.profileImageContainer {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.profileImage {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f0f0f0;
+  border: 4px solid white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.imageUploadLabel {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #4f85e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.imageUploadLabel:hover {
+  background-color: #3a75d8;
+  transform: scale(1.05);
+}
+
+.cameraIcon {
+  color: white;
+  font-size: 18px;
+}
+
+.imageInput {
+  display: none;
+}
+
+.profileInfo {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9fafc;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.infoItem:hover {
+  background-color: #f1f5fd;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.03);
+}
+
+.infoIcon {
+  font-size: 22px;
+  color: #4f85e8;
+  margin-right: 16px;
+  min-width: 24px;
+}
+
+.infoLabel {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 4px 0;
+}
+
+.infoValue {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 편집 폼 */
+.editForm {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 8px;
+}
+
+.inputIcon {
   margin-right: 8px;
+  color: #4f85e8;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #f9fafc;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4f85e8;
+  box-shadow: 0 0 0 3px rgba(79, 133, 232, 0.15);
+  background-color: white;
+}
+
+/* 버튼 스타일 */
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.buttonIcon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.editButton {
+  background-color: #4299e1;
+  color: white;
+}
+
+.editButton:hover:not(:disabled) {
+  background-color: #3182ce;
+  transform: translateY(-2px);
+}
+
+.saveButton {
+  background-color: #48bb78;
+  color: white;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #38a169;
+  transform: translateY(-2px);
+}
+
+.cancelButton {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background-color: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+.passwordButton {
+  background-color: #805ad5;
+  color: white;
+}
+
+.passwordButton:hover:not(:disabled) {
+  background-color: #6b46c1;
+  transform: translateY(-2px);
+}
+
+.logoutButton {
+  background-color: #f56565;
+  color: white;
+}
+
+.logoutButton:hover:not(:disabled) {
+  background-color: #e53e3e;
+  transform: translateY(-2px);
+}
+
+/* 비밀번호 변경 섹션 */
+.passwordSection {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* 로그인 필요 화면 */
+.notAuthenticated {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.notAuthenticated h2 {
+  font-size: 24px;
+  color: #374151;
+  margin-bottom: 16px;
+}
+
+.notAuthenticated p {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.loginButton {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #4f85e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: #3a75d8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .profileCard {
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .profileImage {
+    width: 120px;
+    height: 120px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  .profileCard {
+    padding: 20px 15px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .infoItem {
+    padding: 12px 10px;
+  }
+
+  .infoIcon {
+    font-size: 18px;
+  }
 }

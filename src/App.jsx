@@ -52,45 +52,45 @@ const MyPage = lazy(() => import("./components/auth/MyPage"));
 const Login = lazy(() => import("./components/auth/Login"));
 const Register = lazy(() => import("./components/auth/Register"));
 
-// 메모이제이션된 보호된 라우트 컴포넌트
+// 메모이제이션된 보호된 라우트 컴포넌트 - 수정됨
 const ProtectedRoute = memo(({ children }) => {
-  const { currentUser, SkeletonLoader } = useAuth();
+  const { user, loading } = useAuth(); // currentUser -> user로 변경
 
-  if (SkeletonLoader) {
+  if (loading) {
     return <SkeletonLoader />;
   }
 
-  if (!currentUser) {
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
   return children;
 });
 
-// 메모이제이션된 관리자 전용 라우트 컴포넌트
+// 메모이제이션된 관리자 전용 라우트 컴포넌트 - 수정됨
 const AdminRoute = memo(({ children }) => {
-  const { currentUser, SkeletonLoader } = useAuth();
+  const { user, loading, isAdmin } = useAuth(); // currentUser -> user로 변경
 
-  if (SkeletonLoader) {
+  if (loading) {
     return <SkeletonLoader />;
   }
 
-  if (!currentUser || !currentUser.isAdmin) {
+  if (!user || !isAdmin()) {
     return <Navigate to="/" replace />;
   }
 
   return children;
 });
 
-// 메모이제이션된 공개 전용 라우트 컴포넌트
+// 메모이제이션된 공개 전용 라우트 컴포넌트 - 수정됨
 const PublicOnlyRoute = memo(({ children }) => {
-  const { currentUser, SkeletonLoader } = useAuth();
+  const { user, loading } = useAuth(); // currentUser -> user로 변경
 
-  if (SkeletonLoader) {
+  if (loading) {
     return <SkeletonLoader />;
   }
 
-  if (currentUser) {
+  if (user) {
     return <Navigate to="/" replace />;
   }
 
@@ -126,10 +126,16 @@ const ConditionalHeroSlider = memo(() => {
 
 // 메인 앱 콘텐츠 메모이제이션
 const AppContent = memo(() => {
-  const { currentUser } = useAuth();
+  const { user } = useAuth(); // currentUser -> user로 변경
   const [showNoticeModal, setShowNoticeModal] = useState(false);
   const [manualShowModal, setManualShowModal] = useState(false);
   const [notices, setNotices] = useState([]);
+
+  // 사용자 인증 상태 디버깅 로그 추가
+  useEffect(() => {
+    console.log("AppContent - 현재 사용자:", user);
+    console.log("AppContent - 로컬 스토리지:", localStorage.getItem("user"));
+  }, [user]);
 
   // 공지사항 데이터 불러오기 - useCallback으로 최적화
   const fetchNotices = useCallback(async () => {
