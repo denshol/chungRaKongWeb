@@ -1020,3 +1020,85 @@
 .navbar.scrolled .menuToggle .hamburger::after {
   background-color: #333; /* 어두운 회색 */
 }
+/* Navbar.module.css에 추가할 스타일 */
+
+/* 관리자 링크 스타일 */
+.adminLink {
+  background-color: rgba(72, 187, 120, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.adminLink:hover {
+  background-color: rgba(72, 187, 120, 0.2);
+}
+
+/* 관리자 배지 스타일 */
+.adminBadge {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* 프로필 메뉴 내 관리자 링크 강화 스타일 */
+.profileMenuItem.adminLink {
+  background-color: rgba(72, 187, 120, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.profileMenuItem.adminLink .menuIcon {
+  color: var(--primary-color);
+}
+
+.profileMenuItem.adminLink:hover {
+  background-color: rgba(72, 187, 120, 0.2);
+}
+/* 관리자 링크 스타일 */
+.adminLink {
+  background-color: rgba(72, 187, 120, 0.1);
+  border-left: 3px solid var(--primary-color);
+  padding-left: 0.5rem;
+}
+
+.adminLink:hover {
+  background-color: rgba(72, 187, 120, 0.2);
+}
+
+/* 관리자 배지 스타일 */
+.adminBadge {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* 프로필 메뉴 내 관리자 링크 강화 스타일 */
+.profileMenuItem.adminLink {
+  background-color: rgba(72, 187, 120, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.profileMenuItem.adminLink .menuIcon {
+  color: var(--primary-color);
+}
+
+.profileMenuItem.adminLink:hover {
+  background-color: rgba(72, 187, 120, 0.2);
+}
+
+/* 구분선 스타일 */
+.divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 8px 0;
+}

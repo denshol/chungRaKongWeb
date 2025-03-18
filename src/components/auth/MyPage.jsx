@@ -54,7 +54,7 @@ const MyPage = () => {
       street: "",
       detail: "",
     },
-    interests: [],
+    currentClasses: [], // 관심사 -> 현재 듣고 있는 강의로 변경
   });
 
   // 로깅 추가
@@ -75,7 +75,7 @@ const MyPage = () => {
         phoneNumber: user.phoneNumber || "",
         birthDate: user.birthDate || "",
         address: user.address || { zipCode: "", street: "", detail: "" },
-        interests: user.interests || [],
+        currentClasses: user.interests || [], // 관심사 -> 현재 듣고 있는 강의로 변경
       });
     }
   }, [user]);
@@ -142,19 +142,19 @@ const MyPage = () => {
     }
   };
 
-  // 관심사 추가/제거 함수
-  const handleInterestToggle = (interest) => {
-    if (extendedFormData.interests.includes(interest)) {
+  // 강의 추가/제거 함수
+  const handleClassToggle = (className) => {
+    if (extendedFormData.currentClasses.includes(className)) {
       setExtendedFormData({
         ...extendedFormData,
-        interests: extendedFormData.interests.filter(
-          (item) => item !== interest
+        currentClasses: extendedFormData.currentClasses.filter(
+          (item) => item !== className
         ),
       });
     } else {
       setExtendedFormData({
         ...extendedFormData,
-        interests: [...extendedFormData.interests, interest],
+        currentClasses: [...extendedFormData.currentClasses, className],
       });
     }
   };
@@ -252,7 +252,7 @@ const MyPage = () => {
           phoneNumber: extendedFormData.phoneNumber,
           birthDate: extendedFormData.birthDate,
           address: extendedFormData.address,
-          interests: extendedFormData.interests,
+          interests: extendedFormData.currentClasses, // DB 필드명은 그대로 유지 (마이그레이션 필요 없음)
         });
       } catch (firestoreErr) {
         console.log(
@@ -268,7 +268,7 @@ const MyPage = () => {
         phoneNumber: extendedFormData.phoneNumber,
         birthDate: extendedFormData.birthDate,
         address: extendedFormData.address,
-        interests: extendedFormData.interests,
+        interests: extendedFormData.currentClasses, // interests 필드 이름 유지
       });
 
       setSuccess("프로필이 성공적으로 업데이트되었습니다.");
@@ -408,7 +408,7 @@ const MyPage = () => {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>관심 프로그램</label>
+                  <label>현재 듣고 있는 강의</label>
 
                   <div className={styles.categoryGroup}>
                     <h4>음악</h4>
@@ -425,15 +425,15 @@ const MyPage = () => {
                         "첼로",
                         "밴드",
                         "보컬",
-                      ].map((interest) => (
+                      ].map((className) => (
                         <div
-                          key={interest}
+                          key={className}
                           className={
-                            extendedFormData.interests.includes(interest)
+                            extendedFormData.currentClasses.includes(className)
                               ? `${styles.interestOption} ${styles.selected}`
                               : styles.interestOption
                           }
-                          onClick={() => handleInterestToggle(interest)}
+                          onClick={() => handleClassToggle(className)}
                           style={{
                             padding: "6px 10px",
                             margin: "3px",
@@ -442,16 +442,20 @@ const MyPage = () => {
                             display: "inline-block",
                             cursor: "pointer",
                             backgroundColor:
-                              extendedFormData.interests.includes(interest)
+                              extendedFormData.currentClasses.includes(
+                                className
+                              )
                                 ? "#4a6da7"
                                 : "#f8f9fa",
-                            color: extendedFormData.interests.includes(interest)
+                            color: extendedFormData.currentClasses.includes(
+                              className
+                            )
                               ? "white"
                               : "black",
                             fontSize: "0.9rem",
                           }}
                         >
-                          {interest}
+                          {className}
                         </div>
                       ))}
                     </div>
@@ -460,15 +464,15 @@ const MyPage = () => {
                   <div className={styles.categoryGroup}>
                     <h4>교육</h4>
                     <div className={styles.interestSelector}>
-                      {["영어 회화", "코딩"].map((interest) => (
+                      {["영어 회화", "코딩"].map((className) => (
                         <div
-                          key={interest}
+                          key={className}
                           className={
-                            extendedFormData.interests.includes(interest)
+                            extendedFormData.currentClasses.includes(className)
                               ? `${styles.interestOption} ${styles.selected}`
                               : styles.interestOption
                           }
-                          onClick={() => handleInterestToggle(interest)}
+                          onClick={() => handleClassToggle(className)}
                           style={{
                             padding: "6px 10px",
                             margin: "3px",
@@ -477,16 +481,20 @@ const MyPage = () => {
                             display: "inline-block",
                             cursor: "pointer",
                             backgroundColor:
-                              extendedFormData.interests.includes(interest)
+                              extendedFormData.currentClasses.includes(
+                                className
+                              )
                                 ? "#4a6da7"
                                 : "#f8f9fa",
-                            color: extendedFormData.interests.includes(interest)
+                            color: extendedFormData.currentClasses.includes(
+                              className
+                            )
                               ? "white"
                               : "black",
                             fontSize: "0.9rem",
                           }}
                         >
-                          {interest}
+                          {className}
                         </div>
                       ))}
                     </div>
@@ -495,15 +503,15 @@ const MyPage = () => {
                   <div className={styles.categoryGroup}>
                     <h4>건강</h4>
                     <div className={styles.interestSelector}>
-                      {["필라테스", "물리치료"].map((interest) => (
+                      {["필라테스", "물리치료"].map((className) => (
                         <div
-                          key={interest}
+                          key={className}
                           className={
-                            extendedFormData.interests.includes(interest)
+                            extendedFormData.currentClasses.includes(className)
                               ? `${styles.interestOption} ${styles.selected}`
                               : styles.interestOption
                           }
-                          onClick={() => handleInterestToggle(interest)}
+                          onClick={() => handleClassToggle(className)}
                           style={{
                             padding: "6px 10px",
                             margin: "3px",
@@ -512,16 +520,20 @@ const MyPage = () => {
                             display: "inline-block",
                             cursor: "pointer",
                             backgroundColor:
-                              extendedFormData.interests.includes(interest)
+                              extendedFormData.currentClasses.includes(
+                                className
+                              )
                                 ? "#4a6da7"
                                 : "#f8f9fa",
-                            color: extendedFormData.interests.includes(interest)
+                            color: extendedFormData.currentClasses.includes(
+                              className
+                            )
                               ? "white"
                               : "black",
                             fontSize: "0.9rem",
                           }}
                         >
-                          {interest}
+                          {className}
                         </div>
                       ))}
                     </div>
@@ -530,15 +542,15 @@ const MyPage = () => {
                   <div className={styles.categoryGroup}>
                     <h4>기술</h4>
                     <div className={styles.interestSelector}>
-                      {["전기이론"].map((interest) => (
+                      {["전기이론"].map((className) => (
                         <div
-                          key={interest}
+                          key={className}
                           className={
-                            extendedFormData.interests.includes(interest)
+                            extendedFormData.currentClasses.includes(className)
                               ? `${styles.interestOption} ${styles.selected}`
                               : styles.interestOption
                           }
-                          onClick={() => handleInterestToggle(interest)}
+                          onClick={() => handleClassToggle(className)}
                           style={{
                             padding: "6px 10px",
                             margin: "3px",
@@ -547,16 +559,20 @@ const MyPage = () => {
                             display: "inline-block",
                             cursor: "pointer",
                             backgroundColor:
-                              extendedFormData.interests.includes(interest)
+                              extendedFormData.currentClasses.includes(
+                                className
+                              )
                                 ? "#4a6da7"
                                 : "#f8f9fa",
-                            color: extendedFormData.interests.includes(interest)
+                            color: extendedFormData.currentClasses.includes(
+                              className
+                            )
                               ? "white"
                               : "black",
                             fontSize: "0.9rem",
                           }}
                         >
-                          {interest}
+                          {className}
                         </div>
                       ))}
                     </div>
@@ -663,11 +679,11 @@ const MyPage = () => {
                 {user.interests && user.interests.length > 0 && (
                   <div className={styles.infoItem}>
                     <div>
-                      <h3 className={styles.infoLabel}>관심사</h3>
+                      <h3 className={styles.infoLabel}>현재 듣고 있는 강의</h3>
                       <div className={styles.interestTags}>
-                        {user.interests.map((interest) => (
-                          <span key={interest} className={styles.interestTag}>
-                            {interest}
+                        {user.interests.map((className) => (
+                          <span key={className} className={styles.interestTag}>
+                            {className}
                           </span>
                         ))}
                       </div>

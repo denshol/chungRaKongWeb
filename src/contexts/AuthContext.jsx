@@ -8,13 +8,20 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../firebase";
-// AuthContext.js 파일에 추가
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
-// 기존 AuthProvider 컴포넌트 내부에 이 함수 추가
+// 사용자 프로필 생성 함수
 const createUserProfile = async (user, additionalData = {}) => {
   const userRef = doc(db, "users", user.uid);
+
+  // 관리자 이메일 배열
+  const adminEmails = ["denshol0709@gmail.com"];
+  // 사용자 역할 결정
+  const role =
+    user.email && adminEmails.includes(user.email)
+      ? "admin"
+      : additionalData.role || "user";
 
   const userData = {
     email: user.email,
@@ -26,57 +33,11 @@ const createUserProfile = async (user, additionalData = {}) => {
     interests: additionalData.interests || [],
     createdAt: serverTimestamp(),
     lastLogin: serverTimestamp(),
+    role: role,
   };
 
   await setDoc(userRef, userData);
   return userRef;
-};
-
-// 그리고 signup 함수 내에서 호출
-// AuthContext.js 수정
-const signup = async (email, password, name, additionalData = {}) => {
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-
-  // 사용자 프로필 업데이트 (이름 추가)
-  await updateProfile(userCredential.user, {
-    displayName: name,
-  });
-
-  // Firestore에 사용자 프로필 문서 생성
-  try {
-    const userDocRef = doc(db, "users", userCredential.user.uid);
-    await setDoc(userDocRef, {
-      name: name,
-      email: email,
-      phoneNumber: additionalData.phoneNumber || "",
-      interests: additionalData.interests || [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error("Firestore 사용자 문서 생성 실패:", error);
-    // 실패해도 회원가입은 진행
-  }
-
-  // 사용자 정보를 로컬 스토리지에 저장
-  const userData = {
-    uid: userCredential.user.uid,
-    email: userCredential.user.email,
-    name: name,
-    phoneNumber: additionalData.phoneNumber || "",
-    interests: additionalData.interests || [],
-    emailVerified: userCredential.user.emailVerified,
-    provider: "email",
-    createdAt: new Date().toISOString(),
-  };
-
-  localStorage.setItem("user", JSON.stringify(userData));
-
-  return userCredential.user;
 };
 
 export const AuthContext = createContext(null);
@@ -86,7 +47,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // 회원가입
-  // AuthContext.js 수정 - signup 함수 부분
   const signup = async (email, password, name, additionalData = {}) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -99,6 +59,10 @@ export const AuthProvider = ({ children }) => {
       displayName: name,
     });
 
+    // 관리자 이메일 확인
+    const adminEmails = ["denshol0709@gmail.com"];
+    const role = adminEmails.includes(email) ? "admin" : "user";
+
     // Firestore에 사용자 프로필 문서 생성
     try {
       const userDocRef = doc(db, "users", userCredential.user.uid);
@@ -109,6 +73,7 @@ export const AuthProvider = ({ children }) => {
         interests: additionalData.interests || [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+        role: role,
       });
     } catch (error) {
       console.error("Firestore 사용자 문서 생성 실패:", error);
@@ -125,6 +90,7 @@ export const AuthProvider = ({ children }) => {
       emailVerified: userCredential.user.emailVerified,
       provider: "email",
       createdAt: new Date().toISOString(),
+      role: role,
     };
 
     localStorage.setItem("user", JSON.stringify(userData));
@@ -140,6 +106,10 @@ export const AuthProvider = ({ children }) => {
       password
     );
 
+    // 관리자 이메일 확인
+    const adminEmails = ["denshol0709@gmail.com"];
+    const role = adminEmails.includes(email) ? "admin" : "user";
+
     // 사용자 정보를 로컬 스토리지에 저장
     const userData = {
       uid: userCredential.user.uid,
@@ -148,6 +118,7 @@ export const AuthProvider = ({ children }) => {
       profileImage: userCredential.user.photoURL,
       emailVerified: userCredential.user.emailVerified,
       provider: "email",
+      role: role,
     };
 
     localStorage.setItem("user", JSON.stringify(userData));
@@ -187,10 +158,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // 인증 상태 변경 감지
-  // AuthContext.js 파일에서 기존 useEffect 훅을 아래 코드로 대체
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        // 관리자 이메일 배열
+        const adminEmails = ["denshol0709@gmail.com"];
+
         // Firebase Auth 기본 정보
         const userData = {
           uid: currentUser.uid,
@@ -202,6 +175,8 @@ export const AuthProvider = ({ children }) => {
             currentUser.providerData[0]?.providerId === "password"
               ? "email"
               : "social",
+          // role 속성 추가
+          role: adminEmails.includes(currentUser.email) ? "admin" : "user",
         };
 
         // Firestore에서 추가 정보 가져오기
@@ -221,12 +196,17 @@ export const AuthProvider = ({ children }) => {
               enrolledPrograms: firestoreData.enrolledPrograms,
               createdAt: firestoreData.createdAt?.toDate?.() || new Date(),
               lastLogin: firestoreData.lastLogin?.toDate?.() || new Date(),
+              // role 속성 유지 (Firestore에 저장된 값이 있으면 그 값 사용)
+              role: firestoreData.role || userData.role,
             };
 
             // 로그인 시 lastLogin 업데이트
             await setDoc(
               userDocRef,
-              { lastLogin: serverTimestamp() },
+              {
+                lastLogin: serverTimestamp(),
+                role: userData.role, // role도 저장 (업데이트 여부 확인)
+              },
               { merge: true }
             );
 
@@ -234,7 +214,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("user", JSON.stringify(extendedUserData));
           } else {
             // 사용자 문서가 없으면 새로 생성
-            await createUserProfile(currentUser, {});
+            await createUserProfile(currentUser, { role: userData.role });
             setUser(userData);
             localStorage.setItem("user", JSON.stringify(userData));
           }
@@ -253,6 +233,23 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  // 관리자 여부 확인 함수
+  const isAdmin = () => {
+    // 디버깅을 위한 로그 추가
+    console.log("isAdmin 호출됨, 현재 사용자:", user);
+
+    // 관리자 이메일 배열
+    const adminEmails = ["denshol0709@gmail.com"];
+
+    // user.role로 확인하거나 이메일로 직접 확인
+    const result =
+      user?.role === "admin" ||
+      (user?.email && adminEmails.includes(user.email));
+
+    console.log("관리자 확인 결과:", result);
+    return result;
+  };
+
   // 컨텍스트 값 정의
   const value = {
     user,
@@ -263,7 +260,7 @@ export const AuthProvider = ({ children }) => {
     resetPassword,
     updateUser,
     isAuthenticated: () => !!user,
-    isAdmin: () => user?.email === "denshol0709@gmail.com", // 관리자 체크 로직
+    isAdmin,
   };
 
   return (

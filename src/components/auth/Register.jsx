@@ -23,7 +23,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     phoneNumber: "",
-    interests: [],
+    currentClasses: [], // 관심사 -> 현재 듣고 있는 강의로 변경
   });
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
@@ -37,16 +37,18 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleInterestToggle = (interest) => {
-    if (formData.interests.includes(interest)) {
+  const handleClassToggle = (className) => {
+    if (formData.currentClasses.includes(className)) {
       setFormData({
         ...formData,
-        interests: formData.interests.filter((item) => item !== interest),
+        currentClasses: formData.currentClasses.filter(
+          (item) => item !== className
+        ),
       });
     } else {
       setFormData({
         ...formData,
-        interests: [...formData.interests, interest],
+        currentClasses: [...formData.currentClasses, className],
       });
     }
   };
@@ -123,7 +125,7 @@ const Register = () => {
       // 회원가입 처리 (기본 정보 + 확장 정보)
       await signup(formData.email, formData.password, formData.name, {
         phoneNumber: formData.phoneNumber,
-        interests: formData.interests,
+        interests: formData.currentClasses, // DB 필드명은 그대로 유지
       });
       navigate("/");
     } catch (error) {
@@ -182,9 +184,9 @@ const Register = () => {
             <div
               key={program}
               className={`${styles.interestOption} ${
-                formData.interests.includes(program) ? styles.selected : ""
+                formData.currentClasses.includes(program) ? styles.selected : ""
               }`}
-              onClick={() => handleInterestToggle(program)}
+              onClick={() => handleClassToggle(program)}
             >
               {program}
             </div>
@@ -313,9 +315,9 @@ const Register = () => {
               </div>
 
               <div className={styles.interestsGroup}>
-                <label>관심 프로그램</label>
+                <label>현재 듣고 있는 강의</label>
                 <p className={styles.helperText}>
-                  관심 있는 프로그램을 선택해주세요. (선택)
+                  현재 듣고 있는 강의를 선택해주세요. (선택)
                 </p>
 
                 <div className={styles.categoriesContainer}>

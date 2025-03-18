@@ -15,6 +15,7 @@ import {
   FiGlobe,
   FiUser,
   FiLogOut,
+  FiSettings,
 } from "react-icons/fi";
 import styles from "../styles/Navbar.module.css";
 import logo from "../assets/image/chungRaKong.png";
@@ -45,8 +46,10 @@ const ContactInfo = memo(() => (
 ));
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
+  // isAdmin 함수를 호출하여 관리자 여부 확인
+  const userIsAdmin = useMemo(() => isAdmin(), [user, isAdmin]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -184,6 +187,16 @@ const Navbar = () => {
           <FiUser style={{ marginRight: "4px" }} />
           마이페이지
         </Link>
+        {userIsAdmin && (
+          <Link
+            to="/admin"
+            className={`${styles.navLink} ${styles.adminLink}`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FiSettings style={{ marginRight: "4px" }} />
+            관리자 페이지
+          </Link>
+        )}
         <button
           onClick={() => {
             handleLogout();
@@ -213,7 +226,7 @@ const Navbar = () => {
         </Link>
       </>
     );
-  }, [user, handleLogout, setIsMenuOpen]);
+  }, [user, handleLogout, userIsAdmin, setIsMenuOpen]);
 
   // 메모이제이션된 데스크톱 인증 영역
   const desktopAuthArea = useMemo(() => {
@@ -238,7 +251,10 @@ const Navbar = () => {
                 width="32"
                 height="32"
               />
-              <span className={styles.userName}>{user.name || "사용자"}</span>
+              <span className={styles.userName}>
+                {user.name || "사용자"}
+                {userIsAdmin && <span className={styles.adminBadge}>관리자</span>}
+              </span>
               <FiChevronDown className={styles.profileArrow} />
             </div>
 
@@ -253,6 +269,23 @@ const Navbar = () => {
                   <FiUser className={styles.menuIcon} />
                   마이페이지
                 </Link>
+                
+                {/* 구분선 추가 */}
+                {userIsAdmin && <div className={styles.divider}></div>}
+                
+                {userIsAdmin && (
+                  <Link
+                    to="/admin"
+                    className={`${styles.profileMenuItem} ${styles.adminLink}`}
+                    onClick={() => setIsProfileMenuOpen(false)}
+                  >
+                    <FiSettings className={styles.menuIcon} />
+                    관리자 페이지
+                  </Link>
+                )}
+                
+                <div className={styles.divider}></div>
+                
                 <button
                   className={styles.profileMenuItem}
                   onClick={handleLogout}
@@ -275,7 +308,7 @@ const Navbar = () => {
         )}
       </div>
     );
-  }, [user, isProfileMenuOpen, toggleProfileMenu, handleLogout]);
+  }, [user, isProfileMenuOpen, toggleProfileMenu, handleLogout, userIsAdmin]);
 
   return (
     <>

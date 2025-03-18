@@ -1,3 +1,4 @@
+// App.jsx
 import React, {
   Suspense,
   lazy,
@@ -36,7 +37,10 @@ const VideoLectureBoard = lazy(() => {
 
 const FeaturedClasses = lazy(() => import("./components/FeaturedClasses"));
 const FeaturedClasses2 = lazy(() => import("./components/FeaturedClasses2"));
+
+// AdminDashboard를 FirebaseAdminDashboard로 변경
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+
 const ProgramRanking = lazy(() => import("./components/ProgramRanking"));
 const ContactBoard = lazy(() => import("./components/ContactBoard"));
 const StudyAbroad = lazy(() => import("./pages/StudyAbroad"));
@@ -52,11 +56,18 @@ const MyPage = lazy(() => import("./components/auth/MyPage"));
 const Login = lazy(() => import("./components/auth/Login"));
 const Register = lazy(() => import("./components/auth/Register"));
 
-// 메모이제이션된 보호된 라우트 컴포넌트 - 수정됨
+// 개선된 보호된 라우트 컴포넌트
 const ProtectedRoute = memo(({ children }) => {
-  const { user, loading } = useAuth(); // currentUser -> user로 변경
+  const { user, loading } = useAuth();
+  const [authChecked, setAuthChecked] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading) {
+      setAuthChecked(true);
+    }
+  }, [loading]);
+
+  if (loading || !authChecked) {
     return <SkeletonLoader />;
   }
 
@@ -67,26 +78,56 @@ const ProtectedRoute = memo(({ children }) => {
   return children;
 });
 
-// 메모이제이션된 관리자 전용 라우트 컴포넌트 - 수정됨
+// 개선된 관리자 전용 라우트 컴포넌트
 const AdminRoute = memo(({ children }) => {
-  const { user, loading, isAdmin } = useAuth(); // currentUser -> user로 변경
+  const { user, loading, isAdmin } = useAuth();
+  const [authChecked, setAuthChecked] = useState(false);
 
-  if (loading) {
+  // 디버깅을 위한 로그
+  useEffect(() => {
+    console.log("AdminRoute - 인증 상태:", {
+      user,
+      loading,
+      isAdmin: user ? isAdmin() : false,
+      email: user?.email,
+    });
+
+    if (!loading) {
+      setAuthChecked(true);
+    }
+  }, [loading, user, isAdmin]);
+
+  if (loading || !authChecked) {
+    console.log("AdminRoute - 로딩 중...");
     return <SkeletonLoader />;
   }
 
-  if (!user || !isAdmin()) {
+  if (!user) {
+    console.log("AdminRoute - 사용자가 없음, 로그인으로 리다이렉트");
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!isAdmin()) {
+    console.log("AdminRoute - 관리자 아님, 메인으로 리다이렉트");
     return <Navigate to="/" replace />;
   }
 
+  console.log("AdminRoute - 관리자 확인됨, 접근 허용");
   return children;
 });
 
-// 메모이제이션된 공개 전용 라우트 컴포넌트 - 수정됨
+// 메모이제이션된 공개 전용 라우트 컴포넌트
 const PublicOnlyRoute = memo(({ children }) => {
-  const { user, loading } = useAuth(); // currentUser -> user로 변경
+  const { user, loading } = useAuth();
+  const [authChecked, setAuthChecked] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading) {
+      setAuthChecked(true);
+    }
+  }, [loading]);
+
+  if (loading || !authChecked) {
     return <SkeletonLoader />;
   }
 
@@ -126,7 +167,7 @@ const ConditionalHeroSlider = memo(() => {
 
 // 메인 앱 콘텐츠 메모이제이션
 const AppContent = memo(() => {
-  const { user } = useAuth(); // currentUser -> user로 변경
+  const { user } = useAuth();
   const [showNoticeModal, setShowNoticeModal] = useState(false);
   const [manualShowModal, setManualShowModal] = useState(false);
   const [notices, setNotices] = useState([]);
@@ -343,7 +384,17 @@ const AppContent = memo(() => {
           }
         />
 
-        {/* 관리자 전용 라우트 */}
+        {/* 관리자 전용 라우트 - FirebaseAdminDashboard로 변경 */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Suspense fallback={<SkeletonLoader />}>
+                <AdminDashboard />
+              </Suspense>
+            </AdminRoute>
+          }
+        />
         <Route
           path="/admin/*"
           element={
@@ -397,11 +448,26 @@ const AppContent = memo(() => {
 
 // 메인 App 컴포넌트 자체도 메모이제이션
 function App() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  // AppContent를 조건부로 렌더링
+  const renderAppContent = () => {
+    if (isAdminRoute) {
+      return <AdminDashboard />;
+    }
+    return <AppContent />;
+  };
+
   return (
     <AuthProvider>
-      <AppContent />
+      <ScrollToTop />
+      {!isAdminRoute && <Navbar />}
+
+      {renderAppContent()}
+
+      {!isAdminRoute && <Footer />}
     </AuthProvider>
   );
 }
-
 export default App;
