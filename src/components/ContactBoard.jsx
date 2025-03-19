@@ -6,9 +6,11 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 import ContactForm from "./ContactForm";
+import { inquiryAPI } from "../services/api"; // 추가
 import styles from "../styles/ContactBoard.module.css";
 
 const ContactBoard = () => {
@@ -17,21 +19,14 @@ const ContactBoard = () => {
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
-  // 문의 목록 가져오기
+  // 문의 목록 가져오기 (Firebase 사용)
   const fetchInquiries = useCallback(async () => {
     setLoading(true);
     try {
-      // 실제 API 호출
-      const response = await fetch(
-        "https://chungrakongback.onrender.com/api/contact"
-      );
-
-      if (!response.ok) {
-        throw new Error("서버 응답 오류");
-      }
-
-      const data = await response.json();
+      // Firebase API 호출
+      const data = await inquiryAPI.getAllInquiries();
       setInquiries(data);
     } catch (err) {
       console.error("Failed to fetch inquiries:", err);
@@ -57,6 +52,14 @@ const ContactBoard = () => {
   return (
     <div className={styles.contactBoardContainer}>
       <h1 className={styles.boardTitle}>문의 게시판</h1>
+
+      {/* 관리자인 경우 관리자 전용 알림 표시 */}
+      {isAdmin() && (
+        <div className={styles.adminNotice}>
+          관리자 권한으로 접속 중입니다. 모든 문의에 대한 답변 및 삭제 권한이
+          있습니다.
+        </div>
+      )}
 
       <div className={styles.boardNav}>
         <Link
@@ -94,10 +97,7 @@ const ContactBoard = () => {
             path="/new"
             element={<ContactForm onSubmitSuccess={addInquiry} />}
           />
-          <Route
-            path="/:id"
-            element={<ContactDetail />}
-          />
+          <Route path="/:id" element={<ContactDetail />} />
         </Routes>
       </div>
     </div>

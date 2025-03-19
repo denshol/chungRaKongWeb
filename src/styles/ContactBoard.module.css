@@ -328,3 +328,14 @@
   background-color: #cccccc;
   cursor: not-allowed;
 }
+/* ContactBoard.module.css에 추가 */
+.adminNotice {
+  background-color: #e8f4ff;
+  color: #0057b8;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 87, 184, 0.1);
+}

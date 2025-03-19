@@ -540,3 +540,140 @@ export const noticeAPI = {
     }
   },
 };
+// api.js에 추가할 코드
+// 문의 관련 API
+export const inquiryAPI = {
+  // 모든 문의 목록 가져오기
+  getAllInquiries: async () => {
+    try {
+      const inquiriesCollection = collection(db, "inquiries");
+      const q = query(inquiriesCollection, orderBy("createdAt", "desc"));
+      const snapshot = await getDocs(q);
+
+      return snapshot.docs.map((doc) => {
+        const data = doc.data();
+        // Timestamp 객체를 ISO 문자열로 변환
+        const createdAt =
+          data.createdAt instanceof Timestamp
+            ? data.createdAt.toDate().toISOString()
+            : data.createdAt;
+        const updatedAt =
+          data.updatedAt instanceof Timestamp
+            ? data.updatedAt.toDate().toISOString()
+            : data.updatedAt;
+
+        return {
+          id: doc.id,
+          ...data,
+          createdAt,
+          updatedAt,
+        };
+      });
+    } catch (error) {
+      console.error("문의 목록 가져오기 오류:", error);
+      throw error;
+    }
+  },
+
+  // 문의 상세 정보 가져오기
+  getInquiryById: async (inquiryId) => {
+    try {
+      const inquiryDocRef = doc(db, "inquiries", inquiryId);
+      const inquiryDoc = await getDoc(inquiryDocRef);
+
+      if (!inquiryDoc.exists()) {
+        throw new Error("문의를 찾을 수 없습니다");
+      }
+
+      const data = inquiryDoc.data();
+      // Timestamp 객체를 ISO 문자열로 변환
+      const createdAt =
+        data.createdAt instanceof Timestamp
+          ? data.createdAt.toDate().toISOString()
+          : data.createdAt;
+      const updatedAt =
+        data.updatedAt instanceof Timestamp
+          ? data.updatedAt.toDate().toISOString()
+          : data.updatedAt;
+
+      return {
+        id: inquiryDoc.id,
+        ...data,
+        createdAt,
+        updatedAt,
+      };
+    } catch (error) {
+      console.error("문의 상세 정보 가져오기 오류:", error);
+      throw error;
+    }
+  },
+
+  // 새 문의 추가하기
+  createInquiry: async (inquiryData) => {
+    try {
+      const inquiriesCollection = collection(db, "inquiries");
+      const docRef = await addDoc(inquiriesCollection, {
+        ...inquiryData,
+        status: "대기중",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+
+      return {
+        id: docRef.id,
+        ...inquiryData,
+        status: "대기중",
+      };
+    } catch (error) {
+      console.error("문의 추가 오류:", error);
+      throw error;
+    }
+  },
+
+  // 문의 답변 등록/수정하기
+  updateInquiryResponse: async (inquiryId, responseData) => {
+    try {
+      const inquiryRef = doc(db, "inquiries", inquiryId);
+      await updateDoc(inquiryRef, {
+        response: responseData.response,
+        status: responseData.status || "답변완료",
+        updatedAt: serverTimestamp(),
+      });
+
+      // 업데이트된 문의 정보 가져오기
+      const updatedDoc = await getDoc(inquiryRef);
+      const data = updatedDoc.data();
+
+      // Timestamp 객체를 ISO 문자열로 변환
+      const createdAt =
+        data.createdAt instanceof Timestamp
+          ? data.createdAt.toDate().toISOString()
+          : data.createdAt;
+      const updatedAt =
+        data.updatedAt instanceof Timestamp
+          ? data.updatedAt.toDate().toISOString()
+          : data.updatedAt;
+
+      return {
+        id: updatedDoc.id,
+        ...data,
+        createdAt,
+        updatedAt,
+      };
+    } catch (error) {
+      console.error("답변 등록/수정 오류:", error);
+      throw error;
+    }
+  },
+
+  // 문의 삭제하기
+  deleteInquiry: async (inquiryId) => {
+    try {
+      await deleteDoc(doc(db, "inquiries", inquiryId));
+      return { success: true, message: "문의가 삭제되었습니다" };
+    } catch (error) {
+      console.error("문의 삭제 오류:", error);
+      throw error;
+    }
+  },
+};

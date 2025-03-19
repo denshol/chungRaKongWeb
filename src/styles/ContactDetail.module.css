@@ -7,7 +7,9 @@
   margin-bottom: 20px;
 }
 
-.loading, .error, .notFound {
+.loading,
+.error,
+.notFound {
   text-align: center;
   padding: 40px 20px;
   font-size: 18px;
@@ -59,7 +61,8 @@
   margin-bottom: 24px;
 }
 
-.detailContent h3, .responseContainer h3 {
+.detailContent h3,
+.responseContainer h3 {
   font-size: 18px;
   margin-bottom: 12px;
   color: #444;
@@ -145,7 +148,8 @@
   border-radius: 4px;
 }
 
-.loginButton, .submitButton {
+.loginButton,
+.submitButton {
   padding: 8px 16px;
   background-color: #4caf50;
   color: white;
@@ -154,7 +158,8 @@
   cursor: pointer;
 }
 
-.loginButton:hover, .submitButton:hover {
+.loginButton:hover,
+.submitButton:hover {
   background-color: #43a047;
 }
 
@@ -231,5 +236,118 @@
 
 .submitButton:disabled {
   background-color: #cccccc;
+  cursor: not-allowed;
+}
+/* ContactDetail.module.css에 추가 */
+.adminActions {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.adminButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.editButton {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4f91cd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.editButton:hover {
+  background-color: #3b7eb9;
+}
+
+.deleteButton {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid #e53e3e;
+  border-radius: 4px;
+  background-color: white;
+  color: #e53e3e;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.editResponseForm {
+  margin-top: 1rem;
+}
+
+.editResponseForm h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: #444;
+}
+
+.responseTextarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 150px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.responseTextarea:focus {
+  outline: none;
+  border-color: #4f91cd;
+  box-shadow: 0 0 0 2px rgba(79, 145, 205, 0.25);
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.submitButton {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4f91cd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #3b7eb9;
+}
+
+.cancelButton {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background-color: white;
+  color: #666;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: #f2f2f2;
+}
+
+button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { inquiryAPI } from "../services/api"; // 추가
 import styles from "../styles/ContactForm.module.css";
 
 const ContactForm = ({ onSubmitSuccess }) => {
@@ -46,7 +47,7 @@ const ContactForm = ({ onSubmitSuccess }) => {
     return Object.keys(newErrors).length === 0;
   }, [formData]);
 
-  // 폼 제출 핸들러
+  // 폼 제출 핸들러 (Firebase 사용)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,41 +59,26 @@ const ContactForm = ({ onSubmitSuccess }) => {
     setLoading(true);
 
     try {
-      // 운영 환경에서 사용할 실제 API 호출 코드
-      const response = await fetch(
-        "https://chungrakongback.onrender.com/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        onSubmitSuccess(data);
-        alert("문의가 성공적으로 등록되었습니다.");
-      } else {
-        const error = await response.json();
-        alert(error.message || "문의 등록 중 오류가 발생했습니다.");
-      }
+      // Firebase API 호출
+      const data = await inquiryAPI.createInquiry(formData);
+      onSubmitSuccess(data);
+      alert("문의가 성공적으로 등록되었습니다.");
     } catch (error) {
       console.error("Submit error:", error);
-      alert("서버와의 통신 중 오류가 발생했습니다.");
+      alert("문의 등록 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
+  // 나머지 렌더링 부분은 동일
   return (
     <div className={styles.formContainer}>
+      {/* 기존 폼 UI 그대로 유지 */}
       <h2 className={styles.formTitle}>문의 작성하기</h2>
 
       <form onSubmit={handleSubmit} className={styles.form}>
+        {/* 기존 폼 내용 그대로 유지 */}
         <div className={styles.formGroup}>
           <label htmlFor="name">이름</label>
           <input
