@@ -609,26 +609,20 @@ export const inquiryAPI = {
   },
 
   // 새 문의 추가하기
-  createInquiry: async (inquiryData) => {
-    try {
-      const inquiriesCollection = collection(db, "inquiries");
-      const docRef = await addDoc(inquiriesCollection, {
-        ...inquiryData,
-        status: "대기중",
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
+ // inquiryAPI.createInquiry 메서드
+createInquiry: async (inquiryData) => {
+  const inquiriesCollection = collection(db, "inquiries");
+  const snapshot = await getDocs(inquiriesCollection);
+  const sequenceNumber = snapshot.size + 1;
 
-      return {
-        id: docRef.id,
-        ...inquiryData,
-        status: "대기중",
-      };
-    } catch (error) {
-      console.error("문의 추가 오류:", error);
-      throw error;
-    }
-  },
+  return await addDoc(inquiriesCollection, {
+    ...inquiryData,
+    sequenceNumber,
+    status: "대기중",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+},
 
   // 문의 답변 등록/수정하기
   updateInquiryResponse: async (inquiryId, responseData) => {

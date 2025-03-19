@@ -1971,3 +1971,55 @@ html.dark-mode body {
   height: calc(100% - 150px);
   min-height: 300px;
 }
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* 투명도 조절 */
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 1; /* 완전 불투명하게 설정 */
+}
+
+.modalContent {
+  background-color: var(--card-bg); /* 다크모드에서의 배경색 */
+  border-radius: 16px;
+  box-shadow: var(--box-shadow);
+  width: 90%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  opacity: 1; /* 완전 불투명하게 설정 */
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* 약간 진한 배경 */
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+}
+
+.modalContent {
+  background-color: white; /* 명시적 배경색 */
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+}

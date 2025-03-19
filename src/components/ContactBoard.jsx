@@ -10,7 +10,7 @@ import { useAuth } from "../contexts/AuthContext";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 import ContactForm from "./ContactForm";
-import { inquiryAPI } from "../services/api"; // 추가
+import { inquiryAPI } from "../services/api";
 import styles from "../styles/ContactBoard.module.css";
 
 const ContactBoard = () => {
@@ -21,11 +21,10 @@ const ContactBoard = () => {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
 
-  // 문의 목록 가져오기 (Firebase 사용)
+  // 문의 목록 가져오기
   const fetchInquiries = useCallback(async () => {
     setLoading(true);
     try {
-      // Firebase API 호출
       const data = await inquiryAPI.getAllInquiries();
       setInquiries(data);
     } catch (err) {
@@ -44,7 +43,7 @@ const ContactBoard = () => {
   const addInquiry = useCallback(
     (newInquiry) => {
       setInquiries((prev) => [newInquiry, ...prev]);
-      navigate("/contact"); // 목록으로 이동
+      navigate("/contact");
     },
     [navigate]
   );
@@ -53,7 +52,6 @@ const ContactBoard = () => {
     <div className={styles.contactBoardContainer}>
       <h1 className={styles.boardTitle}>문의 게시판</h1>
 
-      {/* 관리자인 경우 관리자 전용 알림 표시 */}
       {isAdmin() && (
         <div className={styles.adminNotice}>
           관리자 권한으로 접속 중입니다. 모든 문의에 대한 답변 및 삭제 권한이

@@ -440,8 +440,6 @@ const AppContent = memo(() => {
 
       {/* 중첩된 Suspense 제거하고 각 라우트에 개별적으로 Suspense 적용 */}
       {appRoutes}
-
-      <Footer />
     </>
   );
 });
