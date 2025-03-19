@@ -69,3 +69,10 @@
     padding: 4px 10px;
   }
 }
+/* HeroSlider.module.css 수정 */
+.heroSlider {
+  position: relative;
+  width: 100%;
+  margin-top: 0; /* 이전에 -70px이었던 마진 제거 */
+  overflow: hidden;
+}

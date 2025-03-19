@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styles from "../styles/NoticeModal.module.css";
 
 const NoticeModal = ({ isOpen, notices, onClose }) => {
@@ -105,9 +105,7 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <button className={styles.closeButton} onClick={handleClose}>
-          <FiX />
-        </button>
+        {/* X 버튼 제거됨 */}
 
         {/* 이미지 영역 */}
         <div className={styles.imageContainer}>
