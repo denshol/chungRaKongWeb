@@ -61,7 +61,16 @@ const IconNavigation = () => {
               <Icon className={styles.icon} />
               {isNew && <span className={styles.newBadge}>New</span>}
             </div>
-            <span className={styles.iconLabel}>{label}</span>
+            <span
+              className={styles.iconLabel}
+              style={{
+                whiteSpace: "pre-wrap",
+                textAlign: "center",
+                lineHeight: "1.2",
+              }}
+            >
+              {label}
+            </span>
           </NavLink>
         ))}
       </div>
