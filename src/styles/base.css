@@ -16,14 +16,21 @@
   --success-color: #43a047;
   --pending-color: #ff9800;
   --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  --transition: all 0.3s ease;
+  --transition-fast: all 0.15s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.45s ease;
   --border-radius: 12px;
+  --gray-light: #f0f2f5;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-size: 16px;
 }
 
 body {
@@ -33,6 +40,52 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   margin-top: 70px; /* navbar 높이만큼 상단 마진 추가 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  word-break: keep-all; /* 한글 단어 분리 방지 */
+  overflow-wrap: break-word; /* 긴 영어 단어 줄바꿈 */
+}
+
+/* 기본 타이포그래피 설정 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  word-break: keep-all;
+}
+
+/* 접근성 포커스 스타일 */
+:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 스크린 리더 전용 클래스 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* 전역 이미지 스타일 */
@@ -40,112 +93,258 @@ img {
   max-width: 100%;
   height: auto;
   object-fit: cover;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
+  display: block;
 }
 
 /* 반응형 이미지 컨테이너 */
-.responsive-image-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  body {
-    margin-top: 0; /* 모바일에서는 margin-top 제거 */
-  }
-
-  .responsive-image-container {
-    height: auto;
-  }
-
-  .responsive-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-} /* main.css에 추가해야 하는 코드 */
-body {
-  overflow-x: hidden; /* 가로 스크롤 방지 */
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
+.responsive-image-container,
 .responsive-container {
+  position: relative;
   width: 100%;
   overflow: hidden;
-  position: relative;
 }
 
-@media (max-width: 768px) {
-  body {
-    margin-top: 0; /* 모바일에서는 margin-top 제거 */
-  }
-
-  .responsive-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .responsive-container img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-}
-/* main.css에 추가해야 하는 코드 */
-body {
-  overflow-x: hidden; /* 가로 스크롤 방지 */
-}
-
-img {
-  max-width: 100%;
+.responsive-image-container img,
+.responsive-container img {
+  width: 100%;
   height: auto;
-  display: block;
+  transition: transform 0.3s ease;
 }
 
-.responsive-container {
+/* 기본 버튼 스타일 */
+button,
+.button,
+a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition-normal);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+  text-align: center;
+  gap: 8px;
+}
+
+button:hover,
+.button:hover,
+a.button:hover {
+  transform: translateY(-2px);
+}
+
+button:active,
+.button:active,
+a.button:active {
+  transform: translateY(0);
+}
+
+/* 폼 요소 공통 스타일 */
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  transition: var(--transition-fast);
   width: 100%;
-  overflow: hidden;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(106, 191, 105, 0.1);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    margin-top: 0; /* 모바일에서는 margin-top 제거 */
+  }
+
+  /* 모바일에서 더 큰 터치 영역 */
+  button,
+  .button,
+  a.button,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  /* 모바일에서 폼 요소 간격 */
+  form > * + * {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* 컨테이너 및 섹션 스타일 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+section {
+  padding: 50px 0;
+}
+
+.section-title {
+  margin-bottom: 2rem;
+  text-align: center;
   position: relative;
 }
 
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+/* 유틸리티 클래스 */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 16px;
+}
+
+.gap-lg {
+  gap: 24px;
+}
+
+.mt-sm {
+  margin-top: 8px;
+}
+
+.mt-md {
+  margin-top: 16px;
+}
+
+.mt-lg {
+  margin-top: 24px;
+}
+
+.mb-sm {
+  margin-bottom: 8px;
+}
+
+.mb-md {
+  margin-bottom: 16px;
+}
+
+.mb-lg {
+  margin-bottom: 24px;
+}
+
+/* 그리드 시스템 */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  body {
-    margin-top: 0; /* 모바일에서는 margin-top 제거 */
-  }
-
-  .responsive-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .responsive-container img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    background-color: #000;
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-/* main.css에 추가 */
-body {
-  overflow-x: hidden; /* 가로 스크롤 방지 */
-}
 
-img {
-  max-width: 100%;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  body {
-    margin-top: 0; /* 모바일에서는 margin-top 제거 */
+@media (max-width: 576px) {
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
   }
 }

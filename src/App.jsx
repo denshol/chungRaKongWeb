@@ -298,25 +298,35 @@ const AppContent = memo(() => {
   }, []);
 
   // 모달 닫기 함수 - useCallback으로 최적화
-  const closeNoticeModal = useCallback(() => {
-    setShowNoticeModal(false);
-    setManualShowModal(false);
+  const closeNoticeModal = useCallback(
+    (hideForToday = false) => {
+      setShowNoticeModal(false);
+      setManualShowModal(false);
 
-    // 새로운 형식으로 저장 - 오늘 하루 동안 보지 않기
-    const today = new Date();
-    const expires = new Date(today);
-    expires.setHours(23, 59, 59, 999); // 오늘 자정까지
+      // 체크박스가 체크된 경우에만 로컬 스토리지에 저장
+      if (hideForToday) {
+        // 새로운 형식으로 저장 - 오늘 하루 동안 보지 않기
+        const today = new Date();
+        const expires = new Date(today);
+        expires.setHours(23, 59, 59, 999); // 오늘 자정까지
 
-    localStorage.setItem(
-      "noticeModalLastClosed",
-      JSON.stringify({
-        date: today.toDateString(),
-        expires: expires.getTime(),
-        noticeIds: notices.map((notice) => notice.id),
-        hidden: true,
-      })
-    );
-  }, [notices]);
+        localStorage.setItem(
+          "noticeModalLastClosed",
+          JSON.stringify({
+            date: today.toDateString(),
+            expires: expires.getTime(),
+            noticeIds: notices.map((notice) => notice.id),
+            hidden: true,
+          })
+        );
+      } else {
+        // 체크박스 미선택 시 로컬 스토리지에서 삭제
+        // 이렇게 하면 다음에 페이지를 열 때 다시 모달이 표시됨
+        localStorage.removeItem("noticeModalLastClosed");
+      }
+    },
+    [notices]
+  );
 
   // 라우트 설정 - useMemo로 최적화
   const appRoutes = useMemo(

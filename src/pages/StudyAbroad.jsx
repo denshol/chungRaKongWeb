@@ -47,9 +47,9 @@ const programData = [
       "일상 회화부터 비즈니스 영어까지 실용적인 영어 능력을 키우는 과정",
     details: [
       "원어민 강사의 소그룹 집중 수업",
-      "수준별 맞춤형 커리큘럼 제공",
-      "실생활 중심의 회화 및 청취 훈련",
-      "4-12주 코스, 주 15-25시간 수업",
+      "수준별 맞춤형 커리큘럼",
+      "실생활 중심의 회화 훈련",
+      "4-12주 코스, 주 15-25시간",
     ],
   },
   {
@@ -62,7 +62,7 @@ const programData = [
       "시험별 특화된 전략 및 문제 풀이",
       "모의고사 및 개인별 피드백 제공",
       "시험 출제 경향 분석 및 대비",
-      "8-12주 코스, 주 20시간 수업",
+      "8-12주 집중 과정",
     ],
   },
   {
@@ -87,7 +87,7 @@ const programData = [
       "주간 야외 액티비티 및 현장 학습",
       "원어민과 함께하는 문화 체험",
       "실생활 영어 사용 환경 제공",
-      "2-8주 코스, 주 15시간 수업 + 액티비티",
+      "2-8주 과정, 액티비티 포함",
     ],
   },
 ];
@@ -153,12 +153,6 @@ const faqData = [
     answer:
       "어학연수 기간에 따라 무비자(최대 3개월), 방문비자(최대 9개월), 학생비자(6개월 이상)로 나뉩니다. 청라콩문화센터는 학생 상황에 맞는 최적의 비자 유형을 추천하고, 필요한 서류 준비와 신청 과정을 도와드립니다. 특히 워킹홀리데이 비자는 연령 제한(만 18-30세)과 쿼터가 있으므로 사전 상담을 통해 자격 요건을 확인하시는 것이 중요합니다.",
   },
-  // {
-  //   id: 5,
-  //   question: "현지 숙소는 어떤 옵션이 있나요?",
-  //   answer:
-  //     "뉴질랜드에서는 주로 홈스테이, 플랫/쉐어하우스, 학생 기숙사 등의 숙소 옵션이 있습니다. 홈스테이는 현지 가정에서 지내며 식사도 제공받을 수 있어 어학연수 초기에 추천드립니다. 플랫/쉐어하우스는 다른 학생들과 주거 공간을 공유하는 형태로 비용이 저렴합니다. 청라콩문화센터는 학생의 성향과 예산에 맞는 숙소를 연결해드리고, 현지 도착 후 숙소 변경이 필요할 경우에도 지원해드립니다.",
-  // },
 ];
 
 const StudyAbroad = () => {
@@ -182,8 +176,7 @@ const StudyAbroad = () => {
         <div className={styles.headerContent}>
           <h1 className={styles.title}>
             <span className={styles.accentText}>뉴질랜드 어학연수</span>로
-            글로벌 <br />
-            경쟁력을 키우세요
+            글로벌 경쟁력을 키우세요
           </h1>
           <p className={styles.subtitle}>
             청라콩문화센터가 당신의 성공적인 어학연수를 함께합니다
@@ -223,8 +216,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>깨끗한 발음</h3>
               <p className={styles.featureDescription}>
-                뉴질랜드식 영어는 발음이 <br />
-                깨끗하고 명확하여 초보자도 이해하기 쉽습니다
+                뉴질랜드식 영어는 발음이 깨끗하고 명확하여 초보자도 이해하기
+                쉽습니다
               </p>
             </div>
 
@@ -234,8 +227,7 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>아름다운 자연환경</h3>
               <p className={styles.featureDescription}>
-                수려한 자연경관 속에서 <br />
-                영어를 배울 수 있습니다
+                수려한 자연경관 속에서 영어를 배울 수 있습니다
               </p>
             </div>
 
@@ -255,8 +247,8 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>다문화 환경</h3>
               <p className={styles.featureDescription}>
-                다양한 국적의 학생들과 <br />
-                교류하며 글로벌 네트워크를 형성할 수 있습니다
+                다양한 국적의 학생들과 교류하며 글로벌 네트워크를 형성할 수
+                있습니다
               </p>
             </div>
           </div>
@@ -295,10 +287,7 @@ const StudyAbroad = () => {
               >
                 {newZealandData.name}
               </h3>
-              <p
-                className={styles.countryDescription}
-                style={{ fontSize: "0.9rem" }}
-              >
+              <p className={styles.countryDescription}>
                 {newZealandData.shortDescription}
               </p>
               <ul className={styles.countryFeatures}>
@@ -312,13 +301,6 @@ const StudyAbroad = () => {
                   </li>
                 ))}
               </ul>
-              {/* <button
-                onClick={() => setIsModalOpen(true)}
-                className={styles.learnMoreButton}
-                style={{ backgroundColor: newZealandData.accent }}
-              >
-                자세히 알아보기
-              </button> */}
             </div>
           </div>
         </div>
@@ -346,7 +328,9 @@ const StudyAbroad = () => {
                   </p>
                   <ul className={styles.programDetails}>
                     {program.details.map((detail, index) => (
-                      <li key={index}>{detail}</li>
+                      <li key={index} className={styles.programDetail}>
+                        {detail}
+                      </li>
                     ))}
                   </ul>
                 </div>

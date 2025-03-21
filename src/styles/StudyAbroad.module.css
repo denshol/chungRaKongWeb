@@ -1,17 +1,5 @@
 /* StudyAbroad.module.css */
-:root {
-  --primary-color: #6abf69;
-  --primary-dark: #2e7d32;
-  --primary-light: #a5d6a7;
-  --secondary-color: #2c3e50;
-  --text-primary: #2c3e50;
-  --text-secondary: #5d6470;
-  --background-color: #f4f6f7;
-  --white: #ffffff;
-  --gray-light: #f0f2f5;
-  --transition: all 0.3s ease;
-  --radius: 10px;
-}
+/* 여기서는 :root 선택자를 사용하지 않고 컴포넌트 특화 스타일 적용 */
 
 .container {
   margin: 0 auto;
@@ -41,10 +29,11 @@
 .sectionTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #2c3e50;
   margin-bottom: 15px;
   position: relative;
   display: inline-block;
+  word-break: keep-all;
 }
 
 .sectionTitle::after {
@@ -55,15 +44,16 @@
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background-color: var(--primary-color);
+  background-color: #6abf69;
   border-radius: 3px;
 }
 
 .sectionSubtitle {
   font-size: 1.2rem;
-  color: var(--text-secondary);
+  color: #5d6470;
   max-width: 700px;
   margin: 0 auto;
+  word-break: keep-all;
 }
 
 /* 헤더 섹션 */
@@ -91,10 +81,11 @@
   margin-bottom: 20px;
   letter-spacing: -0.5px;
   line-height: 1.2;
+  word-break: keep-all;
 }
 
 .accentText {
-  color: var(--primary-light);
+  color: #a5d6a7;
   position: relative;
 }
 
@@ -103,6 +94,7 @@
   font-weight: 400;
   margin-bottom: 40px;
   opacity: 0.9;
+  word-break: keep-all;
 }
 
 .headerButtons {
@@ -115,10 +107,10 @@
 .primaryButton,
 .secondaryButton {
   padding: 15px 30px;
-  border-radius: var(--radius);
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -127,16 +119,16 @@
 }
 
 .primaryButton {
-  background-color: var(--primary-color);
+  background-color: #6abf69;
   color: white;
   border: none;
   text-decoration: none;
 }
 
 .primaryButton:hover {
-  background-color: var(--primary-dark);
+  background-color: #2e7d32;
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .secondaryButton {
@@ -149,7 +141,7 @@
 .secondaryButton:hover {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .buttonIcon {
@@ -159,7 +151,7 @@
 /* 소개 섹션 */
 .introSection {
   padding: 100px 0;
-  background-color: var(--white);
+  background-color: #ffffff;
 }
 
 .featureGrid {
@@ -170,24 +162,24 @@
 }
 
 .featureCard {
-  background-color: var(--gray-light);
+  background-color: #f0f2f5;
   padding: 30px;
-  border-radius: var(--radius);
+  border-radius: 12px;
   text-align: center;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .featureCard:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .featureIcon {
   width: 60px;
   height: 60px;
   margin: 0 auto 20px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
+  background-color: #a5d6a7;
+  color: #2e7d32;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,65 +190,32 @@
 .featureTitle {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: var(--text-primary);
+  color: #2c3e50;
+  word-break: keep-all;
 }
 
 .featureDescription {
-  color: var(--text-secondary);
+  color: #5d6470;
   line-height: 1.6;
+  word-break: keep-all;
 }
 
 /* 국가별 정보 섹션 */
 .countriesSection {
   padding: 100px 0;
-  background-color: var(--gray-light);
-}
-
-.countryTabs {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.countryTab {
-  padding: 12px 25px;
-  background-color: var(--white);
-  border: 2px solid transparent;
-  border-radius: var(--radius);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.countryTab:hover,
-.activeTab {
-  background-color: var(--white);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  background-color: #f0f2f5;
 }
 
 .countryContent {
-  display: none;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.activeContent {
-  display: grid;
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .countryImageContainer {
   position: relative;
-  border-radius: var(--radius);
+  border-radius: 12px;
   overflow: hidden;
   height: 400px;
 }
@@ -279,7 +238,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .countryDetails {
@@ -291,14 +250,16 @@
 .countryName {
   font-size: 2rem;
   margin-bottom: 15px;
-  color: var(--primary-color);
+  color: #6abf69;
+  word-break: keep-all;
 }
 
 .countryDescription {
   font-size: 1.1rem;
-  color: var(--text-secondary);
+  color: #5d6470;
   margin-bottom: 20px;
   line-height: 1.6;
+  word-break: keep-all;
 }
 
 .countryFeatures {
@@ -309,40 +270,42 @@
 
 .countryFeature {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 10px;
   font-size: 1rem;
-  color: var(--text-primary);
+  color: #2c3e50;
+  word-break: keep-all;
 }
 
 .featureCheck {
   margin-right: 10px;
-  color: var(--primary-color);
+  color: #6abf69;
   font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .learnMoreButton {
   display: inline-block;
   padding: 12px 25px;
-  background-color: var(--primary-color);
+  background-color: #6abf69;
   color: white;
-  border-radius: var(--radius);
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   text-align: center;
   align-self: flex-start;
 }
 
 .learnMoreButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* 프로그램 소개 섹션 */
 .programsSection {
   padding: 100px 0;
-  background-color: var(--white);
+  background-color: #ffffff;
 }
 
 .programsGrid {
@@ -354,22 +317,23 @@
 .programCard {
   display: flex;
   gap: 20px;
-  background-color: var(--gray-light);
+  background-color: #f0f2f5;
   padding: 30px;
-  border-radius: var(--radius);
-  transition: var(--transition);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  align-items: flex-start;
 }
 
 .programCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .programIcon {
   width: 50px;
   height: 50px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
+  background-color: #a5d6a7;
+  color: #2e7d32;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -385,13 +349,16 @@
 .programTitle {
   font-size: 1.3rem;
   margin-bottom: 10px;
-  color: var(--text-primary);
+  color: #2c3e50;
+  word-break: keep-all;
 }
 
 .programDescription {
-  color: var(--text-secondary);
+  color: #5d6470;
   margin-bottom: 15px;
-  line-height: 1.6;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  word-break: keep-all;
 }
 
 .programDetails {
@@ -400,96 +367,31 @@
   margin: 0;
 }
 
+.programDetail,
 .programDetails li {
   position: relative;
   padding-left: 20px;
   margin-bottom: 8px;
-  color: var(--text-primary);
+  color: #2c3e50;
+  font-size: 0.9rem;
+  word-break: keep-all;
+  line-height: 1.4;
 }
 
+.programDetail::before,
 .programDetails li::before {
   content: "•";
-  color: var(--primary-color);
+  color: #6abf69;
   position: absolute;
   left: 0;
   top: 0;
   font-size: 1.2rem;
 }
 
-/* 후기 섹션 */
-.testimonialsSection {
-  padding: 100px 0;
-  background-color: var(--gray-light);
-}
-
-.testimonialsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-}
-
-.testimonialCard {
-  background-color: var(--white);
-  border-radius: var(--radius);
-  padding: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: var(--transition);
-}
-
-.testimonialCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-.testimonialHeader {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.testimonialImage {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 15px;
-}
-
-.testimonialInfo {
-  flex-grow: 1;
-}
-
-.testimonialName {
-  font-size: 1.1rem;
-  margin: 0 0 5px 0;
-  color: var(--text-primary);
-}
-
-.testimonialDetails {
-  font-size: 0.9rem;
-  margin: 0;
-  color: var(--text-secondary);
-}
-
-.testimonialIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: var(--primary-light);
-  font-size: 1.5rem;
-}
-
-.testimonialText {
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-style: italic;
-}
-
 /* FAQ 섹션 */
 .faqSection {
   padding: 100px 0;
-  background-color: var(--white);
+  background-color: #ffffff;
 }
 
 .faqContainer {
@@ -499,10 +401,10 @@
 
 .faqItem {
   margin-bottom: 15px;
-  border-radius: var(--radius);
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  background-color: var(--gray-light);
+  background-color: #f0f2f5;
 }
 
 .faqQuestion {
@@ -511,21 +413,24 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  background-color: var(--white);
-  transition: var(--transition);
+  background-color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .faqQuestion h3 {
   margin: 0;
   font-size: 1.1rem;
-  color: var(--text-primary);
+  color: #2c3e50;
   font-weight: 600;
+  word-break: keep-all;
 }
 
 .faqToggle {
   font-size: 1.5rem;
-  color: var(--primary-color);
-  transition: var(--transition);
+  color: #6abf69;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 10px;
 }
 
 .activeFaq .faqToggle {
@@ -536,7 +441,7 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
-  background-color: var(--gray-light);
+  background-color: #f0f2f5;
 }
 
 .activeFaq .faqAnswer {
@@ -546,8 +451,9 @@
 .faqAnswer p {
   padding: 20px;
   margin: 0;
-  color: var(--text-secondary);
+  color: #5d6470;
   line-height: 1.6;
+  word-break: keep-all;
 }
 
 /* CTA 섹션 */
@@ -565,6 +471,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 20px;
+  word-break: keep-all;
 }
 
 .ctaText {
@@ -572,6 +479,7 @@
   max-width: 700px;
   margin: 0 auto 40px;
   opacity: 0.9;
+  word-break: keep-all;
 }
 
 .ctaButtons {
@@ -583,19 +491,19 @@
 
 .ctaButton {
   padding: 15px 30px;
-  background-color: var(--primary-color);
+  background-color: #6abf69;
   color: white;
-  border-radius: var(--radius);
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .ctaButton:hover {
-  background-color: var(--primary-dark);
+  background-color: #2e7d32;
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .ctaPhone {
@@ -606,17 +514,17 @@
   background-color: transparent;
   color: white;
   border: 2px solid white;
-  border-radius: var(--radius);
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .ctaPhone:hover {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .phoneIcon {
@@ -640,11 +548,13 @@
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
   }
 
   .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
   }
 
   .headerButtons {
@@ -660,25 +570,20 @@
   }
 
   .sectionTitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .sectionSubtitle {
     font-size: 1rem;
+    line-height: 1.5;
   }
 
   .introSection,
   .countriesSection,
   .programsSection,
-  .testimonialsSection,
   .faqSection,
   .ctaSection {
     padding: 60px 0;
-  }
-
-  .countryTab {
-    padding: 8px 15px;
-    font-size: 0.9rem;
   }
 
   .countryName {
@@ -693,12 +598,33 @@
     padding: 20px;
   }
 
+  .programDescription {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 3em;
+    overflow: hidden;
+  }
+
   .ctaTitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.3;
   }
 
   .ctaText {
     font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .faqQuestion h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .faqAnswer p {
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 }
 
@@ -711,10 +637,19 @@
     grid-template-columns: 1fr;
   }
 
-  .testimonialsGrid {
-    grid-template-columns: 1fr;
+  .featureDescription {
+    font-size: 0.95rem;
+  }
+
+  .featureCard {
+    padding: 20px;
+  }
+
+  .featureTitle {
+    font-size: 1.2rem;
   }
 }
+
 /* 모달 스타일 */
 .modalOverlay {
   position: fixed;
@@ -733,7 +668,7 @@
 
 .modalContainer {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 900px;
@@ -775,6 +710,7 @@
   color: #27ae60;
   font-size: 1.8rem;
   font-weight: 700;
+  word-break: keep-all;
 }
 
 .modalContent {
@@ -807,130 +743,14 @@
   font-size: 1.4rem;
   margin-top: 0;
   margin-bottom: 15px;
+  word-break: keep-all;
 }
 
 .modalTextContent p {
   color: #5d6470;
   line-height: 1.6;
   margin-bottom: 20px;
-}
-
-.infoGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  margin: 25px 0;
-}
-
-@media (min-width: 768px) {
-  .infoGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.infoItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background-color: #f0f2f5;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.infoIcon {
-  color: #27ae60;
-  font-size: 1.4rem;
-  margin-top: 3px;
-}
-
-.infoItem h4 {
-  margin: 0 0 5px 0;
-  color: #2c3e50;
-  font-size: 1rem;
-}
-
-.infoItem p {
-  margin: 0;
-  color: #5d6470;
-  font-size: 0.95rem;
-}
-
-.visaInfo {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-@media (min-width: 576px) {
-  .visaInfo {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.visaItem {
-  background-color: #f0f2f5;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 3px solid #27ae60;
-}
-
-.visaItem h4 {
-  margin: 0 0 5px 0;
-  color: #27ae60;
-  font-weight: 600;
-}
-
-.visaItem p {
-  margin: 0 0 8px 0;
-  color: #2c3e50;
-}
-
-.visaDescription {
-  font-size: 0.9rem;
-  color: #5d6470 !important;
-  font-style: italic;
-}
-
-.modalFooter {
-  padding: 20px 30px 30px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.primaryButton,
-.secondaryButton {
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.primaryButton {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-}
-
-.primaryButton:hover {
-  background-color: #219653;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-}
-
-.secondaryButton {
-  background-color: transparent;
-  color: #5d6470;
-  border: 1px solid #ddd;
-}
-
-.secondaryButton:hover {
-  background-color: #f0f2f5;
-  transform: translateY(-2px);
+  word-break: keep-all;
 }
 
 /* 애니메이션 */
@@ -952,90 +772,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-/* 프로그램 소개 섹션 스타일 개선 */
-
-/* 기존 스타일은 유지하고 프로그램 카드 부분만 수정 */
-.programCard {
-  display: flex;
-  gap: 20px;
-  background-color: var(--gray-light);
-  padding: 30px;
-  border-radius: var(--radius);
-  transition: var(--transition);
-  align-items: flex-start;
-}
-
-.programCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-.programIcon {
-  width: 50px;
-  height: 50px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.programContent {
-  flex-grow: 1;
-}
-
-.programTitle {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: var(--text-primary);
-}
-
-/* 설명 텍스트 스타일 개선 - 한 줄로 깔끔하게 표시 */
-.programDescription {
-  color: var(--text-secondary);
-  margin-bottom: 15px;
-  line-height: 1.5;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
-/* 화면 크기가 작을 때 설명 텍스트가 두 줄로 보이도록 설정 */
-@media (max-width: 768px) {
-  .programDescription {
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    height: 2.8em;
-  }
-}
-
-.programDetails {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.programDetails li {
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-  font-size: 0.9rem;
-}
-
-.programDetails li::before {
-  content: "•";
-  color: var(--primary-color);
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 1.2rem;
 }
