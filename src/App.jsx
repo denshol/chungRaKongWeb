@@ -235,13 +235,39 @@ const AppContent = memo(() => {
   const checkIfShouldShowModal = useCallback((noticeList) => {
     if (!noticeList || noticeList.length === 0) return false;
 
-    // 쿠키에서 마지막으로 모달을 닫은 날짜 확인
-    const lastClosedDate = localStorage.getItem("noticeModalLastClosed");
-    const today = new Date().toDateString();
+    // 로컬 스토리지에서 마지막으로 모달을 닫은 정보 확인
+    const lastClosedData = localStorage.getItem("noticeModalLastClosed");
 
-    // 오늘 이미 모달을 닫았는지 확인
-    if (lastClosedDate === today) {
-      return false;
+    if (lastClosedData) {
+      try {
+        // 새 형식의 데이터 파싱 시도
+        const parsedData = JSON.parse(lastClosedData);
+
+        // 새 형식의 데이터가 맞는지 확인 (hidden 속성이 있는지)
+        if (parsedData && parsedData.hidden) {
+          const now = new Date().getTime();
+
+          // 만료 시간이 아직 지나지 않았다면 모달 표시하지 않음
+          if (parsedData.expires && now < parsedData.expires) {
+            console.log("모달 닫힘 상태가 아직 유효함");
+            return false;
+          }
+        } else {
+          // 이전 형식 (문자열) 데이터일 수 있음
+          const today = new Date().toDateString();
+          if (lastClosedData === today) {
+            console.log("오늘 이미 모달 닫음 (이전 형식)");
+            return false;
+          }
+        }
+      } catch (error) {
+        // 파싱 오류 - 이전 형식일 수 있음
+        console.log("저장된 데이터 파싱 오류, 이전 형식 확인:", error);
+        const today = new Date().toDateString();
+        if (lastClosedData === today) {
+          return false;
+        }
+      }
     }
 
     // 새로운 공지사항이 있는지 확인 (최신 공지가 3일 이내인 경우)
@@ -275,9 +301,22 @@ const AppContent = memo(() => {
   const closeNoticeModal = useCallback(() => {
     setShowNoticeModal(false);
     setManualShowModal(false);
-    // 오늘 날짜 저장
-    localStorage.setItem("noticeModalLastClosed", new Date().toDateString());
-  }, []);
+
+    // 새로운 형식으로 저장 - 오늘 하루 동안 보지 않기
+    const today = new Date();
+    const expires = new Date(today);
+    expires.setHours(23, 59, 59, 999); // 오늘 자정까지
+
+    localStorage.setItem(
+      "noticeModalLastClosed",
+      JSON.stringify({
+        date: today.toDateString(),
+        expires: expires.getTime(),
+        noticeIds: notices.map((notice) => notice.id),
+        hidden: true,
+      })
+    );
+  }, [notices]);
 
   // 라우트 설정 - useMemo로 최적화
   const appRoutes = useMemo(

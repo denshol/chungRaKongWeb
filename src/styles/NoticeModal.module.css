@@ -5,33 +5,94 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100000;
   padding: 20px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
 .modalContent {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 550px;
   max-height: 90vh;
   background-color: white;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  animation: modalSlideUp 0.3s ease-out;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s ease;
+}
+
+.fullscreen {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: 95vw;
+  height: 95vh;
+}
+
+/* 다크 모드 */
+.darkMode {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.darkContent {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+.darkContent .noticeTitle {
+  color: #f0f0f0;
+}
+
+.darkContent .noticeContent {
+  color: #e0e0e0;
+}
+
+.darkContent .noticeDate {
+  color: #b0b0b0;
+}
+
+.darkContent .navButton {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+.darkContent .navButton:hover {
+  background-color: #444;
+}
+
+.darkContent .imageContainer {
+  background-color: #111;
+}
+
+.darkContent .placeholderImage {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+.darkContent .checkboxText {
+  color: #d0d0d0;
+}
+
+.darkContent .closeModalButton {
+  background-color: #3182ce;
+}
+
+.darkContent .closeModalButton:hover {
+  background-color: #4299e1;
 }
 
 @keyframes modalSlideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -39,41 +100,66 @@
   }
 }
 
-/* 닫기 버튼 */
-.closeButton {
+/* 컨트롤 버튼 */
+.controlsContainer {
   position: absolute;
   top: 15px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+.controlButton {
+  background: rgba(255, 255, 255, 0.3);
   color: #333;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
-  font-size: 20px;
   transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-.closeButton:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.1);
+.darkContent .controlButton {
+  background: rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+}
+
+.controlButton:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.darkContent .controlButton:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* 이미지 영역 */
 .imageContainer {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 500px;
   overflow: hidden;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .placeholderImage {
@@ -88,14 +174,58 @@
 }
 
 .noticeImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
-.noticeImage:hover {
-  transform: scale(1.05);
+.fullscreen .noticeImage {
+  max-height: 80vh;
+}
+
+/* 이미지 확대/축소 컨트롤 */
+.zoomControls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  gap: 10px;
+  z-index: 15;
+}
+
+.zoomButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.zoomButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.zoomButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.zoomLevel {
+  font-size: 14px;
+  min-width: 45px;
+  text-align: center;
 }
 
 /* 이미지 네비게이션 버튼 */
@@ -103,11 +233,11 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   color: #333;
   border: none;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -116,11 +246,21 @@
   transition: all 0.2s ease;
   z-index: 5;
   font-size: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.darkContent .imageNavButton {
+  background: rgba(0, 0, 0, 0.4);
+  color: #f0f0f0;
 }
 
 .imageNavButton:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   transform: translateY(-50%) scale(1.1);
+}
+
+.darkContent .imageNavButton:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .prevButton {
@@ -134,70 +274,79 @@
 /* 이미지 인디케이터 */
 .imageIndicator {
   position: absolute;
-  bottom: 15px;
+  bottom: 20px;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .indicatorDot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
+  border: none;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .indicatorDot.active {
   background-color: white;
-  transform: scale(1.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+.darkContent .indicatorDot {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.darkContent .indicatorDot.active {
+  background-color: #f0f0f0;
 }
 
 /* 공지사항 내용 */
 .noticeDetails {
-  padding: 25px;
+  padding: 30px;
   overflow-y: auto;
 }
 
 .noticeTitle {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   color: #1a202c;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   line-height: 1.4;
 }
 
 .urgentBadge {
   background-color: #e53e3e;
   color: white;
-  font-size: 13px;
-  padding: 3px 10px;
-  border-radius: 6px;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 8px;
   font-weight: 600;
   flex-shrink: 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .noticeDate {
   color: #718096;
-  font-size: 15px;
-  margin-bottom: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
   font-style: italic;
 }
 
 .noticeContent {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.8;
   color: #4a5568;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   white-space: pre-line;
 }
 
@@ -205,7 +354,7 @@
 .checkboxLabel {
   display: flex;
   align-items: center;
-  margin: 15px 0;
+  margin: 18px 0;
   cursor: pointer;
   user-select: none;
   transition: all 0.2s ease;
@@ -217,16 +366,33 @@
 
 .checkbox {
   margin-right: 12px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   accent-color: #3182ce;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .checkboxText {
-  font-size: 15px;
+  font-size: 16px;
   color: #4a5568;
   transition: color 0.2s ease;
+}
+
+/* 페이지 인디케이터 */
+.pageIndicator {
+  display: inline-block;
+  background-color: #f1f1f1;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+.darkContent .pageIndicator {
+  background-color: #333;
+  color: #f0f0f0;
 }
 
 /* 버튼 영역 */
@@ -234,136 +400,699 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 /* 확인 버튼 */
 .closeModalButton {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   background-color: #3182ce;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 17px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(49, 130, 206, 0.3);
 }
 
 .closeModalButton:hover {
   background-color: #2c5282;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(49, 130, 206, 0.4);
+}
+
+.closeModalButton:active {
+  transform: translateY(0);
 }
 
 /* 이전/다음 버튼 */
 .navigationButtons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 5px;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  margin: 20px 0;
+  align-items: center;
 }
 
 .navButton {
   background-color: #edf2f7;
   color: #4a5568;
   border: none;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 14px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .navButton:hover {
   background-color: #e2e8f0;
   color: #2d3748;
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:active {
+  transform: translateY(0);
 }
 
 .navButton svg {
   font-size: 20px;
 }
 
+/* 북마크 아이콘 스타일 */
+.bookmarked {
+  fill: #3182ce;
+  color: #3182ce;
+}
+
+/* 키보드 단축키 영역 */
+.keyboardShortcuts {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 20;
+}
+
+.shortcutsToggle {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.darkContent .shortcutsToggle {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.shortcutsToggle:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.darkContent .shortcutsToggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.shortcutsList {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  list-style: none;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 0;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.shortcutsList.showShortcuts {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.shortcutsList li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shortcutsList kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
 /* 반응형 스타일 */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .modalContent {
     max-height: 95vh;
-    width: 95%;
+    width: 100%;
   }
 
   .imageContainer {
-    height: 250px;
+    height: 350px;
+  }
+
+  .fullscreen .imageContainer {
+    height: 50vh;
   }
 
   .noticeTitle {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .noticeContent {
-    font-size: 15px;
+    font-size: 16px;
+  }
+
+  .controlsContainer {
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .controlButton {
+    width: 34px;
+    height: 34px;
+  }
+
+  .imageNavButton {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+
+  .navigationButtons {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .urgentBadge {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+
+  .keyboardShortcuts {
+    display: none; /* 모바일에서는 키보드 단축키 숨김 */
+  }
+}
+
+@media (max-width: 480px) {
+  .noticeDetails {
+    padding: 20px;
+  }
+
+  .imageContainer {
+    height: 280px;
+  }
+
+  .controlsContainer {
+    gap: 6px;
+  }
+
+  .controlButton {
+    width: 32px;
+    height: 32px;
   }
 
   .closeModalButton {
     padding: 14px;
   }
 
-  .imageNavButton {
-    width: 38px;
-    height: 38px;
+  .noticeTitle {
     font-size: 20px;
   }
 
-  .urgentBadge {
-    font-size: 12px;
-    padding: 2px 8px;
+  .navButton {
+    padding: 10px;
+    font-size: 14px;
   }
 }
-.imageContainer {
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modalOverlay {
+  animation: fadeIn 0.3s ease;
+}
+
+.noticeDetails > * {
+  animation: slideUp 0.4s ease;
+  animation-fill-mode: both;
+}
+
+.noticeDetails > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.noticeDetails > *:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.noticeDetails > *:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.noticeDetails > *:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.noticeDetails > *:nth-child(5) {
+  animation-delay: 0.3s;
+}
+/* NoticeModal.module.css 내용 업데이트 */
+
+/* 이미지 wrapper와 content 스타일 수정 및 추가 */
+.imageWrapper {
   position: relative;
   width: 100%;
-  height: 400px; /* 고정 높이 설정 */
-  overflow: hidden;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  overflow: hidden; /* 기본 상태에서는 넘치는 부분 숨김 */
+  transition: cursor 0.3s ease;
 }
 
-.noticeImage {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* 이미지 비율 유지하면서 전체 표시 */
-  object-position: center; /* 이미지 중앙 정렬 */
+/* 이미지 패닝 모드 */
+.panning {
+  overflow: auto; /* 확대 시 스크롤 가능하도록 변경 */
+  cursor: move; /* 드래그 가능함을 나타내는 커서 */
 }
-.noticeImage {
-  width: 100%;
-  height: 100%;
-  max-height: 400px; /* 필요하다면 최대 높이 제한 */
-  object-fit: contain;
-  object-position: center;
-}
-.imageContainer {
-  position: relative;
-  width: 100%;
-  height: 500px; /* 포스터 이미지에 맞게 높이 조정 */
-  overflow: hidden;
+
+.imageContent {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  transform-origin: center;
+  transition: transform 0.1s ease; /* 부드러운 움직임을 위한 트랜지션 */
+  will-change: transform; /* 성능 최적화 */
 }
 
 .noticeImage {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
+  user-select: none; /* 이미지 선택 방지 */
+  pointer-events: none; /* 드래그 시 이미지 자체에 이벤트 전파 방지 */
+}
+
+/* 확대된 상태 안내 메시지 */
+.zoomMessage {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  z-index: 15;
+  animation: fadeIn 0.3s ease;
+}
+
+/* 이미지 확대/축소 컨트롤에 위치 초기화 버튼 추가 */
+.zoomControls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  gap: 8px;
+  z-index: 15;
+}
+
+/* 다크모드에서 이미지 컨트롤 스타일 */
+.darkContent .zoomControls,
+.darkContent .zoomMessage {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 키보드 단축키 설명 업데이트 */
+.shortcutsList li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shortcutsList kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .zoomMessage {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .panning {
+    -webkit-overflow-scrolling: touch; /* iOS에서 스크롤 부드럽게 */
+  }
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* NoticeModal.module.css에 추가할 스타일 */
+
+/* 이미지 래퍼 기본 스타일 */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 기본적으로는 오버플로우 숨김 */
+}
+
+/* 확대 모드일 때 적용되는 클래스 */
+.zoomedWrapper {
+  overflow: auto !important; /* 기본 스크롤바 사용 */
+  cursor: grab; /* 마우스 커서 변경으로 드래그 가능함을 표시 */
+}
+
+/* 스크롤바 스타일 개선 */
+.zoomedWrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 다크모드에서 스크롤바 스타일 */
+.darkContent .zoomedWrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.darkContent .zoomedWrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.darkContent .zoomedWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 이미지 스타일 */
+.noticeImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.2s ease;
+  transform-origin: 0 0; /* 확대 시 왼쪽 상단 기준 */
+}
+
+/* 확대 시 이미지 스타일 */
+.zoomedWrapper .noticeImage {
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+/* 추가: 모바일 터치 최적화 */
+@media (max-width: 768px) {
+  .zoomedWrapper {
+    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+  }
+}
+/* NoticeModal.module.css에 추가할 스타일 */
+
+/* 이미지 래퍼 기본 스타일 */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 기본적으로는 오버플로우 숨김 */
+}
+
+/* 확대 모드일 때 적용되는 클래스 */
+.zoomedWrapper {
+  overflow: auto !important; /* 기본 스크롤바 사용 */
+  cursor: grab; /* 마우스 커서 변경으로 드래그 가능함을 표시 */
+}
+
+/* 스크롤바 스타일 개선 */
+.zoomedWrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.zoomedWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 다크모드에서 스크롤바 스타일 */
+.darkContent .zoomedWrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.darkContent .zoomedWrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.darkContent .zoomedWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 이미지 스타일 */
+.noticeImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.2s ease;
+  transform-origin: 0 0; /* 확대 시 왼쪽 상단 기준 */
+}
+
+/* 확대 시 이미지 스타일 */
+.zoomedWrapper .noticeImage {
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+/* 추가: 모바일 터치 최적화 */
+@media (max-width: 768px) {
+  .zoomedWrapper {
+    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+  }
+}
+/* NoticeModal.module.css에 추가할 스타일 */
+
+/* 이미지 래퍼 기본 스타일 */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  touch-action: none; /* 터치 이벤트 처리를 위해 브라우저 기본 동작 방지 */
+}
+
+/* 드래그 가능한 상태일 때 스타일 */
+.draggable {
+  cursor: grab !important;
+}
+
+.draggable:active {
+  cursor: grabbing !important;
+}
+
+/* 이미지 내용 컨테이너 */
+.imageContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* 이미지 스타일 */
+.noticeImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 드래그 안내 메시지 */
+.dragMessage {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  animation: fadeInOut 3s ease;
+  opacity: 0.8;
+  z-index: 15;
+}
+
+.darkContent .dragMessage {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 줌 컨트롤 업데이트 */
+.zoomControls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  gap: 8px;
+  z-index: 15;
+}
+
+.zoomButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 30px;
+  height: 30px;
+}
+
+.zoomButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.zoomButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.zoomLevel {
+  font-size: 14px;
+  min-width: 48px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* 이미지 위치 초기화 버튼 아이콘 */
+.resetIcon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 페이드 인/아웃 애니메이션 */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .dragMessage {
+    font-size: 12px;
+    padding: 5px 10px;
+    bottom: 65px; /* 줌 컨트롤 위에 배치 */
+  }
+
+  .zoomControls {
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+  }
+
+  .zoomButton {
+    width: 28px;
+    height: 28px;
+  }
 }

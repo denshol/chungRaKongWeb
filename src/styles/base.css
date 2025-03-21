@@ -19,6 +19,7 @@
   --transition: all 0.3s ease;
   --border-radius: 12px;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;

@@ -253,7 +253,9 @@ const Navbar = () => {
               />
               <span className={styles.userName}>
                 {user.name || "사용자"}
-                {userIsAdmin && <span className={styles.adminBadge}>관리자</span>}
+                {userIsAdmin && (
+                  <span className={styles.adminBadge}>관리자</span>
+                )}
               </span>
               <FiChevronDown className={styles.profileArrow} />
             </div>
@@ -269,10 +271,10 @@ const Navbar = () => {
                   <FiUser className={styles.menuIcon} />
                   마이페이지
                 </Link>
-                
+
                 {/* 구분선 추가 */}
                 {userIsAdmin && <div className={styles.divider}></div>}
-                
+
                 {userIsAdmin && (
                   <Link
                     to="/admin"
@@ -283,9 +285,9 @@ const Navbar = () => {
                     관리자 페이지
                   </Link>
                 )}
-                
+
                 <div className={styles.divider}></div>
-                
+
                 <button
                   className={styles.profileMenuItem}
                   onClick={handleLogout}
