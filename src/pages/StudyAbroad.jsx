@@ -235,7 +235,7 @@ const StudyAbroad = () => {
               <h3 className={styles.featureTitle}>아름다운 자연환경</h3>
               <p className={styles.featureDescription}>
                 수려한 자연경관 속에서 <br />
-                다양한 야외활동을 즐기며 영어를 배울 수 있습니다
+                영어를 배울 수 있습니다
               </p>
             </div>
 
@@ -245,7 +245,6 @@ const StudyAbroad = () => {
               </div>
               <h3 className={styles.featureTitle}>높은 교육 수준</h3>
               <p className={styles.featureDescription}>
-                정부 인증 교육기관에서 <br />
                 체계적인 커리큘럼으로 질 높은 교육을 받을 수 있습니다
               </p>
             </div>
