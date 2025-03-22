@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "../styles/NoticeModal.module.css";
+// React Icons 명시적으로 불러오기
+import {
+  IoClose,
+  IoChevronBack,
+  IoChevronForward,
+  IoCheckmark,
+  IoAlert,
+  IoArrowBack,
+  IoArrowForward,
+} from "react-icons/io5";
 
 const NoticeModal = ({ isOpen, notices, onClose }) => {
   const [activeNoticeIndex, setActiveNoticeIndex] = useState(0);
@@ -194,6 +204,13 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
     ? [activeNotice.imageUrl]
     : [];
 
+  // 아이콘이 보이도록 디버깅 로그 추가
+  console.log("Icons available:", {
+    IoClose: typeof IoClose,
+    IoChevronBack: typeof IoChevronBack,
+    IoAlert: typeof IoAlert,
+  });
+
   return (
     <div
       className={styles.modalOverlay}
@@ -207,19 +224,33 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* 닫기 버튼 */}
+        {/* 닫기 버튼 - 명시적 스타일 적용 */}
         <button
           className={styles.closeButton}
           onClick={handleClose}
           aria-label="공지사항 닫기"
         >
-          ✖️
+          <IoClose
+            size={36}
+            color="#4a5568"
+            style={{ display: "block", width: "100%", height: "100%" }}
+          />
         </button>
 
         {/* 이미지 영역 */}
         <div className={styles.imageContainer}>
           {imageLoadError || !imageUrls[currentImageIndex] ? (
             <div className={styles.placeholderImage}>
+              <IoAlert
+                size={80}
+                className={styles.warningIcon}
+                style={{
+                  display: "block",
+                  color: "#a0aec0",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
               <p>이미지를 불러올 수 없습니다</p>
             </div>
           ) : (
@@ -233,6 +264,11 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
                 onLoad={handleImageLoad}
                 draggable="false"
               />
+              {isImageLoading && (
+                <div className={styles.loadingOverlay}>
+                  <div className={styles.loadingSpinner}></div>
+                </div>
+              )}
             </div>
           )}
 
@@ -246,7 +282,10 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
                 }
                 aria-label="이전 이미지"
               >
-                ◀️
+                <IoChevronBack
+                  size={48}
+                  style={{ display: "block", width: "100%", height: "100%" }}
+                />
               </button>
               <button
                 className={`${styles.imageNavButton} ${styles.nextButton}`}
@@ -255,7 +294,10 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
                 }
                 aria-label="다음 이미지"
               >
-                ▶️
+                <IoChevronForward
+                  size={48}
+                  style={{ display: "block", width: "100%", height: "100%" }}
+                />
               </button>
 
               {/* 이미지 인디케이터 */}
@@ -284,7 +326,13 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
         <div className={styles.noticeDetails}>
           <h3 className={styles.noticeTitle} id="noticeModalTitle">
             {activeNotice.urgent && (
-              <span className={styles.urgentBadge}>중요</span>
+              <span className={styles.urgentBadge}>
+                <IoAlert
+                  size={24}
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                />
+                NEW
+              </span>
             )}
             {activeNotice.title}
           </h3>
@@ -305,7 +353,8 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
                 onClick={() => changeNotice("prev", activeNoticeIndex, notices)}
                 aria-label="이전 공지사항"
               >
-                ◀ 이전 공지
+                <IoArrowBack size={28} style={{ display: "inline-block" }} />
+                이전 공지
               </button>
               <span className={styles.pageIndicator}>
                 {activeNoticeIndex + 1} / {notices.length}
@@ -315,20 +364,32 @@ const NoticeModal = ({ isOpen, notices, onClose }) => {
                 onClick={() => changeNotice("next", activeNoticeIndex, notices)}
                 aria-label="다음 공지사항"
               >
-                다음 공지 ▶
+                다음 공지
+                <IoArrowForward size={28} style={{ display: "inline-block" }} />
               </button>
             </div>
           )}
 
           {/* 체크박스: 오늘 하루 동안 보지 않기 */}
           <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              checked={hideForToday}
-              onChange={() => setHideForToday(!hideForToday)}
-              className={styles.checkbox}
-              id="hideForTodayCheckbox"
-            />
+            <div className={styles.customCheckbox}>
+              <input
+                type="checkbox"
+                checked={hideForToday}
+                onChange={() => setHideForToday(!hideForToday)}
+                className={styles.checkbox}
+                id="hideForTodayCheckbox"
+              />
+              <div className={styles.checkboxControl}>
+                {hideForToday && (
+                  <IoCheckmark
+                    size={20}
+                    className={styles.checkIcon}
+                    style={{ display: "block", width: "100%", height: "100%" }}
+                  />
+                )}
+              </div>
+            </div>
             <span className={styles.checkboxText}>
               오늘 하루 동안 보지 않기
             </span>

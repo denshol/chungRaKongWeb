@@ -943,3 +943,62 @@
 .navbar.scrolled .menuToggle .hamburger::after {
   background-color: #333; /* 어두운 회색 */
 }
+/* 모바일 화면에서 햄버거 메뉴와 신청 버튼이 겹치지 않도록 수정 */
+
+/* 햄버거 메뉴 토글 버튼 위치 수정 */
+@media (max-width: 768px) {
+  .menuToggle {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1002; /* 높은 z-index 값 설정 */
+  }
+
+  /* 모바일 CTA 버튼(신청 버튼) 위치 수정 - 햄버거 메뉴와 간격 확보 */
+  .mobileCtaButton {
+    display: flex;
+    position: absolute;
+    right: 70px; /* 햄버거 메뉴와의 간격 확보 (기존 60px에서 증가) */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001; /* 햄버거 메뉴보다 낮은 z-index */
+  }
+
+  /* 기존 rightGroup 여백 조정 */
+  .rightGroup {
+    position: relative;
+    margin-right: 120px; /* 햄버거 메뉴와 신청 버튼 공간 확보 (기존 60px에서 증가) */
+  }
+
+  /* 네비게이션 컨테이너 패딩 조정 */
+  .navbar {
+    padding: 0.5rem 1.5rem; /* 좌우 패딩 약간 증가 */
+  }
+
+  /* 메뉴가 열렸을 때 모바일 CTA 버튼 숨기기 */
+  .navbar.active .mobileCtaButton {
+    display: none;
+  }
+}
+
+/* 더 작은 모바일 화면 대응 (375px 이하) */
+@media (max-width: 375px) {
+  .mobileCtaButton {
+    right: 60px; /* 더 작은 화면에서는 간격 줄임 */
+  }
+
+  .rightGroup {
+    margin-right: 100px; /* 더 작은 화면에서는 여백 줄임 */
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem; /* 패딩 줄임 */
+  }
+
+  /* 브랜드명 조정 (필요시) */
+  .brandName {
+    font-size: 1rem; /* 더 작은 화면에서 브랜드명 글씨 크기 줄임 */
+  }
+}

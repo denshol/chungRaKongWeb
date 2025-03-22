@@ -773,3 +773,12 @@
     transform: translateY(0);
   }
 }
+/* StudyAbroad.module.css에 추가할 스타일 */
+
+.countryDescription,
+.programDescription,
+.testimonial,
+.faqAnswer p {
+  white-space: pre-line; /* 줄바꿈 문자(\n)를 유지하면서 자동 줄바꿈도 적용 */
+  line-height: 1.6; /* 줄 간격 조정 */
+}
