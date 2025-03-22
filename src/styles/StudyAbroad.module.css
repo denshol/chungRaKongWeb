@@ -782,3 +782,47 @@
   white-space: pre-line; /* 줄바꿈 문자(\n)를 유지하면서 자동 줄바꿈도 적용 */
   line-height: 1.6; /* 줄 간격 조정 */
 }
+/* StudyAbroad.module.css에 추가할 스타일 */
+
+/* FAQ 질문 텍스트 기본 스타일 */
+.faqQuestion h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* 모바일 화면에서 FAQ 질문 크기 줄이기 */
+@media (max-width: 768px) {
+  .faqQuestion h3 {
+    font-size: 0.95rem; /* 모바일에서 더 작은 글자 크기 */
+  }
+
+  /* 모바일에서 FAQ 질문 컨테이너 패딩 조정 */
+  .faqQuestion {
+    padding: 14px 16px; /* 패딩 줄이기 */
+  }
+
+  /* 토글 아이콘 크기 줄이기 */
+  .faqToggle {
+    font-size: 1.2rem;
+  }
+}
+
+/* 더 작은 모바일 화면에서 추가 조정 */
+@media (max-width: 480px) {
+  .faqQuestion h3 {
+    font-size: 0.9rem; /* 더 작은 화면에서 추가 크기 감소 */
+  }
+
+  .faqQuestion {
+    padding: 12px 14px; /* 패딩 더 줄이기 */
+  }
+
+  /* FAQ 섹션 전체 패딩 조정 */
+  .faqSection .sectionContainer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
