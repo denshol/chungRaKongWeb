@@ -826,3 +826,31 @@
     padding-right: 12px;
   }
 }
+/* ApplyModal.module.css 또는 관련 CSS 파일에 추가할 스타일 */
+
+.modalOverlay {
+  position: fixed; /* fixed로 설정하여 스크롤에 관계없이 고정 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 화면 중앙에 배치 */
+  z-index: 9999; /* 높은 z-index 값으로 다른 요소 위에 표시 */
+  overflow-y: auto; /* 모달 내용이 길 경우 스크롤 허용 */
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  width: 500px; /* 적절한 폭 설정 */
+  max-height: 90vh; /* 화면 높이의 90%로 제한 */
+  overflow-y: auto; /* 내용이 길면 스크롤 표시 */
+  position: relative; /* 내부 요소의 positioning context 제공 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 50px auto; /* 상단 여백 추가 */
+}

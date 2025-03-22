@@ -20,8 +20,8 @@ import {
 import styles from "../styles/StudyAbroad.module.css";
 // 모달 컴포넌트 임포트
 import NewZealandModal from "../components/NewZealandModal";
-
-// 자연스러운 줄바꿈이 적용된 데이터 예시
+import ApplyModal from "../components/ApplyModal"; // ApplyModal 임포트 추가
+import ReactDOM from "react-dom"; // Portal 생성을 위한 ReactDOM 임포트
 
 const newZealandData = {
   id: 1,
@@ -131,8 +131,6 @@ const testimonials = [
   },
 ];
 
-// 모바일에서 한 줄로 보이도록 간결하게 수정한 faqData
-
 const faqData = [
   {
     id: 1,
@@ -160,10 +158,36 @@ const faqData = [
   },
 ];
 
+// Modal Portal 컴포넌트 - React Portal을 사용해 body에 직접 모달 렌더링
+const ModalPortal = ({ children }) => {
+  // body에 직접 추가할 DOM 요소 생성
+  const modalRoot =
+    document.getElementById("modal-root") || document.createElement("div");
+
+  useEffect(() => {
+    // 최초 마운트 시 modalRoot가 없다면 생성하고 body에 추가
+    if (!document.getElementById("modal-root")) {
+      modalRoot.id = "modal-root";
+      document.body.appendChild(modalRoot);
+    }
+
+    // 컴포넌트 언마운트 시 정리 (선택적)
+    return () => {
+      if (modalRoot.childNodes.length === 0) {
+        document.body.removeChild(modalRoot);
+      }
+    };
+  }, []);
+
+  // ReactDOM.createPortal을 사용해 자식 요소를 modalRoot에 렌더링
+  return ReactDOM.createPortal(children, modalRoot);
+};
+
 const StudyAbroad = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -173,6 +197,37 @@ const StudyAbroad = () => {
   const toggleFaq = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
+
+  // 개선된 ApplyModal 열기 함수
+  const openApplyModal = (e) => {
+    e.preventDefault();
+
+    // 모달 열기만 수행 (Portal로 렌더링하므로 스크롤 위치 상관없음)
+    setIsApplyModalOpen(true);
+
+    // 모달이 열릴 때 스크롤 방지
+    document.body.style.overflow = "hidden";
+  };
+
+  // ApplyModal 닫기 함수
+  const closeApplyModal = () => {
+    setIsApplyModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  // 신청 완료 처리 함수
+  const handleApplySubmit = (formData) => {
+    console.log("신청 완료:", formData);
+    setIsApplyModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  // 컴포넌트가 언마운트될 때 스크롤 상태 복원 확보
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <div className={`${styles.container} ${isVisible ? styles.visible : ""}`}>
@@ -187,9 +242,13 @@ const StudyAbroad = () => {
             청라콩문화센터가 당신의 성공적인 어학연수를 함께합니다
           </p>
           <div className={styles.headerButtons}>
-            <Link to="/contact" className={styles.primaryButton}>
-              <FiPhoneCall className={styles.buttonIcon} /> 상담 신청
-            </Link>
+            <a
+              href="#"
+              onClick={openApplyModal}
+              className={styles.primaryButton}
+            >
+              <FiPhoneCall className={styles.buttonIcon} /> 수강 신청
+            </a>
             <button
               className={styles.secondaryButton}
               onClick={() => {
@@ -392,9 +451,9 @@ const StudyAbroad = () => {
             세워보세요
           </p>
           <div className={styles.ctaButtons}>
-            <Link to="/contact" className={styles.ctaButton}>
+            <a href="#" onClick={openApplyModal} className={styles.ctaButton}>
               상담 신청하기
-            </Link>
+            </a>
             <a href="tel:01080061715" className={styles.ctaPhone}>
               <FiPhoneCall className={styles.phoneIcon} /> 010-8006-1715
             </a>
@@ -402,11 +461,54 @@ const StudyAbroad = () => {
         </div>
       </section>
 
-      {/* 모달 컴포넌트 */}
+      {/* 모달 컴포넌트들 */}
       <NewZealandModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
+
+      {/* React Portal을 사용하여 body에 직접 모달 렌더링 - 항상 최상단에 표시 */}
+      {isApplyModalOpen && (
+        <ModalPortal>
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: "100vw",
+              height: "100vh",
+              zIndex: 99999,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "rgba(0, 0, 0, 0.5)",
+              backdropFilter: "blur(3px)",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "white",
+                borderRadius: "12px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+                width: "100%",
+                maxWidth: "600px",
+                maxHeight: "90vh",
+                overflow: "auto",
+                margin: "0 20px",
+                position: "relative",
+              }}
+            >
+              <ApplyModal
+                isOpen={isApplyModalOpen}
+                onClose={closeApplyModal}
+                onSubmit={handleApplySubmit}
+              />
+            </div>
+          </div>
+        </ModalPortal>
+      )}
     </div>
   );
 };
