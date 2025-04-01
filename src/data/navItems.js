@@ -27,7 +27,7 @@ export const navItems = [
   {
     id: 7,
     icon: FaGlobeAmericas,
-    label: "유학\n프로그램",
+    label: "어학연수\n",
     path: "/study-abroad",
     isNew: true,
   },
