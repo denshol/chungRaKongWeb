@@ -86,7 +86,7 @@ export const programs = [
     image: thumbnailImages.drum,
     detailImage: detailImages.drum,
     location: "인천 청라동",
-    schedule: "매주 수요일 19~20시, 목 18시",
+    schedule: "매주 수요일 19~20시, 목 18시 [모집 마감]",
     instructor: "음악 강사",
     isFeatured: true,
   },

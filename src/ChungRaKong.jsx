@@ -53,7 +53,7 @@ const ChungRaKong = () => {
         <div className="container px-6 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center space-x-2">
             <img
-              src={`${process.env.PUBLIC_URL}/assets/image/ChungRaKong.png`}
+              src={`${process.env.PUBLIC_URL}/assets/image/ChungRaKong2.png`}
               alt="청라콩 로고"
               className="h-12 md:h-16"
             />
