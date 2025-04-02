@@ -1,38 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMusicPrograms } from "../data/programs"; // 예시 함수
+import { getMusicPrograms } from "../data/programs";
 import styles from "../styles/FeaturedClasses.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// 화살표 컴포넌트 (인라인 SVG 버전)
 const Arrow = ({ className, onClick, isNext }) => {
   const arrowSVG = isNext ? (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M9 18l6-6-6-6" />
     </svg>
   ) : (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ transform: "rotate(180deg)" }}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: "rotate(180deg)" }}>
       <path d="M9 18l6-6-6-6" />
     </svg>
   );
@@ -48,7 +30,8 @@ const Arrow = ({ className, onClick, isNext }) => {
   );
 };
 
-const FeaturedClasses = () => {
+// ✅ forwardRef 적용
+const FeaturedClasses = React.forwardRef((props, ref) => {
   const navigate = useNavigate();
   const [isDragging, setIsDragging] = useState(false);
 
@@ -81,10 +64,7 @@ const FeaturedClasses = () => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
+        settings: { slidesToShow: 2, slidesToScroll: 1 },
       },
       {
         breakpoint: 768,
@@ -99,10 +79,10 @@ const FeaturedClasses = () => {
     ],
   };
 
-  const musicPrograms = getMusicPrograms(); // 예시 데이터 불러오기
+  const musicPrograms = getMusicPrograms();
 
   return (
-    <section className={styles.featuredClasses}>
+    <section className={styles.featuredClasses} ref={ref}>
       <div className={styles.header}>
         <h2>음악 클래스 🎸</h2>
         <a
@@ -152,6 +132,6 @@ const FeaturedClasses = () => {
       </div>
     </section>
   );
-};
+});
 
 export default FeaturedClasses;

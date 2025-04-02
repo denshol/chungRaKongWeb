@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTrophy, FaUsers, FaRegHeart, FaStar } from "react-icons/fa";
+import { FaTrophy } from "react-icons/fa";
 import styles from "../styles/ProgramRanking.module.css";
 import imgGuitar from "../assets/image/programDetails/chungRaGuitar2.png";
 import imgDrum from "../assets/image/programImages/chungRaDrum.png";
 import imgVocal from "../assets/image/poster/chungRaVocalPos.jpg";
-import imgPiano from "../assets/image/programDetails/chungRaPiano.jpg";
 import imgEng from "../assets/image/programDetails/chungRaEng.png";
 
-const ProgramRanking = () => {
+// ✅ 여기 바뀐 부분!
+const ProgramRanking = React.forwardRef((props, ref) => {
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
@@ -59,7 +59,7 @@ const ProgramRanking = () => {
       cardObserver.disconnect();
     };
   }, []);
-  // 임시 샘플 데이터 (필요에 따라 API 호출 등으로 대체)
+
   const rankings = [
     {
       id: 6,
@@ -68,7 +68,6 @@ const ProgramRanking = () => {
       students: 128,
       rating: 4.9,
       image: imgGuitar,
-      // tag: "신규 오픈",
       description: "초보자도 쉽게 배우는 통기타 클래스",
       lesson_time: "60분",
       reviews: 242,
@@ -91,7 +90,6 @@ const ProgramRanking = () => {
       students: 112,
       rating: 4.9,
       image: imgVocal,
-      // tag: "인기",
       description: "K-POP 보컬 트레이닝",
       lesson_time: "40분",
       reviews: 156,
@@ -110,14 +108,13 @@ const ProgramRanking = () => {
   ];
 
   const handleCardClick = (programId, event) => {
-    if (event.target.closest(`.${styles.likeButton}`)) {
-      return;
-    }
+    if (event.target.closest(`.${styles.likeButton}`)) return;
     navigate(`/program/${programId}`);
   };
 
+  // ✅ 여기서 ref를 적용!
   return (
-    <section className={styles.rankingSection}>
+    <section className={styles.rankingSection} ref={ref}>
       <div className={styles.rankingHeader} ref={headerRef}>
         <h2>실시간 인기 클래스 TOP 4</h2>
         <p className={styles.subTitle}>
@@ -165,6 +162,6 @@ const ProgramRanking = () => {
       </div>
     </section>
   );
-};
+});
 
 export default ProgramRanking;
