@@ -416,20 +416,21 @@ const Navbar = () => {
             </a>
           </div>
 
-          <button
-            className={`${styles.menuToggle} ${
-              isMenuOpen ? styles.active : ""
-            }`}
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
-            aria-expanded={isMenuOpen}
-          >
-            <span
-              className={`${styles.hamburger} ${
-                isMenuOpen ? styles.active : ""
-              }`}
-            ></span>
-          </button>
+         {/* 햄버거 메뉴 버튼 */}
+{/* 미니멀 햄버거 메뉴 버튼 */}
+<button
+  className={`${styles.menuButton} ${isMenuOpen ? styles.active : ''}`}
+  onClick={toggleMenu}
+  aria-label="메뉴 열기"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+
+
+
         </div>
       </header>
 

@@ -183,59 +183,130 @@
   transition: all 0.3s ease;
 }
 
-/* 햄버거 아이콘 */
-.menuToggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1002;
-}
-
-.hamburger {
+/* ✅ 햄버거 버튼 스타일 */
+.menuButton {
   display: block;
-  width: 24px;
-  height: 2px;
+  position: fixed; /* absolute에서 fixed로 변경하여 스크롤 시에도 위치 유지 */
+  top: 16px; /* 50%와 translateY 대신 고정 위치로 변경 */
+  right: 16px;
   background-color: white;
-  position: relative;
+  border: none;
+  border-radius: 12px;
+  width: 44px; /* 버튼 크기 지정 */
+  height: 44px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  padding: 0; /* 내부 패딩 제거 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ✅ 세련된 햄버거 버튼 스타일 */
+.menuButton {
+  display: block;
+  position: fixed;
+  top: 12px; /* 위치 조정 */
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.9); /* 반투명 배경 */
+  border: none;
+  border-radius: 8px; /* 더 작은 라운드 처리 */
+  width: 36px; /* 더 작은 크기 */
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); /* 미묘한 그림자 */
+  z-index: 1002;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ✅ 미니멀 햄버거 버튼 스타일 */
+.menuButton {
+  display: block;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: transparent; /* 배경 제거 */
+  border: none;
+  width: 28px; /* 훨씬 작은 크기 */
+  height: 28px;
+  z-index: 1002;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 라인 간격 균등하게 */
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 햄버거 아이콘 라인 공통 스타일 */
+/* ✅ 세련된 햄버거 버튼 스타일 - 리팩토링 완료 */
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menuButton:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menuButton span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 2px;
+  margin: 3px 0;
   transition: all 0.3s ease;
 }
 
-.hamburger::before,
-.hamburger::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background-color: white;
-  transition: all 0.3s ease;
+.menuButton.active span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
 }
 
-.hamburger::before {
-  transform: translateY(-8px);
+.menuButton.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
 }
 
-.hamburger::after {
-  transform: translateY(8px);
+.menuButton.active span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
-.hamburger.active {
-  background-color: transparent;
+/* 메뉴 버튼은 모바일 전용 */
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
 }
 
-.hamburger.active::before {
-  transform: rotate(45deg);
-}
-
-.hamburger.active::after {
-  transform: rotate(-45deg);
-}
-
-.scrolled .hamburger,
-.scrolled .hamburger::before,
-.scrolled .hamburger::after {
-  background-color: var(--text-secondary);
+/* 스크롤되었거나 메뉴 열렸을 때도 동일하게 유지 */
+.navbar.scrolled .menuButton,
+.navbar.active .menuButton {
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* contactInfo 스타일 */
@@ -330,30 +401,44 @@
 
 /* 모바일 스타일 */
 @media (max-width: 768px) {
-  /* 모바일에서 navbar 기본 스타일 */
-  .navbar {
-    padding: 0.5rem 1rem;
-    height: 60px;
+  .logo {
+    gap: 4px; /* 살짝 띄움 */
+    max-width: 160px; /* 📏 너무 넓어지지 않도록 제한 */
+    overflow: hidden; /* 텍스트가 넘치면 잘리게 */
   }
 
-  /* 로고 크기 조정 */
   .logo img {
     height: 32px;
     width: 32px;
+    flex-shrink: 0; /* 이미지가 줄어들지 않게 */
   }
 
   .brandName {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 너무 길면 ...으로 처리 */
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
   }
 
   /* 메뉴 토글 버튼 표시 - 위치 수정 */
-  .menuToggle {
-    display: block;
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+  @media (max-width: 768px) {
+    .menuToggle {
+      right: 10px;
+    }
+  
+    .mobileCtaButton {
+      right: 60px;
+    }
+  
+    .rightGroup {
+      margin-right: 80px;
+    }
   }
+  
 
   /* 네비게이션 메뉴 - 전체 화면 스타일로 개선 */
   .navLinks {
