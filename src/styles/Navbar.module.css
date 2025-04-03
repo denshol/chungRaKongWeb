@@ -40,21 +40,25 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  gap: 8px;
+  gap: 0; /* 완전 제거 */
 }
 
 .logo img {
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 50px;
   object-fit: contain;
   border-radius: 8px;
+  margin-right: -2px; /* ⬅️ 살짝 당겨붙이기! */
 }
 
 .brandName {
   color: white;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  margin-left: 0;
+  line-height: 1; /* 줄 간격 조절로 높이 밀착 */
 }
+
 
 .navLinks {
   display: flex;
