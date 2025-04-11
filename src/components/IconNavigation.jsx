@@ -58,9 +58,10 @@ const IconNavigation = () => {
             ref={(el) => (observerRefs.current[index] = el)}
           >
             <div className={styles.iconWrapper}>
-              <Icon className={styles.icon} />
-              {isNew && <span className={styles.newBadge}>New</span>}
-            </div>
+  <Icon className={styles.icon} />
+  {/* <span className={styles.newBadge}>New</span> */}
+</div>
+
             <span
               className={styles.iconLabel}
               style={{
