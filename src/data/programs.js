@@ -73,7 +73,7 @@ export const programs = [
     image: thumbnailImages.guitar,
     detailImage: detailImages.guitar,
     location: "인천 청라동",
-    schedule: "매주 토요일 오전 10시",
+    schedule: "매주 토요일 오전 10시 [모집 마감]",
     instructor: "음악 강사",
     isFeatured: true,
   },
@@ -163,7 +163,7 @@ export const programs = [
     image: thumbnailImages.violin,
     detailImage: detailImages.violin,
     location: "인천 청라동",
-    schedule: "매주 토요일 12시30분",
+    schedule: "매주 토요일 12시30분 [모집 마감]",
     instructor: "음악 강사",
   },
   {
@@ -175,7 +175,7 @@ export const programs = [
     image: thumbnailImages.chelo,
     detailImage: detailImages.chelo,
     location: "인천 청라동",
-    schedule: "매주 토요일 13시30분",
+    schedule: "매주 토요일 13시30분 [모집 마감]",
     instructor: "음악 강사",
   },
   {
@@ -200,7 +200,7 @@ export const programs = [
     image: thumbnailImages.vocal,
     detailImage: detailImages.vocal,
     location: "인천 청라동",
-    schedule: "매주 월요일 18~20시, 화요일 18~20시, 토요일 11시",
+    schedule: "매주 월요일 18~20시, 화요일 18~20시, 토요일 11시 [모집 마감]",
     instructor: "음악 강사",
   },
   {
