@@ -21,11 +21,10 @@ import SideNoticeBanner from "./components/SideNoticeBanner";
 // 자주 사용되는 핵심 컴포넌트는 일반 임포트
 import Main from "./pages/Main";
 import ScrollToTop from "./components/ScrollToTop";
-import imageElecHan from "./assets/image/poster/chungRaElecHan.jpg";
-import imageUkelelePos from "./assets/image/poster/chungRaUkelelePoster.jpg";
-import imagePilatesPos from "./assets/image/programImages/chungRaPilates.jpg";
+import imageViolinPos from "./assets/programDetails/chungRaViolin.jpg";
 import FindId from "./components/auth/FindId";
 import FindPassword from "./components/auth/FindPassword";
+
 
 // 중요하지만 초기 렌더링에 필요하지 않은 컴포넌트들은 preload 설정
 const VideoLectureBoard = lazy(() => {
@@ -185,31 +184,29 @@ const AppContent = memo(() => {
       const sampleNotices = [
         {
           id: 1,
-          title: "3월 신규 강좌 개설 안내",
+          title: "6월 바이올린 강좌 신규 모집 안내",
           content:
-            "청라콩 문화센터의 새로운 강좌를 소개합니다! 전기이론, 우쿨렐레, 필라테스 수업이 새롭게 개설되었습니다. 각 분야의 전문 강사와 함께 즐거운 학습의 기회를 가져보세요. 지금 바로 수강 신청하세요!",
-          date: "2025-03-15",
+            "청라콩 문화센터의 바이올린 강좌가 신규모집을 시작했습니다! 전문 강사와 함께 즐거운 학습의 기회를 가져보세요. 지금 바로 수강 신청하세요!",
+          date: "2025-06-07",
           urgent: true,
           link: "/services",
           imageUrl: [
-            imageElecHan, // 전기이론 관련 이미지
-            imageUkelelePos, // 우쿨렐레 관련 이미지
-            imagePilatesPos, // 필라테스 관련 이미지
+            imageViolinPos,
           ],
         },
-        {
-          id: 2,
-          title: "청라콩 봄 음악회 개최 안내 - 4월 26일",
-          content:
-            "4월 26일, 청라콩 봄 음악회가 열립니다! 우리 학생들의 갈고닦은 실력을 직접 확인해보세요. 피아노, 바이올린, 성악 등 다양한 공연이 여러분을 기다리고 있습니다. 가족과 친구들과 함께 오셔서 특별한 음악의 순간을 만끽하세요.",
-          date: "2025-03-14",
-          urgent: false,
-          link: "/about",
-          imageUrl: [
-            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1470019693664-1d202d2c0907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-          ],
-        },
+        // {
+        //   id: 2,
+        //   title: "청라콩 봄 음악회 개최 안내 - 4월 26일",
+        //   content:
+        //     "4월 26일, 청라콩 봄 음악회가 열립니다! 우리 학생들의 갈고닦은 실력을 직접 확인해보세요. 피아노, 바이올린, 성악 등 다양한 공연이 여러분을 기다리고 있습니다. 가족과 친구들과 함께 오셔서 특별한 음악의 순간을 만끽하세요.",
+        //   date: "2025-03-14",
+        //   urgent: false,
+        //   link: "/about",
+        //   imageUrl: [
+        //     "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+        //     "https://images.unsplash.com/photo-1470019693664-1d202d2c0907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+        //   ],
+        // },
       ];
 
       // 이미지 미리 로드
