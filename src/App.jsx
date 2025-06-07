@@ -21,7 +21,7 @@ import SideNoticeBanner from "./components/SideNoticeBanner";
 // 자주 사용되는 핵심 컴포넌트는 일반 임포트
 import Main from "./pages/Main";
 import ScrollToTop from "./components/ScrollToTop";
-import imageViolinPos from "./assets/programDetails/chungRaViolin.jpg";
+import imageViolinPos from "./assets/image/programDetails/chungRaViolin.jpg";
 import FindId from "./components/auth/FindId";
 import FindPassword from "./components/auth/FindPassword";
 
