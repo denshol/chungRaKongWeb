@@ -43,7 +43,7 @@ const FeaturedClasses2 = lazy(() => import("./components/FeaturedClasses2"));
 // AdminDashboard를 FirebaseAdminDashboard로 변경
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
-const ProgramRanking = lazy(() => import("./components/ProgramRanking"));
+// const ProgramRanking = lazy(() => import("./components/ProgramRanking"));
 const ContactBoard = lazy(() => import("./components/ContactBoard"));
 const StudyAbroad = lazy(() => import("./pages/StudyAbroad"));
 
@@ -395,14 +395,14 @@ const fetchNotices = useCallback(async () => {
             </Suspense>
           }
         />
-        <Route
+        {/* <Route
           path="/ranking"
           element={
             <Suspense fallback={<SkeletonLoader />}>
               <ProgramRanking />
             </Suspense>
           }
-        />
+        /> */}
         <Route
           path="/music"
           element={

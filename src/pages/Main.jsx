@@ -16,7 +16,7 @@ const Main = () => {
       <IconNavigation />
       <FeaturedClasses ref={musicRef} />
       <FeaturedClasses2 />
-      <ProgramRanking ref={rankingRef} />
+      {/* <ProgramRanking ref={rankingRef} /> */}
       {/* <MemberGallery /> 추가 */}
       <PromotionBanner />
     </main>
