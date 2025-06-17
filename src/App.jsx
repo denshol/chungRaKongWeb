@@ -17,6 +17,9 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/AuthContext";
 import NoticeModal from "./components/NoticeModal";
 import SideNoticeBanner from "./components/SideNoticeBanner";
+import imageUkulelePos from "./assets/image/poster/chungRaUkelelePoster.jpg";
+import imageCertificatePos from "./assets/image/poster/chungRaElecHan.jpg";
+
 
 // 자주 사용되는 핵심 컴포넌트는 일반 임포트
 import Main from "./pages/Main";
@@ -177,56 +180,77 @@ const AppContent = memo(() => {
     console.log("AppContent - 로컬 스토리지:", localStorage.getItem("user"));
   }, [user]);
 
-  // 공지사항 데이터 불러오기 - useCallback으로 최적화
-  const fetchNotices = useCallback(async () => {
-    try {
-      // 샘플 데이터
-      const sampleNotices = [
-        {
-          id: 1,
-          title: "6월 바이올린 강좌 신규 모집 안내",
-          content:
-            "청라콩 문화센터의 바이올린 강좌가 신규모집을 시작했습니다! 전문 강사와 함께 즐거운 학습의 기회를 가져보세요. 지금 바로 수강 신청하세요!",
-          date: "2025-06-07",
-          urgent: true,
-          link: "/services",
-          imageUrl: [
-            imageViolinPos,
-          ],
-        },
-        // {
-        //   id: 2,
-        //   title: "청라콩 봄 음악회 개최 안내 - 4월 26일",
-        //   content:
-        //     "4월 26일, 청라콩 봄 음악회가 열립니다! 우리 학생들의 갈고닦은 실력을 직접 확인해보세요. 피아노, 바이올린, 성악 등 다양한 공연이 여러분을 기다리고 있습니다. 가족과 친구들과 함께 오셔서 특별한 음악의 순간을 만끽하세요.",
-        //   date: "2025-03-14",
-        //   urgent: false,
-        //   link: "/about",
-        //   imageUrl: [
-        //     "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-        //     "https://images.unsplash.com/photo-1470019693664-1d202d2c0907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-        //   ],
-        // },
-      ];
+ // 공지사항 데이터 불러오기 - useCallback으로 최적화
+const fetchNotices = useCallback(async () => {
+  try {
+    // 샘플 데이터
+    const sampleNotices = [
+      {
+        id: 1,
+        title: "6월 바이올린 강좌 신규 모집 안내",
+        content:
+          "청라콩 문화센터의 바이올린 강좌가 신규모집을 시작했습니다! 전문 강사와 함께 즐거운 학습의 기회를 가져보세요. 지금 바로 수강 신청하세요!",
+        date: "2025-06-07",
+        urgent: true,
+        link: "/services",
+        imageUrl: [imageViolinPos],
+      },
+      {
+        id: 2,
+        title: "신나는 우쿨렐레 강좌 개설! 함께 연주해요!",
+        content:
+          "청라콩 문화센터에서 신규 우쿨렐레 강좌를 오픈합니다. 쉽고 재미있게 악기를 배우고 싶은 분들께 완벽한 기회예요! 초보자도 환영합니다. 지금 바로 등록하세요!",
+        date: "2025-06-17", // 현재 날짜에 맞춰 모달에 노출되도록 설정
+        urgent: true,
+        link: "/services", // 혹은 우쿨렐레 강좌 상세 페이지 링크
+        imageUrl: [imageUkulelePos],
+      },
+       {
+        id: 3,
+        title: "전기 자격증 취득 과정, 지금 바로 도전하세요!",
+        content:
+          "국가 공인 전기 자격증, 청라콩 문화센터에서 체계적으로 준비하세요! 이론부터 실전까지, 합격에 필요한 모든 것을 알려드립니다. 미래를 위한 투자를 시작하세요!",
+        date: "2025-06-17", // 현재 날짜에 맞춰 모달에 노출되도록 설정
+        urgent: true,
+        link: "/services", // 혹은 전기 자격증 강좌 상세 페이지 링크
+        imageUrl: [imageCertificatePos], // 전기 자격증 이미지로 변경
+      },
+      // 기존 공지사항 (주석 처리된 부분 포함)
+      // {
+      //   id: 4,
+      //   title: "청라콩 봄 음악회 개최 안내 - 4월 26일",
+      //   content:
+      //     "4월 26일, 청라콩 봄 음악회가 열립니다! 우리 학생들의 갈고닦은 실력을 직접 확인해보세요. 피아노, 바이올린, 성악 등 다양한 공연이 여러분을 기다리고 있습니다. 가족과 친구들과 함께 오셔서 특별한 음악의 순간을 만끽하세요.",
+      //   date: "2025-03-14",
+      //   urgent: false,
+      //   link: "/about",
+      //   imageUrl: [
+      //     "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+      //     "https://images.unsplash.com/photo-1470019693664-1d202d2c0907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+      //   ],
+      // },
+    ];
 
-      // 이미지 미리 로드
-      sampleNotices.forEach((notice) => {
-        if (notice.imageUrl && notice.imageUrl.length > 0) {
-          // 첫 번째 이미지만 미리 로드 (다른 이미지는 필요할 때 로드)
-          const img = new Image();
-          img.src = notice.imageUrl[0];
-        }
-      });
+    // 이미지 미리 로드
+    sampleNotices.forEach((notice) => {
+      if (notice.imageUrl && notice.imageUrl.length > 0) {
+        // 첫 번째 이미지만 미리 로드 (다른 이미지는 필요할 때 로드)
+        const img = new Image();
+        img.src = notice.imageUrl[0];
+      }
+    });
 
-      setNotices(sampleNotices);
+    // 최신 공지사항이 먼저 보이도록 날짜 역순으로 정렬
+    const sortedNotices = sampleNotices.sort((a, b) => new Date(b.date) - new Date(a.date));
+    setNotices(sortedNotices);
 
-      // 새 공지사항 확인
-      const shouldShowModal = checkIfShouldShowModal(sampleNotices);
-      setShowNoticeModal(shouldShowModal);
-    } catch (error) {
-      console.error("공지사항을 불러오는 중 오류 발생:", error);
-    }
-  }, []);
+    // 새 공지사항 확인
+    const shouldShowModal = checkIfShouldShowModal(sortedNotices);
+    setShowNoticeModal(shouldShowModal);
+  } catch (error) {
+    console.error("공지사항을 불러오는 중 오류 발생:", error);
+  }
+}, []);
 
   // 모달을 표시해야 하는지 확인하는 함수 - useCallback으로 최적화
   const checkIfShouldShowModal = useCallback((noticeList) => {
