@@ -21,6 +21,7 @@ const importProgramImages = () => {
     chelo: require("../assets/image/programDetails/chungRaCheloThumb.jpg"),
     electric: require("../assets/image/programDetails/chungRaElectric.jpg"),
     physical: require("../assets/image/programDetails/chungRaPhysical.jpg"),
+    ccm: require("../assets/image/programImages/chungRaworship.jpg"),
   };
 
   // 상세 이미지
@@ -42,9 +43,10 @@ const importProgramImages = () => {
     chelo: require("../assets/image/programDetails/chungRaCheloThumb.jpg"),
     electric: require("../assets/image/programDetails/chungRaElectric.jpg"),
     physical: require("../assets/image/programDetails/chungRaPhysical.jpg"),
+    ccm: require("../assets/image/programDetails/chungRaworship.jpg"),
   };
 
-  return { thumbnails, details };
+  return { thumbnails, details };  // ✅ 이건 함수 안에서 실행되어야 함
 };
 
 // 카테고리 상수 정의
@@ -277,6 +279,26 @@ export const programs = [
     ],
     isFeatured: false,
   },
+{
+  id: 18,
+  category: CATEGORIES.MUSIC,
+  title: "교회음악",
+  description: "찬양과 예배를 위한 실전 중심의 CCM 교육",
+  price: "무료",
+  image: thumbnailImages.ccm,  // ✅ 수정
+  detailImage: detailImages.ccm,  // ✅ 수정
+  location: "청라콩",
+  schedule: "60분",
+  instructor: "교육 강사",
+  details: [
+    "찬양 인도 및 팀워크 실습",
+    "보컬 및 악기별 파트 연습",
+    "예배 흐름과 영성 훈련",
+  ],
+  isFeatured: false,
+},
+
+
 ];
 
 /**

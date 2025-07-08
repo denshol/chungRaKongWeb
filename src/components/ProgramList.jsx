@@ -17,6 +17,9 @@ import img13 from "../assets/image/programDetails/chungRaViolin.jpg";
 import img14 from "../assets/image/programDetails/chungRaCheloThumb.jpg";
 import img15 from "../assets/image/programImages/chungRaElec2.png";
 import img16 from "../assets/image/programImages/chungRaCoding.png";
+import img17 from "../assets/image/programImages/chungRaworship.jpg";
+
+
 
 const programs = [
   {
