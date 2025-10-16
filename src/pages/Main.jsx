@@ -7,12 +7,15 @@ import IconNavigation from "../components/IconNavigation";
 import PromotionBanner from "../components/PromotionBanner";
 import MemberGallery from "../components/MemberGallery"; // 추가
 
+import ChungrakongNewsBanner from "../components/ChungrakongNewsBanner";
+
 const Main = () => {
   const rankingRef = useRef(null);
   const musicRef = useRef(null);
 
   return (
     <main>
+      <ChungrakongNewsBanner />
       <IconNavigation />
       <FeaturedClasses ref={musicRef} />
       <FeaturedClasses2 />

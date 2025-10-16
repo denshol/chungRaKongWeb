@@ -34,14 +34,14 @@ const NavLogo = memo(({ brandName }) => (
 const MobileContactInfo = memo(() => (
   <div className={styles.mobileContactInfo}>
     <FiPhone className={styles.phoneIcon} />
-    <span className={styles.phoneNumber}>010-8006-1715</span>
+    <span className={styles.phoneNumber}>010-2817-5766</span>
   </div>
 ));
 
 const ContactInfo = memo(() => (
   <div className={styles.contactInfo}>
     <FiPhone className={styles.phoneIcon} />
-    <span className={styles.phoneNumber}>010-8006-1715</span>
+    <span className={styles.phoneNumber}>010-2817-5766</span>
   </div>
 ));
 
