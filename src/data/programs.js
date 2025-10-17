@@ -101,7 +101,7 @@ export const programs = [
     image: thumbnailImages.piano,
     detailImage: detailImages.piano,
     location: "청라콩 문화센터",
-    schedule: "매주 토요일 20시",
+    schedule: "매주 화요일 오후 7시 30분",
     instructor: "음악 강사",
     isFeatured: true,
   },
@@ -226,7 +226,7 @@ export const programs = [
     image: thumbnailImages.coding,
     detailImage: detailImages.coding,
     location: "청라콩 문화센터",
-    schedule: "매주 토요일 16시",
+    schedule: "매주 토요일 오후 3시",
     instructor: "교육 강사",
   },
   {
@@ -250,7 +250,7 @@ export const programs = [
     image: thumbnailImages.electric,
     detailImage: detailImages.electric,
     location: "청라콩 문화센터",
-    schedule: "주 1회 / 90분",
+    schedule: "매주 토요일 오후 5시30분",
     instructor: "한찬호 강사",
     details: [
       "전기의 기본 원리와 법칙",
