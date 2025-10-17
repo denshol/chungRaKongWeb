@@ -42,7 +42,7 @@ const Footer = () => {
       
       <div className="footer-info">
         <p>주소: 인천광역시 서구 청라동 167-10 미라클프라자 601호</p>
-        <p>고객센터: 010-8006-1715 | <a href="mailto:alslql11@naver.com">alslql11@naver.com</a></p>
+        <p>고객센터: 010-2817-5766 | <a href="mailto:cnk_cc@naver.com">cnk_cc@naver.com</a></p>
         <p>청라콩은 다양한 교육과 문화를 연결하는 플랫폼입니다.  </p>
         
         <div className="social-icons">

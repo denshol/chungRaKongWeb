@@ -95,13 +95,13 @@ const ProgramDetail = () => {
 
           <div className={styles.programInfo}>
             <p>
-              <strong>가격:</strong> {program.price}
+              <strong>수강료/</strong> {program.price}
             </p>
             <p>
-              <strong>장소:</strong> {program.location}
+              <strong>장&nbsp;&nbsp;&nbsp;소/</strong> {program.location}
             </p>
             <p>
-              <strong>일정:</strong> {program.schedule}
+              <strong>수업시간/</strong> {program.schedule}
             </p>
           </div>
 
@@ -110,7 +110,7 @@ const ProgramDetail = () => {
           </button>
 
           <button className={styles.backBtn} onClick={handleGoBack}>
-            목록으로 돌아가기
+            목록으로
           </button>
         </div>
       </div>

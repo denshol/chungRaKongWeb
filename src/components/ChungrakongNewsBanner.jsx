@@ -8,21 +8,21 @@ export default function ChungrakongNewsBanner() {
   
   const mediaList = [
     { name: '인천뉴스', featured: true, url: 'https://www.incheonnews.com' },
-    { name: '경제투데이', url: '#' },
-    { name: '뉴스와이어', url: '#' },
-    { name: '한국문화예술신문', url: '#' },
-    { name: '스포츠피플타임즈', url: '#' },
-    { name: '글로벌문화신문', url: '#' },
-    { name: '기독교한국신문', url: '#' },
-    { name: '국민기자뉴스', url: '#' },
-    { name: '기업경제뉴스', url: '#' },
-    { name: '예술방송인권신문', url: '#' },
-    { name: '롤러타임즈', url: '#' },
-    { name: '루트파인더스', url: '#' },
-    { name: '부패방지뉴스', url: '#' },
-    { name: '소비자불만119', url: '#' },
-    { name: '우먼스토뉴스', url: '#' },
-    { name: '김천일보', url: '#' }
+    { name: '경제투데이', url: 'https://www.e-today.kr/news/articleView.html?idxno=839648' },
+    { name: '뉴스와이어', url: 'https://www.newswire.co.kr/newsRead.php?no=1020131' },
+    { name: '한국문화예술신문', url: 'http://www.kcan.kr/bbs/board.php?bo_table=B14&wr_id=4007' },
+    { name: '스포츠피플타임즈', url: 'https://www.sportpeopletimes.com/news/articleView.html?idxno=16693' },
+    { name: '글로벌문화신문', url: 'http://www.sscn.co.kr/news/view.php?no=29401' },
+    { name: '기독교한국신문', url: 'http://www.cknews.co.kr/_press/?newsid=1020131' },
+    { name: '국민기자뉴스', url: 'https://www.kmkj.kr/news/articleView.html?idxno=86358' },
+    { name: '기업경제뉴스', url: 'https://www.corporateeconomic.com/news/articleView.html?idxno=45850' },
+    { name: '예술방송인권신문', url: 'https://www.artstv.kr/news/articleView.html?idxno=171265' },
+    { name: '롤러타임즈', url: 'https://www.rollertimes.co.kr/news/articleView.html?idxno=358' },
+    { name: '루트파인더스', url: 'https://www.routefinders.co.kr/news/articleView.html?idxno=8546' },
+    { name: '부패방지뉴스', url: 'https://www.bbnnews.co.kr/news/articleView.html?idxno=44667' },
+    { name: '소비자불만119', url: 'http://www.sbj119.co.kr/news/view.php?no=72605' },
+    { name: '우먼스토리뉴스', url: 'http://www.woman-story.co.kr/news/articleView.html?idxno=10535' },
+    { name: '김천일보', url: 'https://www.gcilbo.kr/news/articleView.html?idxno=90889' }
   ];
 
   const displayedMedia = showAllMedia ? mediaList : mediaList.slice(0, 7);
@@ -44,20 +44,14 @@ export default function ChungrakongNewsBanner() {
             <div className={styles.brandName}>청라콩문화센터</div>
           </div>
 
-          <div className={styles.badge}>
-            <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-            </svg>
-            <span>언론 보도</span>
-          </div>
+          
 
-          <h1 className={styles.title}>
+          <h1 className={styles.title} style={{ marginBottom: '4px' }}>
             청라콩문화센터 뉴스 보도기사<br />
           </h1>
 
           <p className={styles.subtitle}>
-            <span className={styles.subtitleBold}>우리의 문화</span>가 <br />
-            지역사회의 소식이 되었습니다.
+            <span className={styles.subtitleBold}></span>지역주민과 함께한 따뜻하고 행복한 시간 <br />
           </p>
 
           <div className={styles.mediaSection}>
@@ -121,25 +115,19 @@ export default function ChungrakongNewsBanner() {
               }}
             />
             <div className={styles.imageOverlay} />
-            <div className={styles.imageContent}>
+            {/* <div className={styles.imageContent}>
               <div className={styles.imageCard}>
                 <div className={styles.imageTitle}>
-                  청라콩 MUSIC<br />FESTIVAL
+                  청라콩 문화센터
                 </div>
                 <div className={styles.imageSubtitle}>
                   2025.09.27 SAT<br />
                   지역 주민과 함께한 따뜻한 문화 공간
                 </div>
-                <div className={styles.imageFooter}>
-                  <div className={styles.footerDot} />
-                  <span>16개 언론사 주목</span>
-                </div>
+                
               </div>
-            </div>
-            <div className={styles.badgeCorner}>
-              <div className={styles.badgeNumber}>16</div>
-              <div className={styles.badgeLabel}>언론사</div>
-            </div>
+            </div> */}
+            
           </div>
         </div>
       </div>

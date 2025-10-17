@@ -120,9 +120,7 @@ const FeaturedClasses = React.forwardRef((props, ref) => {
                   <p className={styles.classLocation}>{item.location}</p>
                   <p className={styles.classPrice}>
                     {item.price}
-                    {item.price !== "무료" && (
-                      <span className={styles.priceTag}>유료</span>
-                    )}
+                    
                   </p>
                 </div>
               </div>
