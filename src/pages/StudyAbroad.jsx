@@ -452,7 +452,7 @@ const StudyAbroad = () => {
           </p>
           <div className={styles.ctaButtons}>
             <a href="#" onClick={openApplyModal} className={styles.ctaButton}>
-              상담 신청하기
+              문의:010-2817-5766
             </a>
             <a href="tel:01080061715" className={styles.ctaPhone}>
               <FiPhoneCall className={styles.phoneIcon} /> 010-8006-1715
