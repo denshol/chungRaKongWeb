@@ -106,7 +106,7 @@ const ProgramDetail = () => {
           </div>
 
           <button className={styles.backBtn} onClick={handleGoBack}>
-            목록으로
+            문의:010-2817-5766
           </button>
         </div>
       </div>
