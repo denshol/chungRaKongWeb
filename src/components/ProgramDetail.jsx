@@ -105,10 +105,6 @@ const ProgramDetail = () => {
             </p>
           </div>
 
-          <button className={styles.ctaButton} onClick={handleOpenApplyModal}>
-            신청하기
-          </button>
-
           <button className={styles.backBtn} onClick={handleGoBack}>
             목록으로
           </button>
