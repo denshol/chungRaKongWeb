@@ -232,23 +232,19 @@ const StudyAbroad = () => {
   return (
     <div className={`${styles.container} ${isVisible ? styles.visible : ""}`}>
       {/* 헤더 섹션 */}
-      <header className={styles.header}>
+<header className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>
             <span className={styles.accentText}>뉴질랜드 어학연수</span>로
-            글로벌 경쟁력을 키우세요
+            {/* 👇 여기에 클래스를 추가했습니다 */}
+            <br className={styles.mobileBreak} />
+            <span className={styles.accentText}>글로벌 경쟁력을 키우세요</span>
           </h1>
           <p className={styles.subtitle}>
             청라콩문화센터가 당신의 성공적인 어학연수를 함께합니다
           </p>
           <div className={styles.headerButtons}>
-            <a
-              href="#"
-              onClick={openApplyModal}
-              className={styles.primaryButton}
-            >
-              <FiPhoneCall className={styles.buttonIcon} /> 수강 신청
-            </a>
+      
             <button
               className={styles.secondaryButton}
               onClick={() => {
