@@ -387,10 +387,7 @@ const Navbar = () => {
                 문의
               </Link>
 
-              <a href="#" onClick={openApplyModal} className={styles.navLink}>
-                <FiEdit3 style={{ marginRight: "4px" }} />
-                수강신청
-              </a>
+       
 
               {/* 모바일 메뉴에서 로그인/회원가입 또는 프로필 메뉴 */}
               <div className={styles.mobileAuthLinks}>{mobileAuthLinks}</div>
