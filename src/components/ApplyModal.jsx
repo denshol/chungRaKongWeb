@@ -237,9 +237,7 @@ const ApplyModal = ({ isOpen, onClose, onSubmit, initialProgramId = null }) => {
           <FiX size={24} />
         </button>
 
-        <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>프로그램 신청</h2>
-        </div>
+      
 
         {error && (
           <div className={styles.errorMessage}>
