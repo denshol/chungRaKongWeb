@@ -404,13 +404,7 @@ const Navbar = () => {
             <ContactInfo />
 
             {/* 모바일에서만 보이는 수강신청 버튼 */}
-            <a
-              href="#"
-              onClick={openApplyModal}
-              className={`${styles.mobileCtaButton}`}
-            >
-              <span>신청</span>
-            </a>
+ 
           </div>
 
          {/* 햄버거 메뉴 버튼 */}
